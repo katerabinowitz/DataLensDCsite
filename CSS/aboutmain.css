@@ -5,9 +5,9 @@ body {
 	color: #3C3C3C;
 }
 
-/*Logo*/
+/*Header*/
 .site-title{
-	color: #c00;
+	color: #CF0000;
 	line-height:10%;
 	padding: 0 0 30px 0;
 }
@@ -18,7 +18,7 @@ body {
 
 .glyphicon-star{
 	padding: 0 30px 0px 30px;
-	color: #c00;
+	color: #CF0000;
 	font-size:30px;
 	line-height:10%;
 }
@@ -26,12 +26,12 @@ body {
 .headlist, .headlist li{
 	display:inline;
 	text-align:center;
-	color: #c00;
+	color: #CF0000;
 	line-height:5%;
 	margin:0px 25px 10px 25px;
 }
 
-/*Main text*/
+/*Main Text*/
 .about {
 	text-align:left;
 	padding:0 0 0 5px;
