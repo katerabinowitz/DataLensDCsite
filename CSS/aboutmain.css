@@ -1,0 +1,78 @@
+/*All Styles*/
+body {
+	background-color:#EFF0F1;
+	font:Palatino,serif;
+	color: #3C3C3C;
+}
+
+/*Logo*/
+.site-title{
+	color: #c00;
+	line-height:10%;
+	padding: 0 0 30px 0;
+}
+
+.line {
+	line-height:5%;
+}
+
+.glyphicon-star{
+	padding: 0 30px 0px 30px;
+	color: #c00;
+	font-size:30px;
+	line-height:10%;
+}
+
+.headlist, .headlist li{
+	display:inline;
+	text-align:center;
+	color: #c00;
+	line-height:5%;
+	margin:0px 25px 10px 25px;
+}
+
+/*Main text*/
+.about {
+	text-align:left;
+	padding:0 0 0 5px;
+	color:#262626;
+	line-height:10%;
+}
+
+.lead {
+	text-align:left;
+	padding:0 0 0 30px;
+	line-height:30%;
+}
+
+.summary{
+	text-align:left;
+	padding:20px 0 0 30px;
+}
+
+.contact{
+	text-align:left;
+	padding:0 0 0 30px;
+}
+
+/*Sidebar*/
+.sidebar, .sidebar li{
+	text-align:left;
+	color:#262626;
+	font-weight: bold;
+	list-style-type:none;
+}
+
+.sidebar > li:first-child{
+	margin: 0 0 30px 0;
+}
+
+.fa-ul, .fa-ul li{
+	list-style-position: inside;
+	text-align:left;
+	font-weight: normal;
+	font-size: 12px;
+	color: #3C3C3C;
+	margin: 5px 0 0 0;
+}
+
