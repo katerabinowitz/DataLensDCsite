@@ -9,13 +9,23 @@ a {
 	color:inherit;
 }
 
+a:hover {
+	color:inherit;
+	text-decoration:inherit;
+}
+
 /*Header*/
+.navbar {
+	background-color:#EFF0F1;
+	text-align:center;
+}
 .logo img{
 	display:block;
 	margin:0 auto;
+	text-align:center;
 }
 
-.headerlist {
+.headerlist{
 	text-align:center;
 	margin:10px 0 10px -40px;
 }
@@ -27,10 +37,20 @@ a {
 	margin:0px 20px 10px 20px;
 }
 
+.headerlist li:hover {
+	color:#FFFFFF;
+	text-decoration:none; 
+    cursor:pointer; 
+}
+
 /*Main Text*/
+.content {
+	padding-top:200px;
+}
+
 .about {
 	text-align:left;
-	padding:0 0 0 5px;
+	padding:0px 0 0 5px;
 	color:#262626;
 	line-height:10%;
 }
@@ -77,4 +97,12 @@ hr {
 	font-size: 12px;
 	margin: 5px 0 0 0;
 }
+
+.fa-ul li:hover{
+	color:#FFFFFF;
+	text-decoration:none; 
+    cursor:pointer; 
+}
+
+
 
