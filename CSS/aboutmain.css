@@ -90,19 +90,26 @@ hr {
 	margin: 0 0 30px 0;
 }
 
-.fa-ul, .fa-ul li{
+.insidebar, .insidebar li{
 	list-style-position: inside;
 	text-align:left;
 	font-weight: normal;
 	font-size: 12px;
-	margin: 5px 0 0 0;
+	line-height:5px;
+	width:auto;
 }
 
-.fa-ul li:hover{
+.insidebar.navbar > li > a {
+	padding-top:5px;
+	padding-bottom:5px;}
+
+.insiderbar .navbar {
+	min-height:24px}
+
+.insidebar li:hover{
 	color:#FFFFFF;
 	text-decoration:none; 
     cursor:pointer; 
 }
-
 
 
