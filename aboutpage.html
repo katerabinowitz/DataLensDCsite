@@ -6,30 +6,56 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="./CSS/Font-Awesome-4.3.0/css/font-awesome.min.css">
   <link href='./CSS/aboutmain.css' rel='stylesheet' type='text/css'>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  
+  
 </head>
 
 <div class='container-fluid'>
-
 	<nav class="navbar navbar-default navbar-fixed-top">
+		<div class='visible-xs'>
+      	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        	<span class="icon-bar"></span>
+        	<span class="icon-bar"></span>
+        	<span class="icon-bar"></span> 
+      	</button>
+   		<ul class="nav navbar-nav navbar-fixed-top collapse navbar-collapse">
+        		<li class="active"><a href="/archive.html">Archive</a></li>
+        		<li><a href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
+        			<ul class="dropdown-menu">
+        				<li><a href="mailto:datalensdc@gmail.com"> <i class="fa fa-envelope"></i> send an email</a></li>
+  			  			<li><a href="https://google.com"><i class="fa fa-twitter"></i> tweet our way</a></li>
+  			  			<li><a href="https://github.com/katerabinowitz"><i class="fa fa-github"></i> git at us</a></li>
+  			  			<li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168"><i class="fa fa-linkedin"></i> link up</a></li>      
+  			  		</ul>
+  			  	</li>
+   		</ul>
+   	</div>
+   	<div class="header navbar-fixed">
 		<a href="datalensdc.com"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
 		<ul class ="headerlist">
   			<li><a href="../about.html">about</a></li>
   			<li>subscribe</li>
   			<li><a href="mailto:datalensdc@gmail.com">email</a></li>
 		</ul>
-	</nav>
+	</div>
+    </nav>
+</div>
 
-	<div class='content row'>
-		<div class='col-sm-9'>
-				<h2 class='about'>About</h2>
-				<hr />
-				<p class='lead'> DataLens DC shows you the district through data. </p>
-				<p class='summary'> Using open-source data and applications DataLens DC presents readers with insight into the District's character, trends and hacks. The website was founded in the summer of 2015 by Kate Rabinowitz, lover of all things data and District.</p>
 
-				<p class="summary contact">Interested in contributing, collaborating or coffee? Email us at <a href="mailto:datalensdc@gmail.com">datalensdc@gmail.com</a>.</p>
-		</div>
+<div class='content row'>
+	<div class='col-sm-9'>
+		<h2 class='about'>About</h2>
+		<hr />
+		<p class='lead'> DataLens DC shows you the district through data. </p>
+		<p class='summary'> Using open-source data and applications DataLens DC presents readers with insight into the District's character, trends and hacks. The website was founded in the summer of 2015 by Kate Rabinowitz, lover of all things data and District.</p>
 
-		<div class='col-sm-3 hidden-xs'>
+		<p class="summary contact">Interested in contributing, collaborating or coffee? Email us at <a href="mailto:datalensdc@gmail.com">datalensdc@gmail.com</a>.</p>
+	</div>
+
+	<div class='col-sm-3 hidden-xs'>
 		<br> <br>
 		<ul class="sidebar nav nav-stacked fixed">
   			<li>Archive</li>
@@ -41,8 +67,6 @@
   			  		<li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168"><i class="fa fa-linkedin"></i> link up</a></li>
   				</ul></ul>
   		</ul>
-		</div>
-	</div>
-		
+		</div>		
 </div>
 

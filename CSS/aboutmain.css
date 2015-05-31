@@ -95,21 +95,27 @@ hr {
 	text-align:left;
 	font-weight: normal;
 	font-size: 12px;
-	line-height:5px;
-	width:auto;
+	line-height:0;
 }
 
-.insidebar.navbar > li > a {
-	padding-top:5px;
-	padding-bottom:5px;}
-
-.insiderbar .navbar {
-	min-height:24px}
+.nav-stacked > li > a {
+	padding-top:10px; 
+    padding-bottom:10px;
+    height: 15px;
+    margin:0 0 0 -30px;
+}
 
 .insidebar li:hover{
 	color:#FFFFFF;
 	text-decoration:none; 
     cursor:pointer; 
 }
+
+
+
+
+
+
+
 
 
