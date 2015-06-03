@@ -45,13 +45,23 @@ a:hover {
     cursor:pointer; 
 }
 
-.dropmenu, .dropmenu li {
+/*Responsive navbar*/
+.navbar-custom, .navbar-custom li {
 	text-align:left;
-	font-weight: normal;
 	font-size: 12px;
 	color:#262626;
 	font-weight: bold;
+	list-style-type: none;
+}
 
+.navbar-custom li:hover {
+	color:#FFFFFF;
+	text-decoration:none; 
+    cursor:pointer; 
+}
+
+#main-navbar-custom, #main-navbar-custom li {
+	margin: 10px 50px 0 0;
 }
 
 /*Main Text*/
