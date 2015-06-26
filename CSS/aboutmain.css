@@ -14,7 +14,7 @@ a:hover {
 	text-decoration:inherit;
 }
 
-/*Header*/
+/*Header - Small and Bigger*/
 .navbar {
 	background-color:#EFF0F1;
 	text-align:center;
@@ -45,7 +45,13 @@ a:hover {
     cursor:pointer; 
 }
 
-/*Responsive navbar*/
+/*Header - XS*/
+.xslogo img{
+	display:block;
+	margin:0 auto;
+	text-align:left;
+}
+
 .navbar-custom, .navbar-custom li {
 	text-align:left;
 	font-size: 12px;
@@ -65,9 +71,9 @@ a:hover {
 }
 
 /*Main Text*/
-.content {
-	padding-top:200px;
-}
+/*.content {
+	padding-top:20px;
+}*/
 
 .about {
 	text-align:left;
@@ -89,14 +95,9 @@ hr {
 	line-height:30%;
 }
 
-.summary{
+.summary, .contact{
 	text-align:left;
-	padding:20px 0 0 30px;
-}
-
-.contact{
-	text-align:left;
-	padding:0 0 0 30px;
+	padding:20px 20px 0 30px;
 }
 
 /*Sidebar*/
