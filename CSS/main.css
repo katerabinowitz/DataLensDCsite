@@ -114,9 +114,9 @@ a:hover {
 }
 
 /*Main Text*/
-.title {
+h2 {
 	text-align:left;
-	padding:0px 0 0 5px;
+	margin:0 0 12px 5px;
 	color:#262626;
 	line-height:10%;
 }
@@ -124,8 +124,15 @@ a:hover {
 hr {
 	color:#E62B2B;
 	background-color:#E62B2B;
-	height:1px;
+	height:2px;
 	border:0;
+	margin:0 0 0 0;
+}
+
+h3 {
+	text-align:left;
+	margin: 5px 0 0 30px;
+	font-size:12px;
 }
 
 .lead {
@@ -134,7 +141,7 @@ hr {
 	line-height:30%;
 }
 
-.content, .contact{
+.content {
 	text-align:left;
 	padding:20px 20px 0 30px;
 }
