@@ -3,18 +3,34 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DataLensDC</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
-  
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
-  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src='./Chart.js/Chart.min.js'></script>
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="./CSS/Font-Awesome-4.3.0/css/font-awesome.min.css"> 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
+  <script>
+    function initialize() {
+      var DC = new google.maps.LatLng(38.9047,77.0164);
+      var mapOptions = {
+        zoom: 20,
+        center: DC
+      }
+      var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      var FMLayer = new google.maps.KmlLayer({
+        url: 'https://raw.githubusercontent.com/katerabinowitz/Farmers-Market-City-Comp/master/Output/CDFM.kml'
+      });
+      FMLayer.setMap(map);
+    }
+  google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
 </head>
 
+<body>
 <nav class="xsheader navbar navbar-default navbar-static-top">
   <div class='clearfix xsheader'>      
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -54,46 +70,26 @@
 </nav>
 
 <div class='content row'>
-  <div class='col-sm-9 col-xs-12'>
-    <h2>TITLE</h2>
-    <hr />
-    <h3> Name // Date </h3>
-    <p> blahblahblah</p>
-    <canvas id="income" width="600" height="400"></canvas>
-    <script>
-    var barData = {
-                labels : ["January","February","March","April","May","June"],
-                datasets : [
-                    {
-                        fillColor : "#48A497",
-                        strokeColor : "#48A4D1",
-                        data : [456,479,324,569,702,600]
-                    },
-                    {
-                        fillColor : "rgba(73,188,170,0.4)",
-                        strokeColor : "rgba(72,174,209,0.4)",
-                        data : [364,504,605,400,345,320]
-                    }
-                ]
-            }
-            // get bar chart canvas
-            var income = document.getElementById("income").getContext("2d");
-            // draw bar chart
-            new Chart(income).Bar(barData);
-  </script>
-    </div>
-
+	<div class='col-sm-9 col-xs-12'>
+		<h2>TITLE</h2>
+		<hr />
+    <h3> Kate Rabinowitz // July 21, 2015 </h3>
+		  <p class='content'> Yadda Yadda Yadda</p>
+    <div id="map-canvas" style="width:500px;height:380px;"></div>
+  </div>
+    
   <div class='col-sm-3 side'>
-    <br> <br>
-    <ul class="sidebar nav nav-stacked fixed">
-        <li>Archive</li>
-        <li>Connect</li>  
-        <ul><ul class="nav nav-stacked fixed insidebar">
-              <li><a href="mailto:datalensdc@gmail.com"> <i class="fa fa-envelope"></i> send an email</a></li>
-              <li><a href="https://google.com"><i class="fa fa-twitter"></i> tweet our way</a></li>
-              <li><a href="https://github.com/katerabinowitz"><i class="fa fa-github"></i> git at us</a></li>
-              <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168"><i class="fa fa-linkedin"></i> link up</a></li>
-          </ul></ul>
-      </ul>
-    </div>    
+		<br> <br>
+		<ul class="sidebar nav nav-stacked fixed">
+  			<li>Archive</li>
+  			<li>Connect</li>	
+				<ul><ul class="nav nav-stacked fixed insidebar">
+  			  		<li><a href="mailto:datalensdc@gmail.com"> <i class="fa fa-envelope"></i> send an email</a></li>
+  			  		<li><a href="https://google.com"><i class="fa fa-twitter"></i> tweet our way</a></li>
+  			  		<li><a href="https://github.com/katerabinowitz"><i class="fa fa-github"></i> git at us</a></li>
+  			  		<li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168"><i class="fa fa-linkedin"></i> link up</a></li>
+  				</ul></ul>
+  		</ul>
+		</div>		
 </div>
+</body>
