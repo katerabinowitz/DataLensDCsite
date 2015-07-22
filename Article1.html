@@ -16,25 +16,44 @@
   <script>
 var cityCircle;
 var map;
+var infowindow = new google.maps.InfoWindow();
 var MY_MAPTYPE_ID = 'custom_style';
 function initialize() {
   var customOps = [
-    {elementType: 'geometry.fill',
-      stylers: [
-        { color: '#bec9e6' },
-        { saturation: -10 },
-        { lightness: 60 }
-      ]
+    {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {"visibility": "simplified"},
+            {"hue": "#0066ff"},
+            {"saturation": 74},
+            {"lightness": 100}
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {"visibility": "simplified"}
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            {"visibility": "simplified"}
+        ]
     },{
-      featureType: 'water',
-      elementType: 'geometry.fill',
-      stylers: [
-        {color: '#FFFFCC'},
-        { saturation: -30 },
-        { lightness: 60 }
-      ]
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {"visibility": "simplified"},
+            {"color": "#5f94ff"},
+            {"lightness": 26},
+            {"gamma": 5.86}
+        ]
     }
-  ];
+];
 
   var mapOptions = {
     zoom: 4,
@@ -71,12 +90,21 @@ function initialize() {
 function getCircle(migrationscore) {
   var circle = {
     path: google.maps.SymbolPath.CIRCLE,
-    fillColor: 'red',
+    fillColor: '#E62B2B',
     fillOpacity: .2,
     scale: migrationscore,
-    strokeColor: 'white',
+    strokeColor: '#E62B2B',
     strokeWeight: .5
   };
+
+    map.data.addListener('click', function(event) {
+      var cityname = event.feature.getProperty("city");
+      infowindow.setContent("<div style='width:150px; text-align: center;'>"+cityname+"</div>");
+      infowindow.setPosition(event.feature.getGeometry().get());
+      infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+      infowindow.open(map);
+  }); 
+
   return circle;
 }
   }
