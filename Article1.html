@@ -16,14 +16,50 @@
   <script>
 var cityCircle;
 var map;
+var MY_MAPTYPE_ID = 'custom_style';
 function initialize() {
+  var customOps = [
+    {elementType: 'geometry.fill',
+      stylers: [
+        { color: '#bec9e6' },
+        { saturation: -10 },
+        { lightness: 60 }
+      ]
+    },{
+      featureType: 'water',
+      elementType: 'geometry.fill',
+      stylers: [
+        {color: '#FFFFCC'},
+        { saturation: -30 },
+        { lightness: 60 }
+      ]
+    }
+  ];
+
   var mapOptions = {
     zoom: 4,
-    center: new google.maps.LatLng(37.09024, -95.712891),
-    mapTypeId: google.maps.MapTypeId.TERRAIN,
-    panControl: false
+    center: new google.maps.LatLng(38.29024, -95.712891),
+    mapTypeControlOptions: {
+    mapTypeId: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
+    },
+    mapTypeId:MY_MAPTYPE_ID,
+    panControl: false,
+    streetViewControl: false,
+    zoomControl:false
   };
+
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  
+  var styledMapOptions= {
+    name:'Custom Style'
+  };
+  
+  var customMapType = new google.maps.StyledMapType(
+    customOps,styledMapOptions
+    );
+  map.mapTypes.set(MY_MAPTYPE_ID,customMapType);
+    
+  
   map.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/acsMigrationCityComp/master/Output/citymigration.geojson');
   map.data.setStyle(function(feature) {
     var migrationscore = feature.getProperty('migration');
