@@ -1,7 +1,8 @@
 /*All Styles*/
 body {
 	background-color:#EFF0F1;
-	font:Palatino,serif;
+	font-family: 'Neuton', serif;
+	font-size: 15px;
 	color: #3C3C3C;
 }
 
@@ -144,5 +145,25 @@ h3 {
 .content {
 	text-align:left;
 	padding:20px 20px 0 30px;
+}
+
+/*Main Text Add-Ons*/
+.ranking
+{   
+    -moz-column-width: 20em; /* Firefox */
+    -webkit-column-width: 20em; /* webkit, Safari, Chrome */
+    column-width: 20em;
+}
+
+.ranking ul
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.ranking ul li:first-child
+{
+    margin-top:0px;
 }
 
