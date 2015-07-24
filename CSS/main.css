@@ -144,26 +144,43 @@ h3 {
 
 .content {
 	text-align:left;
-	padding:20px 20px 0 30px;
+	padding:10px 20px 0 50px;
 }
 
 /*Main Text Add-Ons*/
-.ranking
-{   
+.graph-title {
+	font-weight:bold;
+	font-size:20px;
+	text-align:center;
+	margin-bottom:0px;
+}
+
+.graph-subtitle {
+	text-align:center;
+	margin-top:0px;
+}
+
+#map-canvas{
+	margin:auto;
+}
+
+.ranking {   
     -moz-column-width: 20em; /* Firefox */
     -webkit-column-width: 20em; /* webkit, Safari, Chrome */
     column-width: 20em;
 }
 
-.ranking ul
-{
-    margin: 0;
+.ranking ul li{
+    margin: 0 0 0 60px;
     padding: 0;
     list-style-type: none;
 }
 
-.ranking ul li:first-child
-{
+.ranking ul li:first-child {
     margin-top:0px;
 }
 
+IMG.scatter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto }
