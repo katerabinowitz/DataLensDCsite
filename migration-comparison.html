@@ -15,7 +15,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
-  <script>
+<script>
 var cityCircle;
 var map;
 var infowindow = new google.maps.InfoWindow();
@@ -59,7 +59,7 @@ function initialize() {
 
   var mapOptions = {
     zoom: 4,
-    center: new google.maps.LatLng(38.29024, -95.712891),
+    center: new google.maps.LatLng(38, -97),
     mapTypeControlOptions: {
     mapTypeId: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
     },
@@ -163,9 +163,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 		  <p class='content'> When I moved to DC about five years ago I did so with an onslaught of millennials in search of jobs and housing that was not their parents (plus maybe some people with more romantic visions). People often ask where are you from, because it was obviously not DC, and when did you move here because, inevitably you just did.<br><br>And five years later this hasn’t actually changed much. Of course, there are a number of people that have lived here for years but DC is never short of transplants starting anew. The constant influx is one of the things I like about DC; it is a very migratory population. But, really, how migratory?</p>
       <p class='graph-title'>How Migratory are Major U.S. Cities?</p>
       <p class='graph-subtitle'> Circle size indicates migration score based on migration rate and migration distance traveled.<br>Click on a circle for more information</p>
-      <div id="map-canvas" style="width:650px;height:380px;"></div>
+      <div id="map-canvas"></div>
       <p class='content'> In fact, DC is the most migratory city east of the Mississippi and rounds out the top five for most migratory cities:</p>
-        <ul class='ranking'>
+        <ul class='content ranking'>
           <li>1. San Francisco</li>
           <li>2. Seattle</li>
           <li>3. Portland</li>
@@ -178,10 +178,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
           <li>10. Boston</li>
        </ul>         
      <p class='content'> It appears "Go west, young (wo)man!" is far from dead.<br><br>So this migration score is drive by two factors - how many people move to the city each year as a proportion of the city's population and how far people travel when they move to the city. Looking at these two drivers across these cities four distinct groups became clear - </p>
-      <a href="US Migratory Matrix"><img class="scatter" src="./Images/US Migration Matrix.png" alt="US Migratory Matrix" align='middle'></a>
+      <a><img class="scatter" src="./Images/US Migration Matrix.png" alt="US Migratory Matrix" align='middle'></a>
       <p class='content'> In the upper left we see <b>The Pilgrimage</b>. Not as many migrants come each year compared to city size but they come from far and wide. Whether it’s to make it in the big city or live out the rest of their days, these cities lay at the end of a pilgrimage. To right is <b>The Hub</b>, cities with a large inflow of migrants annnually coming from across the U.S. Not as large as the Pilgrimage cities, it is the distinct character, job market and/or lifestyle that attracts people to Hub. Below is <b>The Swarm</b>, cities that attract a large number of closer migrants and are often emblematic of their larger region. And finally in the bottom left we find <b>Out of Gas</b>. Not too many people descend on these cities, and when they do it’s not from very far. Who’s to say why they come - maybe they ran out of gas on a pilgrimage, maybe they came through town one night and just couldn’t turn away.<br><br>And there sits DC, squarely in the Hub. But beyond being a government town what are the distinct characteristics and trends of the city? More on that to come...<p>
       <hr id='end-line'>
-      <p class='content'><b>Technical notes:</b> Graphics and rankings are based on the Census American Community Survey (ACS) 2008-2012 mobility estimates. The data is at the county-level. In some instances, the county extends beyond the city but I did not find enough of a material difference to exclude such cases. Average distance travel is calculated using a weighted average. The quadrants in the scatterplot shown above are defined by the median of each measure. You can find my complete code <a href="https://github.com/katerabinowitz">on my github page.</a>
+      <p class='content'><b>Technical notes:</b> Graphics and rankings are based on the Census American Community Survey (ACS) 2008-2012 mobility estimates. The data is at the county-level. In some instances, the county extends beyond the city but there was not sufficient difference to exclude or weight such cases. Average distance travel is calculated using an average weighted by the number of migrants. The quadrants in the scatterplot shown above are defined by the median of each measure. You can find complete code <a href="https://github.com/katerabinowitz">on my github page.</a>
       <br><br>
   </div>
     
