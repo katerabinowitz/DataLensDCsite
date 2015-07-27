@@ -8,110 +8,12 @@
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="./CSS/Font-Awesome-4.3.0/css/font-awesome.min.css"> 
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
-  <script>
-var cityCircle;
-var map;
-var infowindow = new google.maps.InfoWindow();
-var MY_MAPTYPE_ID = 'custom_style';
-function initialize() {
-  var customOps = [
-    {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [
-            {"visibility": "simplified"},
-            {"hue": "#0066ff"},
-            {"saturation": 74},
-            {"lightness": 100}
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {"visibility": "simplified"}
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "all",
-        "stylers": [
-            {"visibility": "simplified"}
-        ]
-    },{
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {"visibility": "simplified"},
-            {"color": "#5f94ff"},
-            {"lightness": 26},
-            {"gamma": 5.86}
-        ]
-    }
-];
-
-  var mapOptions = {
-    zoom: 4,
-    center: new google.maps.LatLng(38.29024, -95.712891),
-    mapTypeControlOptions: {
-    mapTypeId: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
-    },
-    mapTypeId:MY_MAPTYPE_ID,
-    panControl: false,
-    streetViewControl: false,
-    zoomControl:false
-  };
-
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  
-  var styledMapOptions= {
-    name:'Custom Style'
-  };
-  
-  var customMapType = new google.maps.StyledMapType(
-    customOps,styledMapOptions
-    );
-  map.mapTypes.set(MY_MAPTYPE_ID,customMapType);
-    
-  
-  map.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/acsMigrationCityComp/master/Output/citymigration.geojson');
-  map.data.setStyle(function(feature) {
-    var migrationscore = feature.getProperty('Migration');
-    return {
-      icon: getCircle(migrationscore)
-    };
-  });
-
-function getCircle(migrationscore) {
-  var circle = {
-    path: google.maps.SymbolPath.CIRCLE,
-    fillColor: '#E62B2B',
-    fillOpacity: .2,
-    scale: migrationscore,
-    strokeColor: '#E62B2B',
-    strokeWeight: .5
-  };
-
-    map.data.addListener('click', function(event) {
-      var cityname = event.feature.getProperty("city");
-      var m2p = event.feature.getProperty("Migrant2Pop");
-      var distance = event.feature.getProperty("wmDistance");
-      infowindow.setContent("<div style='width:200px; text-align: center;'> <p>City: "+ cityname +"<br> Migrants to city population: "+ m2p + "%<br> How far migrants travel: " + distance + " miles</p></div>");
-      infowindow.setPosition(event.feature.getGeometry().get());
-      infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
-      infowindow.open(map);
-  }); 
-
-  return circle;
-}
-  }
-google.maps.event.addDomListener(window, 'load', initialize);
-</script>
 </head>
 
 <body>
@@ -155,19 +57,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
-      <h2><a href='./migration-comparison.html'>TITLE</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // July 21, 2015 </h3>
-      <p class='content'> When I moved to DC about five years ago I did so with an onslaught of millennials in search of jobs and housing that was not their parents (plus maybe some people with more romantic visions). People often ask where are you from, because it was obviously not DC, and when did you move here because, inevitably you just did.<br><br>And five years later this hasn’t actually changed much. Of course, there are a number of people that have lived here for years but DC is never short of transplants starting anew. The constant influx is one of the things I like about DC; it is a very migratory population. But, really, how migratory?</p>
-      <p class='graph-title'>How Migratory are Major U.S. Cities?</p>
-      <p class='graph-subtitle'> Circle size indicates migration score based on migration rate and migration distance traveled.<br>Click on a circle for more information</p>
-      <div id="map-canvas"></div>
-      <p class='content'> In fact, DC is the most migratory city east of the Mississippi and rounds out the top five for most migratory cities: <br> <a class='link' href='./migration-comparison.html'> Read more...</a></p>
-      <br><br><br>
-
-		<h2><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></h2>
+    <h2><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></h2>
 		<hr id='top-line'>
-    <h3> Kate Rabinowitz // July 21, 2015 </h3>
+    <h3> Kate Rabinowitz // July 28, 2015 </h3>
 		  <p class='content'> DataLensDC uses open-source data and applications to present readers with insight into the District's character, trends and hacks. There’s an incredible amount of rich data freely available about the District, it’s people and places. DataLensDC distills, visualizes and contextualizes this data to give readers a deeper understanding of the District and navigating life in it. <br><br> Oh, and hi! I’m Kate, lover of all things data and District. I started this website to experiment with different coding languages and share some cool findings along the way. In the months to come you can expect topics ranging from just how local DC food gets, who moves here, segregation and the most house-flipped neighborhoods.<br><br>
       Have feedback, ideas or a project you’d like to share here? Contact me at <a class='link' href="mailto:datalensdc@gmail.com">datalensdc@gmail.com.</a></p>
   </div>
@@ -178,13 +70,12 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <br>
   			<li>Archive</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
-            <li><a href='./migration-comparison.html'>TITLE</a></li>
             <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li>
         </ul></ul>
   			<li>Connect</li>	
 				<ul><ul class="nav nav-stacked fixed insidebar">
   			  		<li><a href="mailto:datalensdc@gmail.com"> <i class="fa fa-envelope"></i> send an email</a></li>
-  			  		<li><a href="https://google.com"><i class="fa fa-twitter"></i> tweet our way</a></li>
+  			  		<li><a href="https://twitter.com/DataLensDC"><i class="fa fa-twitter"></i> tweet our way</a></li>
   			  		<li><a href="https://github.com/katerabinowitz"><i class="fa fa-github"></i> git at us</a></li>
   			  		<li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168"><i class="fa fa-linkedin"></i> link up</a></li>
   				</ul></ul>
