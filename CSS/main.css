@@ -4,8 +4,8 @@
 body {
 	background-color:#EFF0F1;
 	font-family: 'Neuton', serif;
-	font-size: 16px;
-	color: #3C3C3C;
+	font-size: 18px;
+	color: #505050;
 }
 
 a {
@@ -66,7 +66,7 @@ a:hover {
     }
 
     .navbar {
-	background-color:#EFF0F1;
+	background-color:#FCFCFC;
 	text-align:center;
 	border:0px;
 	}

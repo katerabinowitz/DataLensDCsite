@@ -8,14 +8,12 @@
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="./CSS/Font-Awesome-4.3.0/css/font-awesome.min.css"> 
-  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
-
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
-<script>
+  <script>
 var cityCircle;
 var map;
 var infowindow = new google.maps.InfoWindow();
@@ -59,7 +57,7 @@ function initialize() {
 
   var mapOptions = {
     zoom: 4,
-    center: new google.maps.LatLng(38, -97),
+    center: new google.maps.LatLng(38.29024, -95.712891),
     mapTypeControlOptions: {
     mapTypeId: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
     },
@@ -157,40 +155,32 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
-		<h2>TITLE</h2>
-		<hr id='top-line'>
+      <h2><a href='./migration-comparison.html'>TITLE</a></h2>
+    <hr id='top-line'>
     <h3> Kate Rabinowitz // July 21, 2015 </h3>
-		  <p class='content'> When I moved to DC about five years ago, I did so with an onslaught of millennials in search of jobs and housing that was not their parents (along with a few others who may have had loftier aims). People would often ask 'where are you from?' because it was obviously not DC, and 'when did you move here?' because, inevitably, you just did.<br><br>And five years later these questions haven’t actually changed much. Of course, there are a number of people that have lived here for years, but DC is never short of transplants starting anew. The constant influx is one of the things I like about DC; it's a very migratory population. But, really, how migratory?</p>
+      <p class='content'> When I moved to DC about five years ago I did so with an onslaught of millennials in search of jobs and housing that was not their parents (plus maybe some people with more romantic visions). People often ask where are you from, because it was obviously not DC, and when did you move here because, inevitably you just did.<br><br>And five years later this hasn’t actually changed much. Of course, there are a number of people that have lived here for years but DC is never short of transplants starting anew. The constant influx is one of the things I like about DC; it is a very migratory population. But, really, how migratory?</p>
       <p class='graph-title'>How Migratory are Major U.S. Cities?</p>
       <p class='graph-subtitle'> Circle size indicates migration score based on migration rate and migration distance traveled.<br>Click on a circle for more information</p>
       <div id="map-canvas"></div>
-      <p class='content'> In fact, DC is the most migratory city east of the Mississippi and rounds out the top five for most migratory cities:</p>
-        <ul class='content ranking'>
-          <li>1. San Francisco</li>
-          <li>2. Seattle</li>
-          <li>3. Portland</li>
-          <li>4. Las Vegas</li>
-          <li>5. Washington DC</li>
-          <li>6. Denver</li>
-          <li>7. Phoenix</li>
-          <li>8. Austin</li>
-          <li>9. New York</li>
-          <li>10. Boston</li>
-       </ul>         
-     <p class='content'> It appears "Go west, young (wo)man!" is far from dead.<br><br>This migration score is driven by two factors - how many people move to the city each year as a proportion of the city's population and how far people travel when they move to the city. Looking at these two drivers across these cities four distinct groups became clear - </p>
-      <p class='graph-title'>What does migration look like across cities?</p>
-      <p class='graph-subtitle'> Cities plotted based on migration rate and migration distance traveled.<br>The quadrants are drawn at the median of each axis.</p>
-      <a><img class="scatter" src="./Images/US Migration Matrix.png" alt="US Migratory Matrix" align='middle'></a>
-      <p class='content'> In the upper left we see <b>The Pilgrimage</b>. Not as many migrants come each year compared to city size but they come from far and wide. Whether it’s to make it in the big city or live out the rest of their days, these cities lay at the end of a pilgrimage. To right is <b>The Hub</b>, cities with a large inflow of migrants annnually coming from across the U.S. Not as large as the Pilgrimage cities, it is the distinct character, job market and/or lifestyle that attracts people to Hub. Below is <b>The Swarm</b>, cities that attract a large number of closer migrants and are often emblematic of their larger region. And finally in the bottom left we find <b>Out of Gas</b>. Not too many people descend on these cities, and when they do it’s not from very far. Who’s to say why they come - maybe they ran out of gas on a pilgrimage, maybe they came through town one night and just couldn’t turn away.<br><br>And there sits DC in the Hub. But beyond being a government town what are the distinct characteristics and trends of the city? More on that to come...<p>
-      <hr id='end-line'>
-      <p class='content'><b>Technical notes:</b> Graphics and rankings are based on the Census American Community Survey (ACS) 2008-2012 mobility estimates. The data is at the county-level. In some instances, the county extends beyond the city but there was not sufficient difference to exclude or weight such cases. Average distance travel is calculated using an average weighted by the number of migrants. The quadrants in the scatterplot shown above are defined by the median of each measure. You can find complete code <a href="https://github.com/katerabinowitz">on my github page.</a>
-      <br><br>
+      <p class='content'> In fact, DC is the most migratory city east of the Mississippi and rounds out the top five for most migratory cities: <br> <a class='link' href='./migration-comparison.html'> Read more...</a></p>
+      <br><br><br>
+
+		<h2><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></h2>
+		<hr id='top-line'>
+    <h3> Kate Rabinowitz // July 21, 2015 </h3>
+		  <p class='content'> DataLensDC uses open-source data and applications to present readers with insight into the District's character, trends and hacks. There’s an incredible amount of rich data freely available about the District, it’s people and places. DataLensDC distills, visualizes and contextualizes this data to give readers a deeper understanding of the District and navigating life in it. <br><br> Oh, and hi! I’m Kate, lover of all things data and District. I started this website to experiment with different coding languages and share some cool findings along the way. In the months to come you can expect topics ranging from just how local DC food gets, who moves here, segregation and the most house-flipped neighborhoods.<br><br>
+      Have feedback, ideas or a project you’d like to share here? Contact me at <a class='link' href="mailto:datalensdc@gmail.com">datalensdc@gmail.com.</a></p>
   </div>
     
   <div class='col-sm-3 side'>
-		<br> <br>
+		
 		<ul class="sidebar nav nav-stacked fixed">
+    <br>
   			<li>Archive</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./migration-comparison.html'>TITLE</a></li>
+            <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li>
+        </ul></ul>
   			<li>Connect</li>	
 				<ul><ul class="nav nav-stacked fixed insidebar">
   			  		<li><a href="mailto:datalensdc@gmail.com"> <i class="fa fa-envelope"></i> send an email</a></li>
