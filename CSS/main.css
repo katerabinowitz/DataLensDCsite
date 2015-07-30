@@ -56,8 +56,10 @@ a:hover {
 	padding:10px 20px 0 30px;
 	}
 
-	.lead {
-		font-size: 18px;
+	.contenttop{
+		text-align:left;
+		padding:10px 20px 0 30px;
+		font-size: 22px;
 		line-height:20px;
 	}
  }
@@ -138,6 +140,13 @@ a:hover {
 	.content {
 	text-align:left;
 	padding:10px 20px 0 75px;
+	}
+
+	.contenttop{
+		text-align:left;
+		padding:10px 20px 0 75px;
+		font-size: 22px;
+		line-height:20px;
 	}
 }
 
