@@ -55,6 +55,11 @@ a:hover {
 	text-align:left;
 	padding:10px 20px 0 30px;
 	}
+
+	.lead {
+		font-size: 18px;
+		line-height:20px;
+	}
  }
 
  /*Small+ screens - Header*/
