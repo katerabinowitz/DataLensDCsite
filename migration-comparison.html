@@ -56,7 +56,6 @@ function initialize() {
         ]
     }
 ];
-
   var mapOptions = {
     zoom: 4,
     center: new google.maps.LatLng(38, -97),
@@ -66,9 +65,8 @@ function initialize() {
     mapTypeId:MY_MAPTYPE_ID,
     panControl: false,
     streetViewControl: false,
-    zoomControl:false
+    // zoomControl:false
   };
-
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   
   var styledMapOptions= {
@@ -88,7 +86,6 @@ function initialize() {
       icon: getCircle(migrationscore)
     };
   });
-
 function getCircle(migrationscore) {
   var circle = {
     path: google.maps.SymbolPath.CIRCLE,
@@ -98,17 +95,15 @@ function getCircle(migrationscore) {
     strokeColor: '#E62B2B',
     strokeWeight: .5
   };
-
     map.data.addListener('click', function(event) {
       var cityname = event.feature.getProperty("city");
       var m2p = event.feature.getProperty("Migrant2Pop");
       var distance = event.feature.getProperty("wmDistance");
-      infowindow.setContent("<div style='width:200px; text-align: center;'> <p>City: "+ cityname +"<br> Migrants to city population: "+ m2p + "%<br> How far migrants travel: " + distance + " miles</p></div>");
+      infowindow.setContent("<div id='infowindow'>"+"<p>City: "+cityname +"<br> Migrants to city population: "+ m2p + "%<br> How far migrants travel: " + distance + " miles</p></div>");
       infowindow.setPosition(event.feature.getGeometry().get());
       infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
       infowindow.open(map);
   }); 
-
   return circle;
 }
   }
@@ -164,6 +159,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
       <p class='graph-title'>How Migratory are Major U.S. Cities?</p>
       <p class='graph-subtitle'> Circle size indicates migration score based on migration rate and migration distance traveled.<br>Click on a circle for more information</p>
       <div id="map-canvas"></div>
+      <p class='graph-subtitle'> Source: Census American Community Survey (2008-2012 mobility estimates).</p>
       <p class='content'> In fact, DC is the most migratory city east of the Mississippi and rounds out the top five for most migratory cities:</p>
         <ul class='content ranking'>
           <li>1. San Francisco</li>
@@ -181,7 +177,15 @@ google.maps.event.addDomListener(window, 'load', initialize);
       <p class='graph-title'>What does migration look like across cities?</p>
       <p class='graph-subtitle'> Cities plotted based on migration rate and migration distance traveled.<br>The quadrants are drawn at the median of each axis.</p>
       <a><img class="scatter" src="./Images/US Migration Matrix.png" alt="US Migratory Matrix" align='middle'></a>
-      <p class='content'> In the upper left we see <b>The Pilgrimage</b>. Not as many migrants come each year compared to city size but they come from far and wide. Whether it’s to make it in the big city or live out the rest of their days, these cities lay at the end of a pilgrimage. To right is <b>The Hub</b>, cities with a large inflow of migrants annnually coming from across the U.S. Not as large as the Pilgrimage cities, it is the distinct character, job market and/or lifestyle that attracts people to Hub. Below is <b>The Swarm</b>, cities that attract a large number of closer migrants and are often emblematic of their larger region. And finally in the bottom left we find <b>Out of Gas</b>. Not too many people descend on these cities, and when they do it’s not from very far. Who’s to say why they come - maybe they ran out of gas on a pilgrimage, maybe they came through town one night and just couldn’t turn away.<br><br>And there sits DC in the Hub. But beyond being a government town what are the distinct characteristics and trends of the city? More on that to come...<p>
+      <p class='graph-subtitle'> Source: Census American Community Survey (2008-2012 mobility estimates).</p>
+      <p class='content'> What we see above is:</p>
+        <ul class='content'>
+          <li><b>The Pilgrimage</b>. Not as many migrants come each year compared to city size but they come from far and wide. Whether it’s to make it in LA or New York or live out the rest of their days in Phoenix, these cities lay at the end of The Pilgrimage.</li>
+          <li><b>The Hub</b>. These cities have a large inflow of migrants annnually coming from across the U.S. These cities are not as large as the Pilgramage cities but have a distinct character or lifestyle, like Portland, or job market, like Seattle, that attracts people to The Hub.</li>
+          <li><b>The Swarm</b>. These cities that attract a large number of closer migrants. These cities are often emblematic of their larger region whether it's Boston for New Englanders, Atlanta for Southerners or Denver for people of the Mountains.</li>
+          <li><b>Out of Gas</b>. Not too many people descend on these cities, and when they do it’s not from very far. Who’s to say why they come - maybe they ran out of gas on The Pilgrimage, maybe they came through town one night and just couldn’t turn away.</li>
+        </ul>
+      <p class='content'>And there sits DC in the Hub. But beyond being a government town what are the distinct characteristics and trends of the city? More on that to come...</p>
       <hr id='end-line'>
       <p class='content'><b>Technical notes:</b> Graphics and rankings are based on the Census American Community Survey (ACS) 2008-2012 mobility estimates. The data is at the county-level. In some instances, the county extends beyond the city but there was not sufficient difference to exclude or weight such cases. Average distance travel is calculated using an average weighted by the number of migrants. The quadrants in the scatterplot shown above are defined by the median of each measure. You can find complete code <a href="https://github.com/katerabinowitz">on my github page.</a>
       <br><br>
