@@ -48,10 +48,10 @@ a:hover {
     cursor:pointer; 
 	}
 
-	/*#main-navbar-custom, #main-navbar-custom li {
+	#main-navbar-custom, #main-navbar-custom li {
 	margin: 10px 0 0 0;
 	padding-left:0;
-	}*/
+	}
 
 	.dropdown-pull-right{
   	float: right !important;
