@@ -39,6 +39,7 @@ a:hover {
 	color:#262626;
 	font-weight: bold;
 	list-style-type: none;
+	padding-left:0;
 	}
 
 	.navbar-custom li:hover {
@@ -49,6 +50,7 @@ a:hover {
 
 	#main-navbar-custom, #main-navbar-custom li {
 	margin: 10px 0 0 0;
+	padding-left:0;
 	}
 
 	.content {
