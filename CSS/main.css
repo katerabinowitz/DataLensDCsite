@@ -123,18 +123,24 @@ a:hover {
 	color:#262626;
 	font-weight: bold;
 	list-style-type:none;
+	line-height:auto;
 	}
 
 	/*.sidebar > li:first-child{
 	margin: 0 0 30px 0;
 	}*/
 
-	.insidebar, .insidebar li{
+	.insidebar, .insidebar li, .connectbar, .connectbar li{
 	list-style-position: inside;
 	text-align:left;
 	font-weight: normal;
 	font-size: 14px;
-	line-height:0;
+	line-height:auto;
+	list-style-type:circle;
+	}
+
+	.inbar, .insidebar li{
+	margin-bottom:30px;
 	}
 
 	.nav-stacked > li > a {
@@ -144,7 +150,7 @@ a:hover {
     margin:0 0 0 -30px;
 	}
 
-	.insidebar li:hover{
+	.insidebar li:hover, .connectbar li:hover{
 	color:#FFFFFF;
 	text-decoration:none; 
     cursor:pointer; 
@@ -170,7 +176,7 @@ h2 {
 	text-align:left;
 	margin:0 0 12px 5px;
 	color:#262626;
-	line-height:10%;
+	line-height:auto;
 }
 
 
