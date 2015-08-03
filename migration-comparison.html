@@ -7,7 +7,7 @@
   <meta charset="utf-8">
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./CSS/Font-Awesome-4.3.0/css/font-awesome.min.css"> 
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
@@ -56,7 +56,6 @@ function initialize() {
         ]
     }
 ];
-
   var mapOptions = {
     zoom: 4,
     center: new google.maps.LatLng(38, -97),
@@ -66,9 +65,8 @@ function initialize() {
     mapTypeId:MY_MAPTYPE_ID,
     panControl: false,
     streetViewControl: false,
-    zoomControl:false
+    // zoomControl:false
   };
-
   var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   
   var styledMapOptions= {
@@ -88,7 +86,6 @@ function initialize() {
       icon: getCircle(migrationscore)
     };
   });
-
 function getCircle(migrationscore) {
   var circle = {
     path: google.maps.SymbolPath.CIRCLE,
@@ -98,17 +95,15 @@ function getCircle(migrationscore) {
     strokeColor: '#E62B2B',
     strokeWeight: .5
   };
-
     map.data.addListener('click', function(event) {
       var cityname = event.feature.getProperty("city");
       var m2p = event.feature.getProperty("Migrant2Pop");
       var distance = event.feature.getProperty("wmDistance");
-      infowindow.setContent("<div style='width:200px; text-align: center;'> <p>City: "+ cityname +"<br> Migrants to city population: "+ m2p + "%<br> How far migrants travel: " + distance + " miles</p></div>");
+      infowindow.setContent("<div id='infowindow'>"+"<p>City: "+cityname +"<br> Migrants to city population: "+ m2p + "%<br> How far migrants travel: " + distance + " miles</p></div>");
       infowindow.setPosition(event.feature.getGeometry().get());
       infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
       infowindow.open(map);
   }); 
-
   return circle;
 }
   }
@@ -125,19 +120,19 @@ google.maps.event.addDomListener(window, 'load', initialize);
           <span class="mybar icon-bar"></span>
           <span class="mybar icon-bar"></span> 
         </button>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="./index.html">
           <img src="./Images/DataLensDCResponsiveLogo2.png" alt="DataLensDC">  
         </a>
-      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse" id="main-navbar-custom">
+      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse dropdown-pull-right" id="main-navbar-custom">
         <li><a href="./about.html">About</a></li>
         <li><a href="./subscribe.html">Subscribe</a></li>
         <li><a href="./archive.html">Archive</a></li>
         <li class="dropdown"><a class="dropdown-toggle" href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
-          <ul class="navbar-custom dropmenu dropdown-menu">
-            <li><a href="mailto:datalensdc@gmail.com"> <i class="fa fa-envelope"></i> send an email</a></li>
-            <li><a href="https://google.com"><i class="fa fa-twitter"></i> tweet our way</a></li>
-            <li><a href="https://github.com/katerabinowitz"><i class="fa fa-github"></i> git at us</a></li>
-            <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168"><i class="fa fa-linkedin"></i> link up</a></li>      
+          <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
+            <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+            <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+            <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>  -->     
           </ul>
         </li>
       </ul>
@@ -145,7 +140,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 </nav>
 
 <nav class="smheader navbar navbar-default navbar-static-top">
-<a href="datalensdc.com"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+<a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
   <div class="navbar-fixed">
     <ul class ="headerlist">
         <li><a href="./about.html">about</a></li>
@@ -157,13 +152,15 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
-		<h2>TITLE</h2>
+  <br>
+		<h2>DC: The East Coast's Most Migratory City</h2>
 		<hr id='top-line'>
-    <h3> Kate Rabinowitz // July 21, 2015 </h3>
+    <h3> Kate Rabinowitz // August 2, 2015</h3>
 		  <p class='content'> When I moved to DC about five years ago, I did so with an onslaught of millennials in search of jobs and housing that was not their parents (along with a few others who may have had loftier aims). People would often ask 'where are you from?' because it was obviously not DC, and 'when did you move here?' because, inevitably, you just did.<br><br>And five years later these questions haven’t actually changed much. Of course, there are a number of people that have lived here for years, but DC is never short of transplants starting anew. The constant influx is one of the things I like about DC; it's a very migratory population. But, really, how migratory?</p>
       <p class='graph-title'>How Migratory are Major U.S. Cities?</p>
       <p class='graph-subtitle'> Circle size indicates migration score based on migration rate and migration distance traveled.<br>Click on a circle for more information</p>
       <div id="map-canvas"></div>
+      <p class='graph-subtitle'> Source: Census American Community Survey (2008-2012 mobility estimates).</p>
       <p class='content'> In fact, DC is the most migratory city east of the Mississippi and rounds out the top five for most migratory cities:</p>
         <ul class='content ranking'>
           <li>1. San Francisco</li>
@@ -181,24 +178,37 @@ google.maps.event.addDomListener(window, 'load', initialize);
       <p class='graph-title'>What does migration look like across cities?</p>
       <p class='graph-subtitle'> Cities plotted based on migration rate and migration distance traveled.<br>The quadrants are drawn at the median of each axis.</p>
       <a><img class="scatter" src="./Images/US Migration Matrix.png" alt="US Migratory Matrix" align='middle'></a>
-      <p class='content'> In the upper left we see <b>The Pilgrimage</b>. Not as many migrants come each year compared to city size but they come from far and wide. Whether it’s to make it in the big city or live out the rest of their days, these cities lay at the end of a pilgrimage. To right is <b>The Hub</b>, cities with a large inflow of migrants annnually coming from across the U.S. Not as large as the Pilgrimage cities, it is the distinct character, job market and/or lifestyle that attracts people to Hub. Below is <b>The Swarm</b>, cities that attract a large number of closer migrants and are often emblematic of their larger region. And finally in the bottom left we find <b>Out of Gas</b>. Not too many people descend on these cities, and when they do it’s not from very far. Who’s to say why they come - maybe they ran out of gas on a pilgrimage, maybe they came through town one night and just couldn’t turn away.<br><br>And there sits DC in the Hub. But beyond being a government town what are the distinct characteristics and trends of the city? More on that to come...<p>
+      <p class='graph-subtitle'> Source: Census American Community Survey (2008-2012 mobility estimates).</p>
+      <p class='content'> What we see above is:</p>
+        <ul class='content'>
+          <li><b>The Pilgrimage</b>. Not as many migrants come each year compared to city size but they come from far and wide. Whether it’s to make it in LA or New York or live out the rest of their days in Phoenix, these cities lay at the end of The Pilgrimage.</li>
+          <li><b>The Hub</b>. These cities have a large inflow of migrants annnually coming from across the U.S. These cities are not as large as the Pilgramage cities but have a distinct character or lifestyle, like Portland, or job market, like Seattle, that attracts people to The Hub.</li>
+          <li><b>The Swarm</b>. These cities attract a large number of closer migrants. These cities are often emblematic of their larger region whether it's Boston for New Englanders, Atlanta for Southerners or Denver for people of the Mountains.</li>
+          <li><b>Out of Gas</b>. Not too many people descend on these cities, and when they do it’s not from very far. Who’s to say why they come - maybe they ran out of gas on The Pilgrimage, maybe they came through town one night and just couldn’t turn away.</li>
+        </ul>
+      <p class='content'>And there sits DC in the Hub. But beyond being a government town what are the distinct characteristics and trends of the city? More on that to come...</p>
       <hr id='end-line'>
-      <p class='content'><b>Technical notes:</b> Graphics and rankings are based on the Census American Community Survey (ACS) 2008-2012 mobility estimates. The data is at the county-level. In some instances, the county extends beyond the city but there was not sufficient difference to exclude or weight such cases. Average distance travel is calculated using an average weighted by the number of migrants. The quadrants in the scatterplot shown above are defined by the median of each measure. You can find complete code <a href="https://github.com/katerabinowitz">on my github page.</a>
+      <p class='content'><b>Technical notes:</b> Graphics and rankings are based on the Census American Community Survey (ACS) 2008-2012 mobility estimates. The data is at the county-level. In some instances, the county extends beyond the city but there was not sufficient difference to exclude or weight such cases. Average distance travel is calculated using an average weighted by the number of migrants. The quadrants in the scatterplot shown above are defined by the median of each measure. The migratory score used to calculate rankings and circle size is based on the weighted average distance traveled by migrants and the number of migrants proportional to city size. You can find complete code <a class='link'href="https://github.com/katerabinowitz">on my github page.</a>
       <br><br>
   </div>
     
-  <div class='col-sm-3 side'>
-		<br> <br>
-		<ul class="sidebar nav nav-stacked fixed">
-  			<li>Archive</li>
-  			<li>Connect</li>	
-				<ul><ul class="nav nav-stacked fixed insidebar">
-  			  		<li><a href="mailto:datalensdc@gmail.com"> <i class="fa fa-envelope"></i> send an email</a></li>
-  			  		<li><a href="https://google.com"><i class="fa fa-twitter"></i> tweet our way</a></li>
-  			  		<li><a href="https://github.com/katerabinowitz"><i class="fa fa-github"></i> git at us</a></li>
-  			  		<li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168"><i class="fa fa-linkedin"></i> link up</a></li>
-  				</ul></ul>
-  		</ul>
-		</div>		
+<div class='col-sm-3 side'>
+    <br> 
+    <ul class="sidebar nav nav-stacked fixed">
+        <li>Archive</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
+            <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li>
+        </ul></ul>
+        <br>
+        <li>Connect</li>  
+        <ul><ul class="nav nav-stacked fixed connectbar">
+              <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+              <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+              <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+              <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
+          </ul></ul>
+      </ul>
+    </div>    
 </div>
 </body>

@@ -3,17 +3,20 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>DataLensDC</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
   <meta charset="utf-8">
-  
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'> 
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./CSS/Font-Awesome-4.3.0/css/font-awesome.min.css"> 
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
 </head>
 
+<body>
 <nav class="xsheader navbar navbar-default navbar-static-top">
   <div class='clearfix xsheader'>      
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -22,19 +25,19 @@
           <span class="mybar icon-bar"></span>
           <span class="mybar icon-bar"></span> 
         </button>
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="./index.html">
           <img src="./Images/DataLensDCResponsiveLogo2.png" alt="DataLensDC">  
         </a>
-      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse" id="main-navbar-custom">
+      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse dropdown-pull-right" id="main-navbar-custom">
         <li><a href="./about.html">About</a></li>
         <li><a href="./subscribe.html">Subscribe</a></li>
         <li><a href="./archive.html">Archive</a></li>
         <li class="dropdown"><a class="dropdown-toggle" href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
-          <ul class="navbar-custom dropmenu dropdown-menu">
-            <li><a href="mailto:datalensdc@gmail.com"> <i class="fa fa-envelope"></i> send an email</a></li>
-            <li><a href="https://google.com"><i class="fa fa-twitter"></i> tweet our way</a></li>
-            <li><a href="https://github.com/katerabinowitz"><i class="fa fa-github"></i> git at us</a></li>
-            <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168"><i class="fa fa-linkedin"></i> link up</a></li>      
+          <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
+            <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+            <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+            <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>  -->     
           </ul>
         </li>
       </ul>
@@ -42,7 +45,7 @@
 </nav>
 
 <nav class="smheader navbar navbar-default navbar-static-top">
-<a href="datalensdc.com"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+<a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
   <div class="navbar-fixed">
     <ul class ="headerlist">
         <li><a href="./about.html">about</a></li>
@@ -54,27 +57,31 @@
 
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
+  <br>
 		<h2>About</h2>
 		<hr id='top-line'>
-		<p class='lead'> DataLensDC shows you the district through data. </p>
-		<p class='content'> Using open-source data and applications DataLensDC presents readers with insight into the District's character, trends and hacks. The website was founded in the summer of 2015 by Kate Rabinowitz, lover of all things data and District.</p>
-		<p class="content">Interested in contributing, collaborating or coffee? Email us at <a class='link' href="mailto:datalensdc@gmail.com">datalensdc@gmail.com</a>.</p>
+		<p class='contenttop'>DataLensDC shows you the district through data.</p>
+		<p class='content'>Using open-source data and applications DataLensDC presents readers with insight into the District's character, trends and hacks. The website was founded in the summer of 2015 by Kate Rabinowitz, lover of all things data and District.<br><br>
+    Interested in contributing, collaborating or coffee? Email us at <a class='link' href="mailto:datalensdc@gmail.com">datalensdc@gmail.com</a>.</p>
   </div>
 
-	<div class='col-sm-3 side'>
-		<br>
-		<ul class="sidebar nav nav-stacked fixed">
-  			<li>Archive</li>
-          <ul><ul class="nav nav-stacked fixed insidebar">
+  <div class='col-sm-3 side'>
+    <br> 
+    <ul class="sidebar nav nav-stacked fixed">
+        <li>Archive</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
             <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li>
         </ul></ul>
-  			<li>Connect</li>	
-				<ul><ul class="nav nav-stacked fixed insidebar">
-  			  		<li><a href="mailto:datalensdc@gmail.com"> <i class="fa fa-envelope"></i> send an email</a></li>
-  			  		<li><a href="https://twitter.com/DataLensDC"><i class="fa fa-twitter"></i> tweet our way</a></li>
-  			  		<li><a href="https://github.com/katerabinowitz"><i class="fa fa-github"></i> git at us</a></li>
-  			  		<li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168"><i class="fa fa-linkedin"></i> link up</a></li>
-  				</ul></ul>
-  		</ul>
-		</div>		
+        <br>
+        <li>Connect</li>  
+        <ul><ul class="nav nav-stacked fixed connectbar">
+              <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+              <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+              <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+              <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
+          </ul></ul>
+      </ul>
+    </div>    
 </div>
+</body>

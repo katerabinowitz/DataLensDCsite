@@ -39,6 +39,7 @@ a:hover {
 	color:#262626;
 	font-weight: bold;
 	list-style-type: none;
+	padding-left:0;
 	}
 
 	.navbar-custom li:hover {
@@ -48,12 +49,31 @@ a:hover {
 	}
 
 	#main-navbar-custom, #main-navbar-custom li {
-	margin: 10px 20px 0 0;
+	margin: 10px 0 0 0;
+	padding-left:0;
 	}
+
+	.dropdown-pull-right{
+  	float: right !important;
+  	right: 0;
+  	left: auto;
+	}
+
+	.dropdown-pull-right > .dropdown-menu {
+    right: 0;
+    left: auto;
+ 	}
 
 	.content {
 	text-align:left;
 	padding:10px 20px 0 30px;
+	}
+
+	.contenttop{
+		text-align:left;
+		padding:10px 20px 0 30px;
+		font-size: 22px;
+		line-height:20px;
 	}
  }
 
@@ -103,18 +123,24 @@ a:hover {
 	color:#262626;
 	font-weight: bold;
 	list-style-type:none;
+	line-height:auto;
 	}
 
 	/*.sidebar > li:first-child{
 	margin: 0 0 30px 0;
 	}*/
 
-	.insidebar, .insidebar li{
+	.insidebar, .insidebar li, .connectbar, .connectbar li{
 	list-style-position: inside;
 	text-align:left;
 	font-weight: normal;
 	font-size: 14px;
-	line-height:0;
+	line-height:auto;
+	list-style-type:circle;
+	}
+
+	.inbar, .insidebar li{
+	margin-bottom:30px;
 	}
 
 	.nav-stacked > li > a {
@@ -124,7 +150,7 @@ a:hover {
     margin:0 0 0 -30px;
 	}
 
-	.insidebar li:hover{
+	.insidebar li:hover, .connectbar li:hover{
 	color:#FFFFFF;
 	text-decoration:none; 
     cursor:pointer; 
@@ -133,6 +159,13 @@ a:hover {
 	.content {
 	text-align:left;
 	padding:10px 20px 0 75px;
+	}
+
+	.contenttop{
+		text-align:left;
+		padding:10px 20px 0 75px;
+		font-size: 22px;
+		line-height:20px;
 	}
 }
 
@@ -143,7 +176,7 @@ h2 {
 	text-align:left;
 	margin:0 0 12px 5px;
 	color:#262626;
-	line-height:10%;
+	line-height:auto;
 }
 
 
@@ -196,8 +229,16 @@ h3 {
 
 #map-canvas{
 	margin:auto;
-	height:380px;
 	width:90%;
+	height:380px;
+}
+
+#infowindow {
+	width:200px;
+	text-align: left;
+	font-family: 'Neuton', serif;
+	font-size: 14px;
+	color: #505050;
 }
 
 .ranking {   
@@ -216,10 +257,16 @@ h3 {
     margin-top:0px;
 }
 
+.content ul li:first-child {
+    padding-top:0px;
+}
+
 IMG.scatter {
     display: block;
     margin-left: auto;
-    margin-right: auto }
+    margin-right: auto;
+    max-width: 100%;
+    max-height:auto; }
 
 #end-line {
 	color:#E62B2B;
