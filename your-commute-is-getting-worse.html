@@ -93,10 +93,10 @@
 <div class='content row'>
   <div class='col-sm-9 col-xs-12'>
   <br>
-    <h2>The Pain is Real: Your Metro Commute is Getting Worse</h2>
+    <h2><a href='./your-commute-is-getting-worse.html'>The Pain is Real: Your Metro Commute is Getting Worse</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // August 9, 2015</h3>
-    <p class='content'>Last Thursday Metro started sending some real subtle signals that maybe I should <a class='link' target="_blank" href='http://www.washingtonpost.com/blogs/dr-gridlock/wp/2015/08/06/derailment-of-non-passenger-metro-train-delays-on-blue-orange-and-silver-lines/'>take a day off.</a> Unfortunately, my boss felt otherwise. What started as a 'minor' derailment became a two day catatrosphe of train speed averaging something like an hour a stop. While it was a particularly bad two day stretch for Metro, it didn't feel all that surprising While it feels like Metro has gotten worse recently I was curious if that actually bore out in the data. It most certainly does.</p>
+    <p class='content'>Last Thursday Metro sent a subtle signal that maybe I should <a class='link' target="_blank" href='http://www.washingtonpost.com/blogs/dr-gridlock/wp/2015/08/06/derailment-of-non-passenger-metro-train-delays-on-blue-orange-and-silver-lines/'>take a day off.</a> Unfortunately my boss felt otherwise. What started as a 'minor' derailment became two days of Metro competing with walking for the slowest way to get anywhere. It was bad and feels like part of a larger decline in Metro service. I was curious if that actually bore out in the data. Not only did it, but the decline is even more dramatic than I would've guessed.</p>
     <p class='graph-title'>Metro Delays for the First Half of 2013-15</p>
     <p class='graph-subtitle'> Number of delays reported on Metro for the first half of 2013, 2014 and 2015<sup>*</sup></p>
 <div id="barchart1">
@@ -149,20 +149,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/H1-D
       .attr("x", function(d) { return x(d.H1); })
       .attr("y", function(d) { return y(d.DelayCountH1); })
       .attr("height", function(d) { return height - y(d.DelayCountH1); })
-      .attr("width", x.rangeBand())
-         .attr("fill", function(d) {
-          return "rgb(0, 0, " + (d * 10) + ")";
-         })
-         .on("mouseover", function() {
-            d3.select(this)
-              .attr("fill", "orange");
-         })
-         .on("mouseout", function(d) {
-           d3.select(this)
-              .transition()
-              .duration(250)
-            .attr("fill", "rgb(0, 0, " + (d * 10) + ")");
-         });
+      .attr("width", x.rangeBand());
          
 });
 function type(d) {
@@ -173,7 +160,7 @@ function type(d) {
 </script>
 </div>
 
-<p class='content'> The first half of 2015 had nearly twice as many delays compared to the same period in the past two years. <b>Added together Metro delays in the first half of 2015 total 17 days 22 hours and 38 minutes.</b> This is two and a half weeks. You could spend all your vacation days waiting for the Metro, and still be waiting. Part of this increase was due to a spike in around winter months, however even this spring and summer has seen higher delays overall.</p>
+<p class='content'> The first half of 2015 had nearly twice as many delays compared to the same period in the past two years. <b>Added together Metro delays in the first half of 2015 total 17 days 22 hours and 38 minutes.</b> This is two and a half weeks. You could spend all your vacation days waiting for the Metro and still be waiting. This increase is partly due to a spike in delays this winter, but the spring and summer saw worse service as well.</p>
 
 <div id="barchart2">
     <p class='graph-title'>Monthly Metro Delays, January 2013 - July 2015<sup>*</sup></p>
@@ -238,7 +225,7 @@ function type(d) {
 </script>
 </div>
 
-<p class="content"> It'd be nice if all these delays happened in the early hours of Sunday morning, since so many have long given up on taking the Metro anywhere on weekends. But the Metro is most likely to be delayed when you need it most. The heatmap below shows delays are heavily concentrated just before and during commuting hours. Of course WMATA *tries* to run twice as many trains during rush hour, but there more than twice as many delays and the benefit of more trains is debatable when they're all delayed.</p>
+<p class="content"> It'd be nice if all these delays happened in the early hours of Sunday morning, since so many have long given up on taking the Metro anywhere on weekends. But the Metro is most likely to be delayed when you need it most. The heatmap below shows that delays are heavily concentrated just before and during commuting hours. Of course WMATA *tries* to run twice as many trains during rush hour. But there are more delays per train during that hour as well. Afterall, the benefit of more trains is debatable when you wait ten minutes for three trains to arrive at once.</p>
     <p class='graph-title'>Average Metro Delays by Weekday and Hour, January 2015 - July 2015<sup>*</sup></p>
     <p class='graph-subtitle'> Number of delays reported on Metro averaged by day of week and hour</p>
 <div id="heatmap">
@@ -436,7 +423,7 @@ function type(d) {
     <ul class="sidebar nav nav-stacked fixed">
         <li>Archive</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
-            <li><a href='./your-commute-is-getting-worse.html'>The Pain is Real: Your Metro Commute is Getting Worse</a></li>
+            <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
             <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
             <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li>
         </ul></ul>

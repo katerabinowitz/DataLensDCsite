@@ -11,10 +11,12 @@
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/wmata-delay.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
 <script>
 var cityCircle;
 var map;
@@ -120,6 +122,42 @@ google.maps.event.addDomListener(window, 'load', initialize);
   ga('send', 'pageview');
 
 </script>
+
+<style>
+  .bar {
+    fill: #53CFCF;
+    }
+
+  .axis text {
+    font: 10px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  rect.bordered {
+    stroke: #E6E6E6;
+    stroke-width:2px;   
+  }
+
+  text.mono {
+    font-size: 9pt;
+    font-family: Consolas, courier;
+    fill: #aaa;
+  }
+
+  text.axis-workweek {
+    fill: #000;
+  }
+
+  text.axis-worktime {
+    fill: #000;
+  }
+  </style>
 </head>
 
 <body>
@@ -164,6 +202,76 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
   <br>
+  <h2><a href='./your-commute-is-getting-worse.html'>The Pain is Real: Your Metro Commute is Getting Worse</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // August 9, 2015</h3>
+    <p class='content'>Last Thursday Metro sent a subtle signal that maybe I should <a class='link' target="_blank" href='http://www.washingtonpost.com/blogs/dr-gridlock/wp/2015/08/06/derailment-of-non-passenger-metro-train-delays-on-blue-orange-and-silver-lines/'>take a day off.</a> Unfortunately my boss felt otherwise. What started as a 'minor' derailment became two days of Metro competing with walking for the slowest way to get anywhere. It was bad and feels like part of a larger decline in Metro service. I was curious if that actually bore out in the data. Not only did it, but the decline is even more dramatic than I would've guessed.</p>
+    <p class='graph-title'>Metro Delays for the First Half of 2013-15</p>
+    <p class='graph-subtitle'> Number of delays reported on Metro for the first half of 2013, 2014 and 2015<sup>*</sup></p>
+<div id="barchart1">
+<svg class="chart"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 0, bottom: 30, left: 35},
+    width = 400 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var chart = d3.select(".chart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/H1-Delays.csv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.H1; }));
+  y.domain([0, d3.max(data, function(d) { return d.DelayCountH1; })]);
+
+  chart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  chart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  chart.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.H1); })
+      .attr("y", function(d) { return y(d.DelayCountH1); })
+      .attr("height", function(d) { return height - y(d.DelayCountH1); })
+      .attr("width", x.rangeBand());
+         
+});
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+})();
+</script>
+</div>
+
+<p class='content'> The first half of 2015 had nearly twice as many delays compared to the same period in the past two years...<a class='link' href='./your-commute-is-getting-worse.html'>Read on</a></p>
+
+<br><br>
     <h2><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // August 2, 2015 </h3>
@@ -188,6 +296,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <br>
   			<li>Archive</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
             <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
             <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li>
         </ul></ul>
