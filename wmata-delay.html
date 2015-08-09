@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>WMATA-Delay Analysis</title>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/wmata-delay.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
+  <style>
+  .bar {
+    fill: #53CFCF;
+    }
+
+  .axis text {
+    font: 10px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  rect.bordered {
+    stroke: #E6E6E6;
+    stroke-width:2px;   
+  }
+
+  text.mono {
+    font-size: 9pt;
+    font-family: Consolas, courier;
+    fill: #aaa;
+  }
+
+  text.axis-workweek {
+    fill: #000;
+  }
+
+  text.axis-worktime {
+    fill: #000;
+  }
+  </style>
+</head>
+
+<body>
+<nav class="xsheader navbar navbar-default navbar-static-top">
+  <div class='clearfix xsheader'>      
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span> 
+        </button>
+        <a class="navbar-brand" href="./index.html">
+          <img src="./Images/DataLensDCResponsiveLogo2.png" alt="DataLensDC">  
+        </a>
+      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse dropdown-pull-right" id="main-navbar-custom">
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./subscribe.html">Subscribe</a></li>
+        <li><a href="./archive.html">Archive</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
+          <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
+            <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+            <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+            <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>      
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<nav class="smheader navbar navbar-default navbar-static-top">
+<a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+  <div class="navbar-fixed">
+    <ul class ="headerlist">
+        <li><a href="./about.html">about</a></li>
+        <li><a href="./subscribe.html">subscribe</a></li>
+        <li><a href="mailto:datalensdc@gmail.com">email</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class='content row'>
+  <div class='col-sm-9 col-xs-12'>
+  <br>
+    <h2>The Pain is Real: Your Metro Commute is Getting Worse</h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // August 9, 2015</h3>
+    <p class='content'>Last Thursday Metro started sending some real subtle signals that maybe I should <a class='link' target="_blank" href='http://www.washingtonpost.com/blogs/dr-gridlock/wp/2015/08/06/derailment-of-non-passenger-metro-train-delays-on-blue-orange-and-silver-lines/'>take a day off.</a> Unfortunately, my boss felt otherwise. What started as a 'minor' derailment became a two day catatrosphe of train speed averaging something like an hour a stop. While it was a particularly bad two day stretch for Metro, it didn't feel all that surprising While it feels like Metro has gotten worse recently I was curious if that actually bore out in the data. It most certainly does.</p>
+    <p class='graph-title'>Metro Delays for the First Half of 2013-15</p>
+    <p class='graph-subtitle'> Number of delays reported on Metro for the first half of 2013, 2014 and 2015<sup>*</sup></p>
+<div id="barchart1">
+<svg class="chart"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 0, bottom: 30, left: 35},
+    width = 400 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var chart = d3.select(".chart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/H1-Delays.csv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.H1; }));
+  y.domain([0, d3.max(data, function(d) { return d.DelayCountH1; })]);
+
+  chart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  chart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  chart.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.H1); })
+      .attr("y", function(d) { return y(d.DelayCountH1); })
+      .attr("height", function(d) { return height - y(d.DelayCountH1); })
+      .attr("width", x.rangeBand())
+         .attr("fill", function(d) {
+          return "rgb(0, 0, " + (d * 10) + ")";
+         })
+         .on("mouseover", function() {
+            d3.select(this)
+              .attr("fill", "orange");
+         })
+         .on("mouseout", function(d) {
+           d3.select(this)
+              .transition()
+              .duration(250)
+            .attr("fill", "rgb(0, 0, " + (d * 10) + ")");
+         });
+         
+});
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+})();
+</script>
+</div>
+
+<p class='content'> The first half of 2015 had nearly twice as many delays compared to the same period in the past two years. <b>Added together Metro delays in the first half of 2015 total 17 days 22 hours and 38 minutes.</b> This is two and a half weeks. You could spend all your vacation days waiting for the Metro, and still be waiting. Part of this increase was due to a spike in around winter months, however even this spring and summer has seen higher delays overall.</p>
+
+<div id="barchart2">
+    <p class='graph-title'>Monthly Metro Delays, January 2013 - July 2015<sup>*</sup></p>
+    <p class='graph-subtitle'> Number of delays reported on Metro monthly<sup>*</sup></p>
+<svg class="chart2"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 0, bottom: 30, left: 25},
+    width = 820- margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+
+var chart2 = d3.select(".chart2")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/YM-Delays.csv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.YM; }));
+  y.domain([0, d3.max(data, function(d) { return d.DelayCountYM; })]);
+
+  chart2.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  chart2.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  chart2.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.YM); })
+      .attr("y", function(d) { return y(d.DelayCountYM); })
+      .attr("height", function(d) { return height - y(d.DelayCountYM); })
+      .attr("width", x.rangeBand());
+});
+
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+})();
+</script>
+</div>
+
+<p class="content"> It'd be nice if all these delays happened in the early hours of Sunday morning, since so many have long given up on taking the Metro anywhere on weekends. But the Metro is most likely to be delayed when you need it most. The heatmap below shows delays are heavily concentrated just before and during commuting hours. Of course WMATA *tries* to run twice as many trains during rush hour, but there more than twice as many delays and the benefit of more trains is debatable when they're all delayed.</p>
+    <p class='graph-title'>Average Metro Delays by Weekday and Hour, January 2015 - July 2015<sup>*</sup></p>
+    <p class='graph-subtitle'> Number of delays reported on Metro averaged by day of week and hour</p>
+<div id="heatmap">
+<script type="text/javascript">
+(function() {
+      var margin = { top: 50, right: 0, bottom: 30, left: 30 },
+          width = 660 - margin.left - margin.right,
+          height = 340 - margin.top - margin.bottom,
+          gridSize = Math.floor(width / 24),
+          legendElementWidth = gridSize*2,
+          buckets = 9,
+          colors = ["#ffffe5","#fff7bc","#fee391","#fec44f","#fe9929","#ec7014","#cc4c02","#993404","#662506"], 
+          days = ["Su","Mo", "Tu", "We", "Th", "Fr", "Sa"],
+          times = ["1a","2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p", "10p", "11p",'12p'];
+
+
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/DT-Delays.csv",
+        function(d) {
+          return {
+            day: +d.Day,
+            hour: +d.HourN,
+            value: +d.V1
+          };
+        },
+        function(error, data) {
+          var colorScale = d3.scale.quantile()
+              .domain([0, 5.2])
+              .range(colors);
+
+          var svg = d3.select("#heatmap").append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+          var dayLabels = svg.selectAll(".dayLabel")
+              .data(days)
+              .enter().append("text")
+                .text(function (d) { return d; })
+                .attr("x", 0)
+                .attr("y", function (d, i) { return i * gridSize; })
+                .style("text-anchor", "end")
+                .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
+                .attr("class", function (d, i) { return ((i >= 1 && i <= 5) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
+
+          var timeLabels = svg.selectAll(".timeLabel")
+              .data(times)
+              .enter().append("text")
+                .text(function(d) { return d; })
+                .attr("x", function(d, i) { return i * gridSize; })
+                .attr("y", 0)
+                .style("text-anchor", "middle")
+                .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+                .attr("class", function(d, i) { return ((i >= 6 && i <= 8 || i >= 16 && i <= 18) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
+
+          var heatMap = svg.selectAll(".hour")
+              .data(data)
+              .enter().append("rect")
+              .attr("x", function(d) { return (d.hour - 1) * gridSize; })
+              .attr("y", function(d) { return (d.day - 1) * gridSize; })
+              .attr("rx", 4)
+              .attr("ry", 4)
+              .attr("class", "hour bordered")
+              .attr("width", gridSize)
+              .attr("height", gridSize)
+              .style("fill", colors[0]);
+
+          heatMap.transition().duration(1000)
+              .style("fill", function(d) {return colorScale(d.value); });
+
+          heatMap.append("title").text(function(d) { return d.value; });
+              
+          var legend = svg.selectAll(".legend")
+              .data([0].concat(colorScale.quantiles()), function(d) { return d; })
+              .enter().append("g")
+              .attr("class", "legend");
+
+          legend.append("rect")
+            .attr("x", function(d, i) { return legendElementWidth * i; })
+            .attr("y", height)
+            .attr("width", legendElementWidth)
+            .attr("height", gridSize / 2)
+            .style("fill", function(d, i) { return colors[i]; });
+
+          legend.append("text")
+            .attr("class", "mono")
+            .text(function(d) { return "≥ " + d.toFixed(2); })
+            .attr("x", function(d, i) { return legendElementWidth * i; })
+            .attr("y", height + gridSize);
+      });
+})();
+    </script>
+    </div>
+<br>
+
+<div id="smheatmap">
+<script>
+(function() {
+      var margin = { top: 30, right: 25, bottom: 50, left: 50},
+          width = 700 - margin.left - margin.right,
+          height = 660 - margin.top - margin.bottom,
+          gridSize = Math.floor(height/ 24),
+          legendElementWidth = gridSize*1.5,
+          buckets = 9,
+          colors = ["#ffffe5","#fff7bc","#fee391","#fec44f","#fe9929","#ec7014","#cc4c02","#993404","#662506"], 
+          days = ["Su","Mo", "Tu", "We", "Th", "Fr", "Sa"],
+          times = ["1a","2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a", "10a", "11a", "12a", "1p", "2p", "3p", "4p", "5p", "6p", "7p", "8p", "9p", "10p", "11p",'12p'];
+
+
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/DT-Delays.csv",
+        function(d) {
+          return {
+            day: +d.Day,
+            hour: +d.HourN,
+            value: +d.V1
+          };
+        },
+        function(error, data) {
+          var colorScale = d3.scale.quantile()
+              .domain([0, 5.2])
+              .range(colors);
+
+          var svg = d3.select("#smheatmap").append("svg")
+              .attr("width", width + margin.left + margin.right)
+              .attr("height", height + margin.top + margin.bottom)
+              .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+          var dayLabels = svg.selectAll(".dayLabel")
+              .data(days)
+              .enter().append("text")
+                .text(function (d) { return d; })
+                .attr("x", function (d, i) { return i * gridSize; })
+                .attr("y", 0)
+                .style("text-anchor", "middle")
+                .attr("transform", "translate(" + gridSize / 2 + ", -6)")
+                .attr("class", function (d, i) { return ((i >= 1 && i <= 5) ? "dayLabel mono axis axis-workweek" : "dayLabel mono axis"); });
+
+          var timeLabels = svg.selectAll(".timeLabel")
+              .data(times)
+              .enter().append("text")
+                .text(function(d) { return d; })
+                .attr("x", 0)
+                .attr("y", function(d, i) { return i * gridSize; })
+                .style("text-anchor", "end")
+                .attr("transform", "translate(-6," + gridSize / 1.5 + ")")
+                .attr("class", function(d, i) { return ((i >= 6 && i <= 8 || i >= 16 && i <= 18) ? "timeLabel mono axis axis-worktime" : "timeLabel mono axis"); });
+
+          var heatMap = svg.selectAll(".hour")
+              .data(data)
+              .enter().append("rect")
+              .attr("x", function(d) { return (d.day - 1) * gridSize; })
+              .attr("y", function(d) { return (d.hour - 1) * gridSize; })
+              .attr("rx", 4)
+              .attr("ry", 4)
+              .attr("class", "hour bordered")
+              .attr("width", gridSize)
+              .attr("height", gridSize)
+              .style("fill", colors[0]);
+
+          heatMap.transition().duration(1000)
+              .style("fill", function(d) {return colorScale(d.value); });
+
+          heatMap.append("title").text(function(d) { return d.value; });
+              
+          var legend = svg.selectAll(".legend")
+              .data([0].concat(colorScale.quantiles()), function(d) { return d; })
+              .enter().append("g")
+              .attr("class", "legend");
+
+          legend.append("rect")
+            .attr("x", function(d, i) { return legendElementWidth * i; })
+            .attr("y", height)
+            .attr("width", legendElementWidth)
+            .attr("height", gridSize / 2)
+            .style("fill", function(d, i) { return colors[i]; });
+
+          legend.append("text")
+            .attr("class", "mono")
+            .text(function(d) { return "≥ " + d.toFixed(1); })
+            .attr("x", function(d, i) { return legendElementWidth * i; })
+            .attr("y", height + gridSize);
+      });
+})();
+    </script>
+    </div>
+    <p class='content'> I'm not sure how Metro will improve with all the <a class='link' target="_blank" href="http://www.washingtonpost.com/local/trafficandcommuting/metros-financial-woes-could-mean-trouble-for-the-agency-in-june/2015/05/08/d9483288-f59c-11e4-b2f3-af5479e6bbdd_story.html">money it doesn't have</a>, but on the upside there are only more delays, not longer delays. And on an (un)related note DC keeps <a class='link'href="http://greatergreaterwashington.org/post/25828/dc-streets-will-get-seven-new-miles-of-bikeways-in-2015/">expanding bike lanes...</a></p>
+    <hr id='end-line'>
+    <p class='content'><b>Technical notes:</b> Graphics are based on WMATA Disruption reports. <a class='link' target="_blank" href="http://codefordc.org/">Code for DC</a> has wonderfully scraped these reports in easy-to-analyze CSV files at <a class="link"  target="_blank"href="http://www.opendatadc.org/">opendatadc.org</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <p class='content'><sup>*</sup>Data for the first half of 2015 only goes to July 24th. So the numbers are likely even worse!
+      <br><br>
+    </div>
+<div class='col-sm-3 side'>
+    <br> 
+    <ul class="sidebar nav nav-stacked fixed">
+        <li>Archive</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./your-commute-is-getting-worse.html'>The Pain is Real: Your Metro Commute is Getting Worse</a></li>
+            <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
+            <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li>
+        </ul></ul>
+        <br>
+        <li>Connect</li>  
+        <ul><ul class="nav nav-stacked fixed connectbar">
+              <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+              <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+              <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+              <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
+          </ul></ul>
+      </ul>
+    </div>    
+</div>
+  </body>
+</html>
