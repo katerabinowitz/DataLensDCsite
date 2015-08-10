@@ -103,7 +103,7 @@
 <svg class="chart"></svg>
 <script>
 (function() {
-var margin = {top: 20, right: 0, bottom: 30, left: 35},
+var margin = {top: 20, right: 0, bottom: 17, left: 35},
     width = 400 - margin.left - margin.right,
     height =  300- margin.top - margin.bottom;
 
@@ -158,6 +158,7 @@ function type(d) {
 }
 })();
 </script>
+<p class='graph-subtitle'> Source: WMATA Daily Disruption Reports via opendatadc.org.</p>
 </div>
 
 <p class='content'> The first half of 2015 had nearly twice as many delays compared to the same period in the past two years. <b>Added together Metro delays in the first half of 2015 total 17 days 22 hours and 38 minutes.</b> This is two and a half weeks. You could spend all your vacation days waiting for the Metro and still be waiting. This increase is partly due to a spike in delays this winter, but the spring and summer saw worse service as well.</p>
@@ -168,7 +169,7 @@ function type(d) {
 <svg class="chart2"></svg>
 <script>
 (function() {
-var margin = {top: 20, right: 0, bottom: 30, left: 25},
+var margin = {top: 20, right: 0, bottom: 17, left: 25},
     width = 820- margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -223,6 +224,7 @@ function type(d) {
 }
 })();
 </script>
+<p class='graph-subtitle'> Source: WMATA Daily Disruption Reports via opendatadc.org.</p>
 </div>
 
 <p class="content"> It'd be nice if all these delays happened in the early hours of Sunday morning, since so many have long given up on taking the Metro anywhere on weekends. But the Metro is most likely to be delayed when you need it most. The heatmap below shows that delays are heavily concentrated just before and during commuting hours. Of course WMATA *tries* to run twice as many trains during rush hour. But there are more delays per train during that hour as well. Afterall, the benefit of more trains is debatable when you wait ten minutes for three trains to arrive at once.</p>
@@ -412,6 +414,7 @@ function type(d) {
 })();
     </script>
     </div>
+    <p class='graph-subtitle'> Source: WMATA Daily Disruption Reports via opendatadc.org.</p>
     <p class='content'> I'm not sure how Metro will improve with all the <a class='link' target="_blank" href="http://www.washingtonpost.com/local/trafficandcommuting/metros-financial-woes-could-mean-trouble-for-the-agency-in-june/2015/05/08/d9483288-f59c-11e4-b2f3-af5479e6bbdd_story.html">money it doesn't have</a>, but on the upside there are only more delays, not longer delays. And on an (un)related note DC keeps <a class='link'href="http://greatergreaterwashington.org/post/25828/dc-streets-will-get-seven-new-miles-of-bikeways-in-2015/">expanding bike lanes...</a></p>
     <hr id='end-line'>
     <p class='content'><b>Technical notes:</b> Graphics are based on WMATA Disruption reports. <a class='link' target="_blank" href="http://codefordc.org/">Code for DC</a> has wonderfully scraped these reports in easy-to-analyze CSV files at <a class="link"  target="_blank"href="http://www.opendatadc.org/">opendatadc.org</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
