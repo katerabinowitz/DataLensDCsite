@@ -1,0 +1,9 @@
+#stackbar1, #stackbar2{
+  text-align:center;
+}
+
+#map-canvas{
+	margin:auto;
+	width:80%;
+	height:500px;
+}

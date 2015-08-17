@@ -9,41 +9,125 @@
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/wmata-delay.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/10-year-dc-development.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script> 
-    <style>
-  .axis text {
+  <style>
+.axis text {
+    font: 10px sans-serif;
+}
+
+.legend text {
     font: 10px sans-serif;
   }
 
-  .legend text {
-  	font: 10px sans-serif;
-  }
-
-  .axis path,
-  .axis line {
+.axis path,
+.axis line {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
   }
 
-  rect.bordered {
+rect.bordered {
     stroke: #E6E6E6;
     stroke-width:2px;   
-  }
+}
 
-  text.mono {
+text.mono {
     font-size: 9pt;
     font-family: Consolas, courier;
     fill: #aaa;
-  }
-  </style>
+}
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+</style>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
+<script>
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 11,
+    center: {lat: 38.8993488, lng: -77.0145665}
+  });
+
+  var wardLayer = new google.maps.KmlLayer({
+    url: 'https://raw.githubusercontent.com/katerabinowitz/DataLensDCsite/master/Data/DC%20Ward%20Map%20Overlay_New.kml',
+    map:map
+  });
+}
+</script>
+
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+</script>
 </head>
 
 <body>
+<nav class="xsheader navbar navbar-default navbar-static-top">
+  <div class='clearfix xsheader'>      
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span> 
+        </button>
+        <a class="navbar-brand" href="./index.html">
+          <img src="./Images/DataLensDCResponsiveLogo2.png" alt="DataLensDC">  
+        </a>
+      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse dropdown-pull-right" id="main-navbar-custom">
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./subscribe.html">Subscribe</a></li>
+        <li><a href="./archive.html">Archive</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
+          <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
+            <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+            <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+            <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>      
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<nav class="smheader navbar navbar-default navbar-static-top">
+<a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+  <div class="navbar-fixed">
+    <ul class ="headerlist">
+        <li><a href="./about.html">about</a></li>
+        <li><a href="./subscribe.html">subscribe</a></li>
+        <li><a href="mailto:datalensdc@gmail.com">email</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class='content row'>
+  <div class='col-sm-9 col-xs-12'>
+  <br>
+    <h2><a href='./10-year-dc-development.html'>DC Adding Over 15 Million Square Feet to Market in Next 10 Years</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // August 19, 2015</h3>
+    <p class='content'>Cranes and two-story holes the size of city blocks are not uncommon sights in the District. I remember not too long ago waiting in a large downtown parking lot for a Megabus. A Louis Vuitton store just opened there. DC has experienced rapid growth and development in recent years which is only set to continue in the next ten. The Deputy Mayor's Planning and Economic Department (DMPED) execute the Mayor's economic development strategy including real estate development. Over the next ten years through DMPED the city will add over 15 million square feet of real estate to the market. Where is it going?</p>
+
+<div id='stackbar1'>
+    <p class='graph-title'>Square Feet Added to Market by DC City Government, by Year of Completion</p>
+    <p class='graph-subtitle'> Number of square feet by projected year of completion added by DMPED, 2015-2025</p>
+    <svg class="chart"></svg>
 <script>
 (function() {
 var margin = {top: 20, right: 0, bottom: 17, left: 35},
@@ -68,7 +152,7 @@ var yAxis = d3.svg.axis()
     .orient("left")
     .tickFormat(d3.format(".2s"));
 
-var svg = d3.select("body").append("svg")
+var chart = d3.select(".chart")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -88,16 +172,16 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtby
   x.domain(data.map(function(d) { return d.endYr; }));
   y.domain([0, d3.max(data, function(d) { return d.total; })]);
 
-  svg.append("g")
+  chart.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
 
-  svg.append("g")
+  chart.append("g")
       .attr("class", "y axis")
       .call(yAxis);
 
-  var endYr = svg.selectAll(".endYr")
+  var endYr = chart.selectAll(".endYr")
       .data(data)
     .enter().append("g")
       .attr("class", "g")
@@ -111,7 +195,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtby
       .attr("height", function(d) { return y(d.y0) - y(d.y1); })
       .style("fill", function(d) { return color(d.name); });
 
-  var legend = svg.selectAll(".legend")
+  var legend = chart.selectAll(".legend")
       .data(color.domain().slice().reverse())
     .enter().append("g")
       .attr("class", "legend")
@@ -133,9 +217,35 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtby
 });
 })();
 </script>
+<p class='graph-subtitle'> Source: Deputy Mayor's Planning and Economic Development (DMPED), via Property Pipeline.</p>
+</div>
 
-<br><br>
+<p class='graph-title'>District of Columbia Wards</p>
+<div id="map-canvas"></div>
+<script>
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map-canvas'), {
+    zoom: 11,
+    center: {lat: 38.8993488, lng: -77.0145665}
+  });
 
+  var wardLayer = new google.maps.KmlLayer({
+    url: 'https://raw.githubusercontent.com/katerabinowitz/DataLensDCsite/master/Data/DC%20Ward%20Map%20Overlay_New.kml',
+    map:map
+  });
+}
+</script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap">
+    </script>
+
+
+<p class='content'> Ward 3 is the only one untouched by DMPED's plan, unsurprising as it is the wealthiest ward and likely does not have many sizeable underutilized plots. Ward 6 will gain the most space in the next ten years, buoyed by big projects like the former Hines School and St. Elizabeths [CHECK]. It will be interesting to see how these projects changes what is comparatively a more residential and sleepier part of the District. Most of the development over the next ten years is west of Anacostia, with the exception of a single large projection expecting to bring XYZ square feet in the 2020's. Most, though not all, of the new property will be residential.</p>
+
+<div id='stackedbar2'>
+<p class='graph-title'>Square Feet Added to Market by DC City Government, by Property Type</p>
+<p class='graph-subtitle'> Number of square feet per property type added by DMPED, 2015-2025</p>
+<svg class="chart2"></svg>
 <script>
 (function() {
 var margin = {top: 20, right: 0, bottom: 17, left: 35},
@@ -160,7 +270,7 @@ var yAxis = d3.svg.axis()
     .orient("left")
     .tickFormat(d3.format(".2s"));
 
-var svg = d3.select("body").append("svg")
+var chart2 = d3.select(".chart2")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -182,16 +292,16 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtby
   x.domain(data.map(function(d) { return d.Prop; }));
   y.domain([0, d3.max(data, function(d) { return d.total; })]);
 
-  svg.append("g")
+  chart2.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
 
-  svg.append("g")
+  chart2.append("g")
       .attr("class", "y axis")
       .call(yAxis);
 
-  var Prop = svg.selectAll(".Prop")
+  var Prop = chart2.selectAll(".Prop")
       .data(data)
     .enter().append("g")
       .attr("class", "g")
@@ -205,7 +315,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtby
       .attr("height", function(d) { return y(d.y0) - y(d.y1); })
       .style("fill", function(d) { return color(d.name); });
 
-  var legend = svg.selectAll(".legend")
+  var legend = chart2.selectAll(".legend")
       .data(color.domain().slice().reverse())
     .enter().append("g")
       .attr("class", "legend")
@@ -227,3 +337,34 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtby
 });
 })();
 </script>
+    <p class='graph-subtitle'> Source: Deputy Mayor's Planning and Economic Development (DMPED), via Property Pipeline.</p>
+</div>
+    <p class='content'>[Description of graph]<br> Interested in learning more about or tracking progress on these large development projects? Check out the Project Pipeline Database where you can find exact locations, management companies and images for each project.</p>
+    <hr id='end-line'>
+    <p class='content'><b>Technical notes:</b> Graphics are based on the wonderful Project Pipeline database administered by OCTO. Only projects with a reported completion data and square footage were included. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <br><br>
+    </div>
+
+<div class='col-sm-3 side'>
+    <br> 
+    <ul class="sidebar nav nav-stacked fixed">
+        <li>Archive</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+        	<li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
+            <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
+            <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
+            <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li>
+        </ul></ul>
+        <br>
+        <li>Connect</li>  
+        <ul><ul class="nav nav-stacked fixed connectbar">
+              <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+              <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+              <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+              <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
+          </ul></ul>
+      </ul>
+    </div>    
+</div>
+  </body>
+</html>
