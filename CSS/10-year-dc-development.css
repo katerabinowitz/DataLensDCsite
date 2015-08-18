@@ -1,9 +1,16 @@
-#stackbar1, #stackbar2{
+#stackbar1, #stackedbar2{
   text-align:center;
 }
 
-#map-canvas{
-	margin:auto;
-	width:80%;
-	height:500px;
+#wardmap{
+    float: left;
+    margin: 0 0 10px 10px;
+
+}
+
+.ward-title {
+	font-weight:bold;
+	font-size:20px;
+	text-align:left;
+	margin: 0px;
 }

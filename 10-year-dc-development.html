@@ -220,27 +220,12 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtby
 <p class='graph-subtitle'> Source: Deputy Mayor's Planning and Economic Development (DMPED), via Property Pipeline.</p>
 </div>
 
-<p class='graph-title'>District of Columbia Wards</p>
-<div id="map-canvas"></div>
-<script>
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map-canvas'), {
-    zoom: 11,
-    center: {lat: 38.8993488, lng: -77.0145665}
-  });
+<p class='content graph-title ward-title'>District of Columbia Wards</p>
+<br>
+<img id="wardmap" class="content" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/DC_Ward_Map.png/190px-DC_Ward_Map.png" alt="DC ward map">
 
-  var wardLayer = new google.maps.KmlLayer({
-    url: 'https://raw.githubusercontent.com/katerabinowitz/DataLensDCsite/master/Data/DC%20Ward%20Map%20Overlay_New.kml',
-    map:map
-  });
-}
-</script>
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?signed_in=true&callback=initMap">
-    </script>
-
-
-<p class='content'> Ward 3 is the only one untouched by DMPED's plan, unsurprising as it is the wealthiest ward and likely does not have many sizeable underutilized plots. Ward 6 will gain the most space in the next ten years, buoyed by big projects like the former Hines School and St. Elizabeths [CHECK]. It will be interesting to see how these projects changes what is comparatively a more residential and sleepier part of the District. Most of the development over the next ten years is west of Anacostia, with the exception of a single large projection expecting to bring XYZ square feet in the 2020's. Most, though not all, of the new property will be residential.</p>
+<p class='content'> Ward 3 is the only one untouched by DMPED's plan, unsurprising as it is the wealthiest ward. Ward 6 stands to gain the most real estate in the next ten years, buoyed by big projects like the <a class="link" href="http://www.hineschool.com/" target="_blank">former Hines School</a>, the <a class="link" href="http://www.swtlqtc.com/p/southwest-waterfront-redevelopment.html" target="_blank">Waterfront</a> and <a class="link" href="http://www.capitolcrossingdc.com/#tutorial" link="_blank"> Capital Crossing </a> over I-395. Limited development east of the Anacostia occurs in short term but in the 2020's Ward 8 will see a swath of new real estate driven by the renovation of <a class="link" href-"http://dcnewcommunities.org/community/barry-farm/" target="_blank">Barry's Farm</a> and <a class="link" href="http://stelizabethseast.com/" target="_blank">St. Elizabeth's East Campus</a>. While most of the 15 million square feet being brought to the market is residential, not all of it is.</p>
+<p class='graph-subtitle'>Source: Map_of_Washington,_D.C.'s_1st_ward.svg: Dcmacnut derivative work: MarginalCost (Map_of_Washington,_D.C.'s_1st_ward.svg) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0) or <a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a>, via Wikimedia Commons</p>
 
 <div id='stackedbar2'>
 <p class='graph-title'>Square Feet Added to Market by DC City Government, by Property Type</p>
@@ -339,9 +324,9 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtby
 </script>
     <p class='graph-subtitle'> Source: Deputy Mayor's Planning and Economic Development (DMPED), via Property Pipeline.</p>
 </div>
-    <p class='content'>[Description of graph]<br> Interested in learning more about or tracking progress on these large development projects? Check out the Project Pipeline Database where you can find exact locations, management companies and images for each project.</p>
+    <p class='content'>Over half of new developments will be residential, many of which will offer much-needed affordable housing units. Wards east of the Anacostia are the most residential-focused, making up over 88% of new development in the area. Development in ward 2 is the least residential, making up just over a third of new square feet, and instead will see big gains in the hotel market. Wards 5 and 6 will experience the most growth in office space while Ward 6 is the only ward to see square footage gains across all categories, speaking to the diversity of the ward which spans Chinatown, Waterfront and Capitol Hill. The diversity of developments happening across the city in the next 10 years will undoubtedly bring change, and with any luck some cheaper rent too.<br><br> Interested in learning more about or tracking progress on these large development projects? Check out the <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline Database</a> where you can find exact locations, management companies and images for each project.</p>
     <hr id='end-line'>
-    <p class='content'><b>Technical notes:</b> Graphics are based on the wonderful Project Pipeline database administered by OCTO. Only projects with a reported completion data and square footage were included. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <p class='content'><b>Technical notes:</b> Graphics are based on the wonderful <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline database </a> administered by OCTO. Only projects with a reported completion data and square footage were included. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
     <br><br>
     </div>
 
