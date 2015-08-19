@@ -1,4 +1,16 @@
-#stackbar1, #stackedbar2{
+@media (min-width: 0px) and (max-width: 768px){
+     #stackbar1, #stackedbar2 {
+          display:none;
+     }
+}
+
+@media (min-width: 768px) {
+    #smstack1, #smstack2{
+        display:none;
+    }
+}
+
+#stackbar1, #stackedbar2, #smstack1{
   text-align:center;
 }
 
@@ -16,7 +28,15 @@
 }
 
 #wardmap {
-    max-width: 100%;
-    height: auto;
+    max-width: 80%;
+    max-height: 180px;
     width: auto\9; /* ie8 */
+}
+
+
+.wiki-subtitle {
+    text-align:left;
+    margin:0px;
+    font-size: 10px;
+    line-height:10px;
 }

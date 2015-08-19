@@ -12,6 +12,7 @@
 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/wmata-delay.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/10-year-dc-development.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
@@ -121,6 +122,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
     font: 10px sans-serif;
   }
 
+   .legend text {
+    font: 10px sans-serif;
+  }
+
   .axis path,
   .axis line {
     fill: none;
@@ -201,7 +206,206 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
-  <br>
+    <br>
+    <h2><a href='./10-year-dc-development.html'>DC to Add Over 15 Million Square Feet in the Next 10 Years</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // August 19, 2015</h3>
+    <p class='content'>Cranes and holes the size of city blocks are not uncommon sights in the District. I remember not too long ago waiting in a large downtown parking lot for a Megabus. That's now CityCenter, where a Louis Vuitton just opened. DC has experienced rapid development in recent years, which is only set to continue in the next ten. The Office of Deputy Mayor's Planning and Economic Development (DMPED) executes the Mayor's economic development strategy including real estate development. Over the next ten years through DMPED the city will add over 15 million square feet of real estate to the market. Where is it going?...<a class='link' href='./10-year-dc-development.html'>Read on</a></p>
+
+<div id='stackbar1'>
+    <p class='graph-title'>Square Feet Added through DC City Government, by Year of Completion</p>
+    <svg class="schart"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 0, bottom: 17, left: 35},
+    width = 620 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .rangeRound([height, 0]);
+
+var color = d3.scale.ordinal()
+    .range(["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(d3.format(".2s"));
+
+var schart = d3.select(".schart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtbyWardTime.csv", function(error, data) {
+  if (error) throw error;
+
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "endYr"; }));
+
+  data.forEach(function(d) {
+    var y0 = 0;
+    d.sqft = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+    d.total = d.sqft[d.sqft.length - 1].y1;
+  });
+
+  x.domain(data.map(function(d) { return d.endYr; }));
+  y.domain([0, d3.max(data, function(d) { return d.total; })]);
+
+  schart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  schart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  var endYr = schart.selectAll(".endYr")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "g")
+      .attr("transform", function(d) { return "translate(" + x(d.endYr) + ",0)"; });
+
+  endYr.selectAll("rect")
+      .data(function(d) { return d.sqft; })
+    .enter().append("rect")
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.y1); })
+      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+      .style("fill", function(d) { return color(d.name); });
+
+  var legend = schart.selectAll(".legend")
+      .data(color.domain().slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+});
+})();
+</script>
+
+    <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Property Pipeline Database</a>.</p>
+</div>
+
+
+<div id='smstack1'>
+    <p class='graph-title'>Square Feet Added through DC City Government, by Year of Completion</p>
+    <svg class="smchart"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 0, bottom: 17, left: 35},
+    width = 370 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .rangeRound([height, 0]);
+
+var color = d3.scale.ordinal()
+    .range(["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(d3.format(".2s"));
+
+var smchart = d3.select(".smchart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtbyWardTime.csv", function(error, data) {
+  if (error) throw error;
+
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "endYr"; }));
+
+  data.forEach(function(d) {
+    var y0 = 0;
+    d.sqft = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
+    d.total = d.sqft[d.sqft.length - 1].y1;
+  });
+
+  x.domain(data.map(function(d) { return d.endYr; }));
+  y.domain([0, d3.max(data, function(d) { return d.total; })]);
+
+  smchart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  smchart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  var endYr = smchart.selectAll(".endYr")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "g")
+      .attr("transform", function(d) { return "translate(" + x(d.endYr) + ",0)"; });
+
+  endYr.selectAll("rect")
+      .data(function(d) { return d.sqft; })
+    .enter().append("rect")
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.y1); })
+      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
+      .style("fill", function(d) { return color(d.name); });
+
+  var legend = smchart.selectAll(".legend")
+      .data(color.domain().slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+});
+})();
+</script>
+
+    <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Property Pipeline Database</a>.</p>
+</div>
+
+  <br><br>
   <h2><a href='./your-commute-is-getting-worse.html'>The Pain is Real: Your Metro Commute is Getting Worse</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // August 9, 2015</h3>
