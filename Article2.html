@@ -14,33 +14,36 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script> 
-  <style>
+   <style>
   .bar {
     fill: #53CFCF;
     }
+.axis text {
+    font: 10px sans-serif;
+}
 
-  .axis text {
+.legend text {
     font: 10px sans-serif;
   }
 
-  .axis path,
-  .axis line {
+.axis path,
+.axis line {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
   }
 
-  rect.bordered {
+rect.bordered {
     stroke: #E6E6E6;
     stroke-width:2px;   
-  }
+}
 
-  text.mono {
+text.mono {
     font-size: 9pt;
     font-family: Consolas, courier;
     fill: #aaa;
-  }
-  </style>
+}
+</style>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
   <script>
     // var DC = new google.maps.LatLng(-77.0164,38.9047);
@@ -184,65 +187,77 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <hr id='top-line'>
     <h3> Kate Rabinowitz // August 13, 2015 </h3>
      <p class='content'> yadda yadda yadda</p>
+
+<svg class="chart"></svg>
 <script type="text/javascript">
-  var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 660 - margin.left - margin.right,
-    height = 600 - margin.top - margin.bottom;
+var chartWidth       = 300,
+    barHeight        = 20,
+    gapBetweenGroups = 40,
+    spaceForLabels   = 150;
 
 var x = d3.scale.linear()
-    .range([0, width]);
+    .range([0, chartWidth]);
 
-var y = d3.scale.ordinal()
-    .rangeRoundBands([0, height], .2);
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/Farmers-Market-City-Comp/master/Output/Capita%20for%20FM.csv", type, function(error, data) {
+  x.domain([0, d3.max(data, function(d) { return d.percapita; })]);
 
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
+var chartHeight = barHeight * data.length;
+
+var y = d3.scale.linear()
+    .range([chartHeight + gapBetweenGroups, 0]);
 
 var yAxis = d3.svg.axis()
     .scale(y)
+    .tickFormat('')
+    .tickSize(0)
     .orient("left");
 
-  var svg = d3.select("body").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+// Specify the chart area and dimensions
+var chart = d3.select(".chart")
+    .attr("width", spaceForLabels + chartWidth)
+    .attr("height", chartHeight);
 
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/Farmers-Market-City-Comp/master/Output/Capita%20for%20FM.csv", type, function(error, data) {
-  if (error) throw error;
+// Create bars
+var bar = chart.selectAll("g")
+    .data(data)
+    .enter().append("g")
+    // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
+    .attr("transform", function(d, i) {
+      return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.length))) + ")";
+    });
 
-  x.domain(d3.extent(data, function(d) {return d.percapita; })).nice();
-  y.domain(data.map(function(d) { return d.Ccity; }));
 
-  svg.append("g")
-      .attr("class", "x axis")
-      .call(xAxis)
+// Create rectangles of the correct width
+bar.append("rect")
+    .attr("class", "bar")
+    .attr("width", function(d) { return x(d.percapita); })
+    .attr("height", barHeight - 1);
 
-  svg.append("g")
+// Add text label in bar
+bar.append("text")
+    .attr("x", function(d) { return x(d.percapita) - 3; })
+    .attr("y", barHeight / 2)
+    .attr("dy", ".35em")
+    .text(function(d) { return (d.percapita); });
+
+// Draw labels
+bar.append("text")
+    .attr("class", "label")
+    .attr("x", function(d) {return - 100; })
+    .attr("y", barHeight/2)
+    .attr("dy", ".1em")
+    .text(function(d) { return d.Ccity; });
+
+chart.append("g")
       .attr("class", "y axis")
-      .call(xAxis)
-      .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("People per Farmer's Markets");
-
-  svg.selectAll(".bar")
-      .data(data)
-    .enter().append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.percapita); })
-      .attr("height", y.rangeBand())
-      .attr("y", function(d) { return y(d.Ccity); })
-      .attr("width", function(d) { return height - y(d.Ccity); });
+      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
+      .call(yAxis);
 });
 
 function type(d) {
-  d.percapita = +d.percapita;
+  d.percapita = +d.percapita; // coerce to number
   return d;
-}   
+}
   </script>
 
   <p class='content'>yadda</p>
@@ -256,6 +271,8 @@ function type(d) {
     <ul class="sidebar nav nav-stacked fixed">
         <li>Archive</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
+            <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
             <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
             <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li>
         </ul></ul>
@@ -270,4 +287,5 @@ function type(d) {
       </ul>
     </div>    
 </div>
-</body>
+  </body>
+</html>
