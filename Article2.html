@@ -18,30 +18,27 @@
   .bar {
     fill: #53CFCF;
     }
-.axis text {
-    font: 10px sans-serif;
-}
-
-.legend text {
-    font: 10px sans-serif;
+  .label{
+    font: 12px sans-serif;
   }
 
-.axis path,
-.axis line {
+  .axis path,
+  .axis line {
     fill: none;
     stroke: #000;
     shape-rendering: crispEdges;
   }
 
-rect.bordered {
+  rect.bordered {
     stroke: #E6E6E6;
     stroke-width:2px;   
-}
+  }
 
-text.mono {
-    font-size: 9pt;
+  text{
+    font: 9px sans-serif;
+/*    font-size: 9pt;
     font-family: Consolas, courier;
-    fill: #aaa;
+    fill: #aaa;*/
 }
 </style>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
@@ -193,7 +190,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 var chartWidth       = 300,
     barHeight        = 20,
     gapBetweenGroups = 40,
-    spaceForLabels   = 150;
+    spaceForLabels   = 100;
 
 var x = d3.scale.linear()
     .range([0, chartWidth]);
@@ -235,7 +232,7 @@ bar.append("rect")
 
 // Add text label in bar
 bar.append("text")
-    .attr("x", function(d) { return x(d.percapita) - 3; })
+    .attr("x", function(d) { return x(d.percapita-0.3); })
     .attr("y", barHeight / 2)
     .attr("dy", ".35em")
     .text(function(d) { return (d.percapita); });
@@ -243,7 +240,7 @@ bar.append("text")
 // Draw labels
 bar.append("text")
     .attr("class", "label")
-    .attr("x", function(d) {return - 100; })
+    .attr("x", function(d) {return - 80; })
     .attr("y", barHeight/2)
     .attr("dy", ".1em")
     .text(function(d) { return d.Ccity; });
