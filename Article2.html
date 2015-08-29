@@ -36,10 +36,7 @@
 
   text{
     font: 9px sans-serif;
-/*    font-size: 9pt;
-    font-family: Consolas, courier;
-    fill: #aaa;*/
-}
+  }
 </style>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
   <script>
@@ -182,85 +179,85 @@ google.maps.event.addDomListener(window, 'load', initialize);
   <br>
     <h2>Title</h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // August 13, 2015 </h3>
-     <p class='content'> yadda yadda yadda</p>
+    <h3> Kate Rabinowitz // August 31, 2015 </h3>
+     <p class='content'>My husband’s first words to me were basically “Where can I find a good local farmer’s market?” to which I responded MARRY ME. This is how much I enjoy farmer’s markets. I’ve been fortunate that wherever I’ve lived in the District a good farmer’s market has never been more than a short Saturday morning jaunt in warmer months.</p> 
+    <div class="content row">
+    <div class="col-md-7 col-sm-12">
+    <p class='graph-title'>Farmer's Market Per Capita in American Cities</p>
+    <p class='graph-subtitle'> Number of farmer's markets per 100,000 people</p>
+      <svg class="chart"></svg>
+      <script type="text/javascript">
+      var chartWidth       = 275,
+        barHeight        = 20,
+        gapBetweenGroups = 40,
+        spaceForLabels   = 80;
 
-<svg class="chart"></svg>
-<script type="text/javascript">
-var chartWidth       = 300,
-    barHeight        = 20,
-    gapBetweenGroups = 40,
-    spaceForLabels   = 100;
+      var x = d3.scale.linear()
+        .range([0, chartWidth]);
 
-var x = d3.scale.linear()
-    .range([0, chartWidth]);
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Farmers-Market-City-Comp/master/Output/Capita%20for%20FM.csv", type, function(error, data) {
+          x.domain([0, d3.max(data, function(d) { return d.percapita; })]);
 
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/Farmers-Market-City-Comp/master/Output/Capita%20for%20FM.csv", type, function(error, data) {
-  x.domain([0, d3.max(data, function(d) { return d.percapita; })]);
+      var chartHeight = barHeight * data.length;
 
-var chartHeight = barHeight * data.length;
+      var y = d3.scale.linear()
+        .range([chartHeight + gapBetweenGroups, 0]);
 
-var y = d3.scale.linear()
-    .range([chartHeight + gapBetweenGroups, 0]);
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .tickFormat('')
-    .tickSize(0)
-    .orient("left");
-
+      var yAxis = d3.svg.axis()
+        .scale(y)
+        .tickFormat('')
+        .tickSize(0)
+        .orient("left");
 // Specify the chart area and dimensions
-var chart = d3.select(".chart")
-    .attr("width", spaceForLabels + chartWidth)
-    .attr("height", chartHeight);
-
+      var chart = d3.select(".chart")
+        .attr("width", spaceForLabels + chartWidth)
+        .attr("height", chartHeight);
 // Create bars
-var bar = chart.selectAll("g")
-    .data(data)
-    .enter().append("g")
-    // .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
-    .attr("transform", function(d, i) {
-      return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.length))) + ")";
+    var bar = chart.selectAll("g")
+        .data(data)
+        .enter().append("g")
+        .attr("transform", function(d, i) {
+        return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.length))) + ")";
     });
-
-
 // Create rectangles of the correct width
-bar.append("rect")
-    .attr("class", "bar")
-    .attr("width", function(d) { return x(d.percapita); })
-    .attr("height", barHeight - 1);
-
+    bar.append("rect")
+      .attr("class", "bar")
+      .attr("width", function(d) { return x(d.percapita); })
+      .attr("height", barHeight - 1);
 // Add text label in bar
-bar.append("text")
-    .attr("x", function(d) { return x(d.percapita-0.3); })
-    .attr("y", barHeight / 2)
-    .attr("dy", ".35em")
-    .text(function(d) { return (d.percapita); });
-
+    bar.append("text")
+      .attr("x", function(d) { return x(d.percapita-0.3); })
+      .attr("y", barHeight / 2)
+      .attr("dy", ".35em")
+        .text(function(d) { return (d.percapita); });
 // Draw labels
-bar.append("text")
-    .attr("class", "label")
-    .attr("x", function(d) {return - 80; })
-    .attr("y", barHeight/2)
-    .attr("dy", ".1em")
-    .text(function(d) { return d.Ccity; });
+    bar.append("text")
+      .attr("class", "label")
+      .attr("x", function(d) {return - 80; })
+      .attr("y", barHeight/2)
+      .attr("dy", ".1em")
+      .text(function(d) { return d.Ccity; });
 
-chart.append("g")
+    chart.append("g")
       .attr("class", "y axis")
       .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
       .call(yAxis);
-});
+    });
 
-function type(d) {
-  d.percapita = +d.percapita; // coerce to number
-  return d;
-}
-  </script>
-
-  <p class='content'>yadda</p>
-
-    <div id="map-canvas"></div>
-    <br><br><br>
+    function type(d) {
+      d.percapita = +d.percapita; // coerce to number
+    return d;
+    }
+    </script>
+    <p class='graph-subtitle'> Source: USDA Farmer's Market Directory.</p>
+  </div>
+  <div class="col-md-5 col-sm-12">
+  <p> I was curious how much this experience was about my personal preferences or DC as a city, and how this compared to other American cities. It turns out DC is a farmer’s market mecca. <br> The District has the highest farmer’s markets per capita of large American cities. For every 100,000 people there are just over five farmer’s markets. Put another way, there is one farmer’s market in DC for every 18,832 people. The next highest farmer’s market per capita is Portland, Oregon, unsurprising given it’s locavore culture, under four farmer’s marker per 100,000 people. </p>
+  </div>
+  </div>
+  <p class='content'>And where can all these farmer’s markets be found? Check out the map below to see DC’s farmer’s markets and click on the icon to find dates and times.</p>
+  <div id="map-canvas"></div>
+  <br><br><br>
 </div>
     
 <div class='col-sm-3 side'>
