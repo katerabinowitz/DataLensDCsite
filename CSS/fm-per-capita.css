@@ -1,6 +1,15 @@
-#map-canvas{
+#rankbar rect:hover{
+        fill: orange;
+
+}
+
+#rankbar{
+	text-align:center;
+}
+
+#fm-dc-map{
 	margin:auto;
-	width:300px;
+	width:80%;
 	height:500px;
 }
 

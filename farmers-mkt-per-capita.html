@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-  <title>Farmer's Market Capital</title>
+  <title>DC #1 in Farmer's Markets per Capita</title>
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/wmata-delay.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/fm-per-capita.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -104,9 +104,10 @@
            mapTypeIds: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
         },
         mapTypeId: MY_MAPTYPE_ID,
-        streetViewControl: false
+        streetViewControl: false,
+        panControl: false
       };
-      var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+      var map = new google.maps.Map(document.getElementById('fm-dc-map'), mapOptions);
   
       var styledMapOptions= {
         name:'Custom Style'
@@ -124,7 +125,7 @@
       var address = event.feature.getProperty("address");
       var date = event.feature.getProperty("date");
       var time = event.feature.getProperty("time");
-      infowindow.setContent("<div id='iw'> <div id='iw-title'>"+ FMname +"</div>"+ address + "<br>Dates: "+ date + "<br> Day & Time: " + time + "</p></div>");
+      infowindow.setContent("<div id='iw'> <div id='iw-title'>"+ FMname +"</div>"+ address + "<br>Open: "+ date + "<br> Day & Time: " + time + "</p></div>");
       infowindow.setPosition(event.feature.getGeometry().get());
       infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
       infowindow.open(map);
@@ -132,6 +133,16 @@
     }
 
 google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+
 </script>
 </head>
 
@@ -177,15 +188,16 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div class='content row'>
   <div class='col-sm-9 col-xs-12'>
   <br>
-    <h2>Title</h2>
+    <h2>DC #1 in Farmer's Markets per Capita</h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // August 31, 2015 </h3>
-     <p class='content'>My husband’s first words to me were basically “Where can I find a good local farmer’s market?” to which I responded MARRY ME. This is how much I enjoy farmer’s markets. I’ve been fortunate that wherever I’ve lived in the District a good farmer’s market has never been more than a short Saturday morning jaunt in warmer months.</p> 
+     <p class='content'>My husband’s first words to me were basically “Where can I find a good local farmer’s market?” to which I responded MARRY ME. That's how much I like farmer's markets. I’ve been fortunate that wherever I’ve lived in the District a good farmer’s market has never been more than a short Saturday morning jaunt in warmer months. I was curious if I simply gravitated to places near markets or this was more of a universal DC experience, and how DC compared to other American cities. </p> 
     <div class="content row">
     <div class="col-md-7 col-sm-12">
-    <p class='graph-title'>Farmer's Market Per Capita in American Cities</p>
+    <p class='graph-title'>Farmer's Markets Per Capita in American Cities</p>
     <p class='graph-subtitle'> Number of farmer's markets per 100,000 people</p>
-      <svg class="chart"></svg>
+      <div id="rankbar">
+      <svg class="rank"></svg>
       <script type="text/javascript">
       var chartWidth       = 275,
         barHeight        = 20,
@@ -209,11 +221,11 @@ google.maps.event.addDomListener(window, 'load', initialize);
         .tickSize(0)
         .orient("left");
 // Specify the chart area and dimensions
-      var chart = d3.select(".chart")
+      var rank = d3.select(".rank")
         .attr("width", spaceForLabels + chartWidth)
         .attr("height", chartHeight);
 // Create bars
-    var bar = chart.selectAll("g")
+    var bar = rank.selectAll("g")
         .data(data)
         .enter().append("g")
         .attr("transform", function(d, i) {
@@ -226,7 +238,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
       .attr("height", barHeight - 1);
 // Add text label in bar
     bar.append("text")
-      .attr("x", function(d) { return x(d.percapita-0.3); })
+      .attr("x", function(d) { return x(d.percapita-0.4); })
       .attr("y", barHeight / 2)
       .attr("dy", ".35em")
         .text(function(d) { return (d.percapita); });
@@ -238,7 +250,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
       .attr("dy", ".1em")
       .text(function(d) { return d.Ccity; });
 
-    chart.append("g")
+    rank.append("g")
       .attr("class", "y axis")
       .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
       .call(yAxis);
@@ -251,13 +263,20 @@ google.maps.event.addDomListener(window, 'load', initialize);
     </script>
     <p class='graph-subtitle'> Source: USDA Farmer's Market Directory.</p>
   </div>
+  </div>
   <div class="col-md-5 col-sm-12">
-  <p> I was curious how much this experience was about my personal preferences or DC as a city, and how this compared to other American cities. It turns out DC is a farmer’s market mecca. <br> The District has the highest farmer’s markets per capita of large American cities. For every 100,000 people there are just over five farmer’s markets. Put another way, there is one farmer’s market in DC for every 18,832 people. The next highest farmer’s market per capita is Portland, Oregon, unsurprising given it’s locavore culture, under four farmer’s marker per 100,000 people. </p>
+  <p>It turns out DC is a farmer’s market paradise. The District has the highest farmer’s markets per capita of large American cities. For every 100,000 people there are just over five. Put another way, there's a market in DC for every 18,832 people.<br> Not only is DC on top, but by a considerable margin. The next highest is Portland, Oregon, unsurprising given it’s locavore culture, but it has just under four farmer’s markets per 100,000 people.<br>What brings DC to the top? It's a walkable city with an emphasis on smaller, neighborhood markets as opposed to largescale city center ones. The District's close to farmland with long growing seasons. Federal agencies host their own markets and the well-organized reach of non-profits like <a class="link" target="_blank" href="https://www.freshfarmmarkets.org/">FreshFarm Markets</a> help to increase local food accessibility. Of course, having so many farmer's market per capita does not mean they are accessible to everyone. There is a heavy concentration of farmer's market west of the Anacostia and southeast of Rock Creek Park but outside of those areas markets are rarer and there are in fact none in ward seven.</p>
   </div>
   </div>
-  <p class='content'>And where can all these farmer’s markets be found? Check out the map below to see DC’s farmer’s markets and click on the icon to find dates and times.</p>
-  <div id="map-canvas"></div>
-  <br><br><br>
+  <p class='content'>Where can all these farmer’s markets be found? Check out the map below to see DC’s farmer’s markets and click on the icon to find dates and times (where available).</p>
+  <p class='graph-title'>Washington D.C. Farmer's Markets</p>
+  <p class='graph-subtitle'> Click on an icon to display the farmer's market address, date and time</p>
+  <div id="fm-dc-map" class="content"></div>
+  <p class='graph-subtitle'> Source: USDA Farmer's Market Directory.<br>Don't see information about your farmer's market? Be a good data citizen and <a class="link" target="_blank" href="http://search.ams.usda.gov/farmersmarkets/">update the Directory</a> yourself!</p>
+  <br>
+  <hr id='end-line'>
+  <p class='content'><b>Technical notes:</b> Graphics and rankings are based on the <a class="link" target="_blank" href="http://search.ams.usda.gov/farmersmarkets/">USDA Farmer's Market directory</a>, Census population estimates and Census zip code tabulation areas. Large American cities are defined as those with a population over 500,000. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+  <br><br>
 </div>
     
 <div class='col-sm-3 side'>
@@ -265,6 +284,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <ul class="sidebar nav nav-stacked fixed">
         <li>Archive</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
             <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
             <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
             <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
