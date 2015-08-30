@@ -13,6 +13,7 @@
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/wmata-delay.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/10-year-dc-development.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/fm-per-capita.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
@@ -117,6 +118,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
   .bar {
     fill: #53CFCF;
     }
+  
+  .label{
+    font: 12px sans-serif;
+  }
 
   .axis text {
     font: 10px sans-serif;
@@ -150,6 +155,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
   text.axis-worktime {
     fill: #000;
+  }
+
+  text{
+    font: 9px sans-serif;
   }
   </style>
 
@@ -207,6 +216,81 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
     <br>
+    <h2>DC #1 in Farmer's Markets per Capita</h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // August 31, 2015 </h3>
+    <p class='content'>My husband’s first words to me were basically “Where can I find a good local farmer’s market?” to which I responded MARRY ME. That's how much I like farmer's markets. I’ve been fortunate that wherever I’ve lived in the District a good farmer’s market has never been more than a short Saturday morning jaunt in warmer months. I was curious if I simply gravitated to places near markets or this was more of a universal DC experience, and how DC compared to other American cities.</p> 
+    <p class='graph-title'>Top 10 Farmer's Market Cities</p>
+    <p class='graph-subtitle'> Number of farmer's markets per 100,000 people</p>
+      <div id="rankbar">
+      <svg class="rank"></svg>
+      <script type="text/javascript">
+      var chartWidth       = 275,
+        barHeight        = 20,
+        gapBetweenGroups = 40,
+        spaceForLabels   = 80;
+
+      var x = d3.scale.linear()
+        .range([0, chartWidth]);
+
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Farmers-Market-City-Comp/master/Output/top10FMCity.csv", type, function(error, data) {
+          x.domain([0, d3.max(data, function(d) { return d.percapita; })]);
+
+      var chartHeight = barHeight * data.length;
+
+      var y = d3.scale.linear()
+        .range([chartHeight + gapBetweenGroups, 0]);
+
+      var yAxis = d3.svg.axis()
+        .scale(y)
+        .tickFormat('')
+        .tickSize(0)
+        .orient("left");
+// Specify the chart area and dimensions
+      var rank = d3.select(".rank")
+        .attr("width", spaceForLabels + chartWidth)
+        .attr("height", chartHeight);
+// Create bars
+    var bar = rank.selectAll("g")
+        .data(data)
+        .enter().append("g")
+        .attr("transform", function(d, i) {
+        return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.length))) + ")";
+    });
+// Create rectangles of the correct width
+    bar.append("rect")
+      .attr("class", "bar")
+      .attr("width", function(d) { return x(d.percapita); })
+      .attr("height", barHeight - 1);
+// Add text label in bar
+    bar.append("text")
+      .attr("x", function(d) { return x(d.percapita-0.4); })
+      .attr("y", barHeight / 2)
+      .attr("dy", ".35em")
+        .text(function(d) { return (d.percapita); });
+// Draw labels
+    bar.append("text")
+      .attr("class", "label")
+      .attr("x", function(d) {return - 80; })
+      .attr("y", barHeight/2)
+      .attr("dy", ".1em")
+      .text(function(d) { return d.Ccity; });
+
+    rank.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
+      .call(yAxis);
+    });
+
+    function type(d) {
+      d.percapita = +d.percapita; // coerce to number
+    return d;
+    }
+    </script>
+    </div>
+    <p class='graph-subtitle'> Source: USDA Farmer's Market Directory.</p>
+    <p class='content'>It turns out DC is a farmer’s market paradise...<a class='link' href='./farmers-mkt-per-capita.html'>Read on</a> </p>
+    <br><br>
     <h2><a href='./10-year-dc-development.html'>DC to Add Over 15 Million Square Feet in the Next 10 Years</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // August 19, 2015</h3>
@@ -500,6 +584,7 @@ function type(d) {
     <br>
   			<li>Archive</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
             <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
             <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
             <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
