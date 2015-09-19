@@ -228,6 +228,7 @@ h3 {
 }
 
 #map-canvas{
+	display:block;
 	margin:auto;
 	width:90%;
 	height:380px;
