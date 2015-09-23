@@ -75,11 +75,11 @@
     <h2><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // September 23, 2015 </h3>
-     <p class='content'>Guilty pleasure confession: One of my favorite shows is <a class='link' target="_blank" href="http://www.foodnetwork.com/shows/diners-drive-ins-and-dives.html">Diners, Drive-Ins and Dives</a>. If you’re uninitiated it’s a show where <a class='link' target="_blank" href="https://www.google.com/search?q=google+images+guy+fieri&espv=2&biw=1274&bih=679&tbm=isch&tbo=u&source=univ&sa=X&ved=0CBwQsARqFQoTCOv5uNjxi8gCFcV7PgodDCQC_g">90’s emoji Guy Fieri</a> visits restaurants around the country. I can’t be sure what it is  exactly - Fieri’s bleached inner goatee or how he unironically uses phrases like “that’s killer!” and “off the hook!” - but if I’m in a hotel room there’s an 85% chance that show is on.</p> 
+     <p class='content'>Guilty pleasure confession: One of my favorite shows is <a class='link' target="_blank" href="http://www.foodnetwork.com/shows/diners-drive-ins-and-dives.html">Diners, Drive-Ins and Dives</a>. If you’re uninitiated it’s a show where <a class='link' target="_blank" href="https://www.google.com/search?q=google+images+guy+fieri&espv=2&biw=1274&bih=679&tbm=isch&tbo=u&source=univ&sa=X&ved=0CBwQsARqFQoTCOv5uNjxi8gCFcV7PgodDCQC_g">90’s emoji Guy Fieri</a> visits restaurants around the country. I can’t be sure what it is exactly - how Fieri bleaches only the inner bit of his goatee or unironically uses phrases like “that’s killer!” and “off the hook!” - but if I’m in a hotel room there’s an 85% chance that show is on.</p> 
       <p class='graph-title'>Guy Fieri Diner, Drive-in and Dives Visits</p>
       <p class='graph-subtitle'>Number of times a city is featured on Diners, Drive-ins and Dives</p>
-      <div id="barchart1">
-<svg class="chart"></svg>
+      <div id="dddbar1">
+<svg class="ddd"></svg>
 <script>
 (function() {
 var margin = {top: 20, right: 20, bottom: 60, left: 35},
@@ -101,7 +101,7 @@ var yAxis = d3.svg.axis()
     .outerTickSize(0)
     .orient("left");
 
-var chart = d3.select(".chart")
+var ddd = d3.select(".ddd")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -111,7 +111,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/cityDDDsu
   x.domain(data.map(function(d) { return d.City; }));
   y.domain([0, d3.max(data, function(d) { return d.Resturant; })]);
 
-  chart.append("g")
+  ddd.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis)
@@ -122,11 +122,11 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/cityDDDsu
       .attr("transform", "rotate(60)")
       .style("text-anchor", "start");;
 
-  chart.append("g")
+  ddd.append("g")
       .attr("class", "y axis")
       .call(yAxis);
 
-  chart.selectAll(".bar")
+  ddd.selectAll(".bar")
     .data(data)
     .enter()
     .append("rect")
@@ -147,7 +147,7 @@ function type(d) {
       <p class='graph-subtitle'> Source: <a class='link' target="_blank" href="http://ddd-and-yelp.mybluemix.net/"> Restaurants of Diners Drive-ins and Dives</a> by <a class='link' target="_blank" href="https://twitter.com/MaggieCriqui"> Maggie Criqui</a>.</p>
       </div>
     <p class="content">After an embarrassing number of hours spent with Food Network however, I've become disappointed with how rarely Guy Fieri visits my city. Across 22 seasons Guy Fieri has been to DC only four times. And it’s not like he hasn’t been in the neighborhood. He’s been to fifteen Baltimore restaurants and visited Virginia Beach, a city two-thirds the size of DC, seven times. So what’s Guy Fieri’s DC problem? <br><br>For one, he’s not visiting the best of the DC dining scene. The average Yelp rating for DC restaurants he’s visited is 3.625, lower than most other cities he’s visited and lower than the overall DC restaurant average Yelp rating.</p>
-<div id="barchart2">
+<div id="dddbar2">
       <p class='graph-title'>Guy Fieri Diner, Drive-in and Dives Ratings by City</p>
       <p class='graph-subtitle'>Average Yelp rating for restaurants featured by city</p>
 <svg class="ddd2"></svg>
@@ -262,6 +262,7 @@ function type(d) {
     <ul class="sidebar nav nav-stacked fixed">
         <li>Archive</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
             <li><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></li>
             <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
             <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
