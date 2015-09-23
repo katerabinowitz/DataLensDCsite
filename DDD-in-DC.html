@@ -242,7 +242,7 @@ function type(d) {
 
         featureLayer.on('ready', function() {
         featureLayer.eachLayer(function(layer) {
-             var content = '<p class="content">Restaurant: ' + layer.feature.properties.name +
+             var content = '<p class="content">Restaurant: ' + layer.feature.properties.name + '<br>' +
         'Season: ' + layer.feature.properties.season + '<br>' +
         'Episode: ' + layer.feature.properties.episode + '</p>';
                 layer.bindPopup(content);
