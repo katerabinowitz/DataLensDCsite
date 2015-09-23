@@ -14,34 +14,9 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script> 
-  <script type="text/javascript" src="boxplot.js"></script>  
 
   <script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
   <link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' />
-   <style>
-  .bar {
-    fill: #53CFCF;
-    }
-  .label{
-    font: 12px sans-serif;
-  }
-
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-  }
-
-  rect.bordered {
-    stroke: #E6E6E6;
-    stroke-width:2px;   
-  }
-
-  text{
-    font: 9px sans-serif;
-  }
-</style>
  
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -100,86 +75,160 @@
     <h2><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // September 23, 2015 </h3>
-     <p class='content'>Guilty pleasure confession: One of my favorite shows is <a class='link' target="_blank" href="http://www.foodnetwork.com/shows/diners-drive-ins-and-dives.html">Diner, Drive-Ins and Dives</a>. If you’re uninitiated it’s a show where <a class='link' target="_blank" href="https://en.wikipedia.org/wiki/Guy_Fieri">90’s emoji Guy Fieri</a> visits restaurants around the country. I can’t be sure what it is  exactly- Fieri’s bleached inner goatee, the sunglasses on the back of his head, how he uninvitedly tastes everything in the kitchen or unironically uses phrases like “that’s killer!” and “off the hook!”  - but if I’m in a hotel room there’s an 85% chance that show is on.</p> 
-    <div class="content row">
-    <div class="col-md-6 col-sm-12">
-      <p class='graph-title'>Guy Fieri Diner,Drive-in and Dives Visits</p>
-      <p class='graph-subtitle'>Number of times a restaurant in given city is featured</p>
-        <div id="barchart1">
-          <svg class="ddd"></svg>
-            <script type="text/javascript">
-              var chartWidth     = 275,
-                  barHeight        = 20,
-                  gapBetweenGroups = 40,
-                  spaceForLabels   = 80;
+     <p class='content'>Guilty pleasure confession: One of my favorite shows is <a class='link' target="_blank" href="http://www.foodnetwork.com/shows/diners-drive-ins-and-dives.html">Diners, Drive-Ins and Dives</a>. If you’re uninitiated it’s a show where <a class='link' target="_blank" href="https://www.google.com/search?q=google+images+guy+fieri&espv=2&biw=1274&bih=679&tbm=isch&tbo=u&source=univ&sa=X&ved=0CBwQsARqFQoTCOv5uNjxi8gCFcV7PgodDCQC_g">90’s emoji Guy Fieri</a> visits restaurants around the country. I can’t be sure what it is  exactly - Fieri’s bleached inner goatee or how he unironically uses phrases like “that’s killer!” and “off the hook!” - but if I’m in a hotel room there’s an 85% chance that show is on.</p> 
+      <p class='graph-title'>Guy Fieri Diner, Drive-in and Dives Visits</p>
+      <p class='graph-subtitle'>Number of times a city is featured on Diners, Drive-ins and Dives</p>
+      <div id="barchart1">
+<svg class="chart"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 20, bottom: 60, left: 35},
+    width = 650 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
 
-              var x = d3.scale.linear()
-                .range([0, chartWidth]);
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
 
-              d3.csv("https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/cityDDDsum.csv", type, function(error, data) {
-                  x.domain([0, d3.max(data, function(d) { return d.Resturant; })]);
+var y = d3.scale.linear()
+    .range([height, 0]);
 
-              var chartHeight = barHeight * data.length;
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
 
-              var y = d3.scale.linear()
-                .range([chartHeight + gapBetweenGroups, 0]);
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
 
-              var yAxis = d3.svg.axis()
-                .scale(y)
-                .tickFormat('')
-                .tickSize(0)
-                .orient("left");
+var chart = d3.select(".chart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-              var ddd = d3.select(".ddd")
-                .attr("width", spaceForLabels + chartWidth)
-                .attr("height", chartHeight);
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/cityDDDsum.csv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.City; }));
+  y.domain([0, d3.max(data, function(d) { return d.Resturant; })]);
 
-              var bar = ddd.selectAll("g")
-                .data(data)
-                .enter().append("g")
-                .attr("transform", function(d, i) {
-                return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.length))) + ")";
-            });
+  chart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
 
-            bar.append("rect")
-            .attr("class", "bar")
-            .attr("width", function(d) { return x(d.Resturant); })
-            .attr("height", barHeight - 1);
+  chart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-            bar.append("text")
-            .attr("x", function(d) { return x(d.Resturant-0.4); })
-            .attr("y", barHeight / 2)
-            .attr("dy", ".35em")
-            .text(function(d) { return (d.Resturant); });
-
-          bar.append("text")
-          .attr("class", "label")
-          .attr("x", function(d) {return - 80; })
-          .attr("y", barHeight/2)
-          .attr("dy", ".1em")
-          .text(function(d) { return d.City; });
-
-          ddd.append("g")
-          .attr("class", "y axis")
-          .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
-          .call(yAxis);
-         });
-
-        function type(d) {
-          d.Resturant = +d.Resturant; // coerce to number
-        return d;
-        }
-      </script>
+  chart.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
+      .attr("x", function(d) { return x(d.City); })
+      .attr("y", function(d) { return y(d.Resturant); })
+      .attr("height", function(d) { return height - y(d.Resturant); })
+      .attr("width", x.rangeBand());
+         
+});
+function type(d) {
+  d.Resturant = +d.Resturant;
+  return d;
+}
+})();
+</script>
+      <p class='graph-subtitle'> Source: <a class='link' target="_blank" href="http://ddd-and-yelp.mybluemix.net/"> Restaurants of Diners Drive-ins and Dives</a> by <a class='link' target="_blank" href="https://twitter.com/MaggieCriqui"> Maggie Criqui</a>.</p>
       </div>
-      <p class='graph-subtitle'> Source: Restaurants of Diners, Drive-ins and Dives by Maggie Criqui.</p>
-  </div>
-  <div class="col-md-6 col-sm-12">
-    <p>The only disappointment is that Guy Fieri has so rarely visited my neck of the woods. Across thirteen seasons Guy Fieri has been to DC only four times. And it’s not like he hasn’t been in the neighborhood. He’s been to fifteen Baltimore restaurants and seven in Virginia Beach. So what’s Guy Fieri’s DC problem? <br>While, for one, he’s not visiting the best of the DC dining scene. The average Yelp rating for DC restaurants he’s visited is 3.625, lower than most other cities he’s visited and lower than the overall DC restaurant average Yelp rating.<br>But I think there’s more to it and the lack of Diner, Drive-ins and Dives visits actually reflects a few things about the DC food scene. Much of the show is dedicated to community favorite cheap eats, mom and pop diners, and cultural food institutions. DC doesn't frankly have a high proportion of any of these due to it's more transient population, lack of strong ties to historical immigrant communities and traditionally more of a focus on lawyers who lunch as opposed to casual cheap eats. But I think that's been changing as more people chose to stay longer in the District and a more vibrant food culture takes hold through food trucks, cheap eats like Fast Gourmet, .<br>On the upside, at least we know for sure Guy Fieri won’t be opening one of his <a class="link" target="_blank" href="http://www.nytimes.com/2012/11/14/dining/reviews/restaurant-review-guys-american-kitchen-bar-in-times-square.html?_r=0">infamous restaurants</a> here anytime soon.</p>
-  </div>
-  </div>
+    <p class="content">After an embarrassing number of hours spent with Food Network however, I've become disappointed with how rarely Guy Fieri visits my city. Across 22 seasons Guy Fieri has been to DC only four times. And it’s not like he hasn’t been in the neighborhood. He’s been to fifteen Baltimore restaurants and visited Virginia Beach, a city two-thirds the size of DC, seven times. So what’s Guy Fieri’s DC problem? <br><br>For one, he’s not visiting the best of the DC dining scene. The average Yelp rating for DC restaurants he’s visited is 3.625, lower than most other cities he’s visited and lower than the overall DC restaurant average Yelp rating.</p>
+<div id="barchart2">
+      <p class='graph-title'>Guy Fieri Diner, Drive-in and Dives Ratings by City</p>
+      <p class='graph-subtitle'>Average Yelp rating for restaurants featured by city</p>
+<svg class="ddd2"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 20, bottom: 60, left: 35},
+    width = 650 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var chart = d3.select(".ddd2")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/cityDDDsum.csv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.City; }));
+  y.domain([0, d3.max(data, function(d) { return d.Rating; })]);
+
+  chart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+    .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
+
+  chart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  chart.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.City); })
+      .attr("y", function(d) { return y(d.Rating); })
+      .attr("height", function(d) { return height - y(d.Rating); })
+      .attr("width", x.rangeBand());
+
+  chart.append("line")
+  .style("stroke", "orange")
+  .attr("x1", 0)
+  .attr("y1", y(3.625))
+  .attr("x2", width)
+  .attr("y2", y(3.625));
+         
+});
+function type(d) {
+  d.Rating = +d.Rating;
+  return d;
+}
+})();
+</script>
+      <p class='graph-subtitle'> Source: <a class='link' target="_blank" href="http://ddd-and-yelp.mybluemix.net/"> Restaurants of Diners Drive-ins and Dives</a> by <a class='link' target="_blank" href="https://twitter.com/MaggieCriqui"> Maggie Criqui</a>.</p>
+      </div>
+      <p class='content'>But I think there’s more to it and the lack of Diner, Drive-ins and Dives visits actually reflects a few things about the DC food scene. Much of the show is dedicated to community favorite cheap eats, mom and pop diners, and cultural food institutions. DC frankly doesn't have a high proportion of any of these due to it's more transient population and traditionally more of a focus on lawyers who lunch as opposed to casual cheap eats. <br><br>That has been changing as more people stay in the District longer and a more vibrant food culture takes hold through food trucks like Puddin', cheap eats like Fast Gourmet and nationally acclaimed spots like Rose's Luxury.<br><br>Of course this isn't to say DC lacks great food. As Maggie Criqui shows, <a class='link' target="_blank" href="http://ddd-and-yelp.mybluemix.net/">Guy Fieri's unending restaurant enthusiasm doesn't exactly hold up to Yelp</a>. And on the upside, at least we know for sure Guy Fieri won’t be opening one of his <a class="link" target="_blank" href="http://www.nytimes.com/2012/11/14/dining/reviews/restaurant-review-guys-american-kitchen-bar-in-times-square.html?_r=0">infamous restaurants</a> here anytime soon.</p>
 
   <p class='content'> Want to take a tour of the spots Diners, Drive-ins and Dives has visited in the area? Check out the map below:</p>
 
+    <div class="content dddmap">
     <div class='content' id='map'></div>
     <script>
       L.mapbox.accessToken = 'pk.eyJ1IjoiZGF0YWxlbnNkYyIsImEiOiJjaWVnOGttYnMwMDBqc2htM2ZmcjZ4NmZxIn0.9iGQPNKsl1jtP5KriDm3wQ';
@@ -189,17 +238,22 @@
       var featureLayer = L.mapbox.featureLayer()
         .loadURL('https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/ddd-dmv.geosjon')
         .addTo(map);
+        
 
-      featureLayer.on('ready', function() {
+        featureLayer.on('ready', function() {
         featureLayer.eachLayer(function(layer) {
-                layer.bindPopup(layer.feature.properties.name);
+             var content = '<p class="content">Restaurant: ' + layer.feature.properties.name +
+        'Season: ' + layer.feature.properties.season + '<br>' +
+        'Episode: ' + layer.feature.properties.episode + '</p>';
+                layer.bindPopup(content);
             });
           })
-        .addTo(map);
+        .addTo(map); 
     </script>
+    </div>
     <br><br>
   <hr id='end-line'>
-  <p class='content'><b>Technical notes:</b> Data and graphics shown are based off the You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+  <p class='content'><b>Technical notes:</b> Data and graphics shown are based off <a class='link' target="_blank" href="http://ddd-and-yelp.mybluemix.net/"> Restaurants of Diners Drive-ins and Dives</a> by <a class='link' target="_blank" href="https://twitter.com/MaggieCriqui"> Maggie Criqui</a>, which  was presented at great local group <a class='link' target="_blank" href="http://dc.hackandtell.org/">DC Hack and Tell</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
   <br><br>
 </div>
     
@@ -224,7 +278,7 @@
               <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
           </ul></ul>
       </ul>
-    </div>    
+    </div>     
 </div>
   </body>
 </html>
