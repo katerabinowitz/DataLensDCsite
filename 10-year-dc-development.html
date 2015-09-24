@@ -50,22 +50,6 @@ text.mono {
         height: 100%;
       }
 </style>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
-<script>
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map-canvas'), {
-    zoom: 11,
-    center: {lat: 38.8993488, lng: -77.0145665}
-  });
-
-  var wardLayer = new google.maps.KmlLayer({
-    url: 'https://raw.githubusercontent.com/katerabinowitz/DataLensDCsite/master/Data/DC%20Ward%20Map%20Overlay_New.kml',
-    map:map
-  });
-}
-</script>
-
  <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
