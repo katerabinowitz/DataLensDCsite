@@ -1,0 +1,26 @@
+  #citiesBar{
+  	text-align:center;
+  }
+
+  .bar {
+    fill: #53CFCF;
+    }
+  .label{
+    font: 12px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  rect.bordered {
+    stroke: #E6E6E6;
+    stroke-width:2px;   
+  }
+
+  text{
+    font: 9px sans-serif;
+  }
