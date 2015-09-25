@@ -1,2 +1,3 @@
 # DataLensDCsite
-Website for DataLensDC
+Code behind the DataLensDC website
+www.datalensdc.com
