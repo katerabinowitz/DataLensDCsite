@@ -14,19 +14,16 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script> 
+// <script>
+//   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+//   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+//   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+//   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.2/jquery.tipsy.min.js"></script> 
-  <script src="hhttps://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.2/jquery.tipsy.css"></script> 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+//   ga('create', 'UA-65753381-1', 'auto');
+//   ga('send', 'pageview');
 
-  ga('create', 'UA-65753381-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+// </script>
 </head>
 
 <body>
@@ -151,8 +148,8 @@ var cex = d3.select(".cex")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-  x.domain(data.map(function(d) { return d.City; }));
-  y.domain([0, 8]);
+  x.domain(data.map(function(d) {return d.City; }));
+  y.domain([0, d3.max(data, function(d) { return d.EatIn; })]);
 
   cex.append("g")
       .attr("class", "x axis")
@@ -164,11 +161,9 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-C
       .attr("dy", ".35em")
       .attr("transform", "rotate(60)")
       .style("text-anchor", "start");;
-
   cex.append("g")
       .attr("class", "y axis")
       .call(yAxis);
-
   cex.selectAll(".bar")
     .data(data)
     .enter()
@@ -186,186 +181,184 @@ function type(d) {
   return d;
 }
 function EatOutData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.EatOut; })]);
+     d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.EatOut; })]);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.EatOut); })
+      sel.attr("height", function(d) { return height - y(d.EatOut); })
 
-        var sel = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel.exit().remove();
-        sel.enter().append("rect")
-
-
-          sel.attr("class", "bar")
-          sel.attr("x", function(d) { return x(d.City); })
-          sel.attr("y", function(d) { return y(d.EatOut); })
-          sel.attr("height", function(d) { return height - y(d.EatOut); })
-          sel.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.EatOut = +d.EatOut;
-  return d;
+function type(d) {
+d.EatOut = +d.EatOut;
+return d;}
 }
-
-  });
-
-    };
+)};
 
 function AlcData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, 8]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Alcohol; })]);
+      
+     var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Alcohol); })
+      sel.attr("height", function(d) { return height - y(d.Alcohol); })
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
-
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.Alcohol); })
-          sel2.attr("height", function(d) { return height - y(d.Alcohol); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.Alcohol = +d.Alcohol;
-  return d;
+function type(d) {
+d.Alcohol = +d.Alcohol;
+return d;}
 }
-
-  });
-
-    };
+)};
 
 function tobaccoData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.Smoke; })]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Smoke; })]);
+      
+     var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Smoke); })
+      sel.attr("height", function(d) { return height - y(d.Smoke); })
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
-
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.Smoke); })
-          sel2.attr("height", function(d) { return height - y(d.Smoke); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.Smoke = +d.Smoke;
-  return d;
+function type(d) {
+d.Smoke = +d.Smoke;
+return d;}
 }
-
-  });
-
-    };
+)};
 function ptranData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.PTravel; })]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.PTravel; })]);
+      
+     var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.PTravel); })
+      sel.attr("height", function(d) { return height - y(d.PTravel); })
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
-
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.PTravel); })
-          sel2.attr("height", function(d) { return height - y(d.PTravel); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.PTravel = +d.PTravel;
-  return d;
+function type(d) {
+d.PTravel = +d.PTravel;
+return d;}
 }
-
-  });
-
-    };
+)};
 
 function carData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.Car; })]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Car; })]);
+      
+     var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Car); })
+      sel.attr("height", function(d) { return height - y(d.Car); })
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
-
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.Car); })
-          sel2.attr("height", function(d) { return height - y(d.Car); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.Car = +d.Car;
-  return d;
+function type(d) {
+d.Car = +d.Car;
+return d;}
 }
-
-  });
-
-    };
-
+)};
 function lookData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.Look; })]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Look; })]);
+      
+     var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Look); })
+      sel.attr("height", function(d) { return height - y(d.Look); })
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
-
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.Look); })
-          sel2.attr("height", function(d) { return height - y(d.Look); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.Car = +d.Car;
-  return d;
+function type(d) {
+d.Look = +d.Look;
+return d;}
 }
-
-  });
-
-    };
+)};
 
 function dressData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.Dress; })]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Dress; })]);
+      
+     var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Dress); })
+      sel.attr("height", function(d) { return height - y(d.Dress); })
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
-
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.Dress); })
-          sel2.attr("height", function(d) { return height - y(d.Dress); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.Car = +d.Car;
-  return d;
+function type(d) {
+d.Dress = +d.Dress;
+return d;}
 }
-
-  });
-
-    };
+)};
 </script>
 </div>
   <p class='content'> blah blah blah</p>
