@@ -14,19 +14,17 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script> 
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+ <script>
+//   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+//   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+//   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+//   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.2/jquery.tipsy.min.js"></script> 
-  <script src="hhttps://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.2/jquery.tipsy.css"></script> 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+//   ga('create', 'UA-65753381-1', 'auto');
+//   ga('send', 'pageview');
 
-  ga('create', 'UA-65753381-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+// </script>
 </head>
 
 <body>
@@ -74,7 +72,7 @@
     <h2><a href='./how-DC-spends.html'>How the DC Area Spends</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // October 7, 2015 </h3>
-    <p class="content"> blah blah blah</p>
+    <p class="content"> Intro paragraph <br><br> The Bureau of Labor Statistics (BLS) surveyed over two million consumer units (similar to households) in the DC area, encompassing the District and neighboring counties in Virginia, Maryland and West Virginia on how they spend. <br><br> Graph<br><br> To better understand how the DC area spends, it's helpful to put it in the context of other urban areas. The interactive chart below shows what percentage of annual expenditures each urban area spends on the selected category. The DC area has the greatest income of any urban area, at $117,645 per consumer unit, so even if it spending the same amount as a different city the percentage will be lower. So what can these spend categories tell us about the DC area? </p>
 
     <div class="content">
     <input name="updateButton" 
@@ -85,29 +83,29 @@
 
     <input name="updateButton" 
            type="button" 
-           value="Alcoholic Beverages" 
+           value="Alcohol" 
            onclick="AlcData()" 
            class="d3btn"/>
 
     <input name="updateButton" 
            type="button" 
-           value="Tobacco products and smoking supplies" 
+           value="Smoking (Tobacco)" 
            onclick="tobaccoData()" 
+           class="d3btn"/>
+
+     <input name="updateButton" 
+           type="button" 
+           value="Entertainment" 
+           onclick="entData()" 
+           class="d3btn"/>
+
+      <input name="updateButton" 
+           type="button" 
+           value="Reading" 
+           onclick="rData()" 
            class="d3btn"/>
            
            <br>
-
-    <input name="updateButton" 
-           type="button" 
-           value="Public Transit" 
-           onclick="ptranData()" 
-           class="d3btn"/>
-
-    <input name="updateButton" 
-           type="button" 
-           value="Car Purchases (net overlay)" 
-           onclick="carData()" 
-           class="d3btn"/>
 
     <input name="updateButton" 
            type="button" 
@@ -119,6 +117,18 @@
            type="button" 
            value="Dress" 
            onclick="dressData()" 
+           class="d3btn"/>
+
+    <input name="updateButton" 
+           type="button" 
+           value="Public Transit" 
+           onclick="ptranData()" 
+           class="d3btn"/>
+
+    <input name="updateButton" 
+           type="button" 
+           value="Car Purchases (net overlay)" 
+           onclick="carData()" 
            class="d3btn"/>
     </div>
 
@@ -144,15 +154,25 @@ var yAxis = d3.svg.axis()
     .outerTickSize(0)
     .orient("left");
 
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Frequency:</strong> <span style='color:red'>" + d.Alcohol + "</span>";
+  })
+
 var cex = d3.select(".cex")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+cex.call(tip);
+
 d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-  x.domain(data.map(function(d) { return d.City; }));
-  y.domain([0, 8]);
+  data.sort(function(a, b) { return b.EatIn - a.EatIn; });
+  x.domain(data.map(function(d) {return d.City; }));
+  y.domain([0, d3.max(data, function(d) { return d.EatIn; })]);
 
   cex.append("g")
       .attr("class", "x axis")
@@ -164,21 +184,21 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-C
       .attr("dy", ".35em")
       .attr("transform", "rotate(60)")
       .style("text-anchor", "start");;
-
   cex.append("g")
       .attr("class", "y axis")
       .call(yAxis);
-
   cex.selectAll(".bar")
     .data(data)
     .enter()
     .append("rect")
-      .style("fill", function(d, i){return d.City=="Washington, D.C."?"orange":"#53CFCF";})
       .attr("class", "bar")
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
       .attr("x", function(d) { return x(d.City); })
       .attr("y", function(d) { return y(d.EatIn); })
       .attr("height", function(d) { return height - y(d.EatIn); })
-      .attr("width", x.rangeBand());
+      .attr("width", x.rangeBand())
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
          
 });
 function type(d) {
@@ -186,192 +206,358 @@ function type(d) {
   return d;
 }
 function EatOutData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.EatOut; })]);
+     d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      data.sort(function(a, b) { return b.EatOut - a.EatOut; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.EatOut; })]);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.EatOut); })
+      sel.attr("height", function(d) { return height - y(d.EatOut); })
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
 
-        var sel = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel.exit().remove();
-        sel.enter().append("rect")
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
 
-
-          sel.attr("class", "bar")
-          sel.attr("x", function(d) { return x(d.City); })
-          sel.attr("y", function(d) { return y(d.EatOut); })
-          sel.attr("height", function(d) { return height - y(d.EatOut); })
-          sel.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.EatOut = +d.EatOut;
-  return d;
+function type(d) {
+d.EatOut = +d.EatOut;
+return d;}
 }
-
-  });
-
-    };
+)};
 
 function AlcData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, 8]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      data.sort(function(a, b) { return b.Alcohol - a.Alcohol; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Alcohol; })]);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Alcohol); })
+      sel.attr("height", function(d) { return height - y(d.Alcohol); })
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
 
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.Alcohol); })
-          sel2.attr("height", function(d) { return height - y(d.Alcohol); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.Alcohol = +d.Alcohol;
-  return d;
+function type(d) {
+d.Alcohol = +d.Alcohol;
+return d;}
 }
-
-  });
-
-    };
+)};
 
 function tobaccoData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.Smoke; })]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      data.sort(function(a, b) { return b.Smoke- a.Smoke; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Smoke; })]);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Smoke); })
+      sel.attr("height", function(d) { return height - y(d.Smoke); })
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
-
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.Smoke); })
-          sel2.attr("height", function(d) { return height - y(d.Smoke); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.Smoke = +d.Smoke;
-  return d;
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
+function type(d) {
+d.Smoke = +d.Smoke;
+return d;}
 }
-
-  });
-
-    };
+)};
 function ptranData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.PTravel; })]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      data.sort(function(a, b) { return b.PTravel - a.PTravel; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.PTravel; })]);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.PTravel); })
+      sel.attr("height", function(d) { return height - y(d.PTravel); })
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
 
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.PTravel); })
-          sel2.attr("height", function(d) { return height - y(d.PTravel); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.PTravel = +d.PTravel;
-  return d;
+function type(d) {
+d.PTravel = +d.PTravel;
+return d;}
 }
-
-  });
-
-    };
+)};
 
 function carData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.Car; })]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      data.sort(function(a, b) { return b.Car - a.Car; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Car; })]);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Car); })
+      sel.attr("height", function(d) { return height - y(d.Car); })
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
 
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.Car); })
-          sel2.attr("height", function(d) { return height - y(d.Car); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.Car = +d.Car;
-  return d;
+function type(d) {
+d.Car = +d.Car;
+return d;}
 }
-
-  });
-
-    };
-
+)};
 function lookData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.Look; })]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      data.sort(function(a, b) { return b.Look - a.Look; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Look; })]);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Look); })
+      sel.attr("height", function(d) { return height - y(d.Look); })
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
 
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.Look); })
-          sel2.attr("height", function(d) { return height - y(d.Look); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.Car = +d.Car;
-  return d;
+function type(d) {
+d.Look = +d.Look;
+return d;}
 }
-
-  });
-
-    };
+)};
 
 function dressData() {
-        d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
-          x.domain(data.map(function(d) { return d.City; }));
-          y.domain([0, d3.max(data, function(d) { return d.Dress; })]);
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      data.sort(function(a, b) { return b.Dress - a.Dress; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Dress; })]);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Dress); })
+      sel.attr("height", function(d) { return height - y(d.Dress); })
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
 
-        var sel2 = cex.selectAll("rect")
-             .data(data);
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
 
-        sel2.exit().remove();
-        sel2.enter().append("rect")
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
 
-          sel2.attr("class", "bar")
-          sel2.attr("x", function(d) { return x(d.City); })
-          sel2.attr("y", function(d) { return y(d.Dress); })
-          sel2.attr("height", function(d) { return height - y(d.Dress); })
-          sel2.attr("width", x.rangeBand());
-
-  function type(d) {
-  d.Car = +d.Car;
-  return d;
+function type(d) {
+d.Dress = +d.Dress;
+return d;}
 }
+)};
 
-  });
+function entData() {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      data.sort(function(a, b) { return b.Ent - a.Ent; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Ent; })]);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Ent); })
+      sel.attr("height", function(d) { return height - y(d.Ent); })
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
 
-    };
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
+
+function type(d) {
+d.Ent = +d.Ent;
+return d;}
+}
+)};
+
+function rData() {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+      data.sort(function(a, b) { return b.ReadR - a.ReadR; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.ReadR; })]);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.ReadR); })
+      sel.attr("height", function(d) { return height - y(d.ReadR); })
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".35em")
+      .attr("transform", "rotate(60)")
+      .style("text-anchor", "start");;
+
+function type(d) {
+d.ReadR = +d.ReadR;
+return d;}
+}
+)};
 </script>
 </div>
-  <p class='content'> blah blah blah</p>
+  <p class='content'>First off, DC spends a lot to get around. Not only does is it the fourth highest for percent spend on public transit, it also the third highest for car purchases. Most cities are high in public transit category and then low on car purchases (or vice versa). However, the DC area being at the top for both categories suggest an area ...<br><br> DC likes to spend on eating out. When comparing the amount spent on eating out versus the total amount spent on food DC nears the top of the list...<br><br> The stereotype of DC as the ugly, smart Hollywood isn't dead. The DC area spends the most on reading while the least on apparel and personal care (stay beautiful, Miami!). </p>
    <br>
   <hr id='end-line'>
-  <p class='content'><b>Technical notes:</b> Sources. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+  <p class='content'><b>Technical notes:</b> Data and graphics are from the 2013-2014 Bureau or Labor Statistics Consumer Expenditure Survey. Data is shown at the MSA level, which typically includes the shown city and surrounding suburbs. The data does not include the effect of local tax rates, which could be significant in categories such as tobacco purchases, or the income elasticity of spend categories. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
   <br><br>
 </div>
     
@@ -380,6 +566,7 @@ function dressData() {
     <ul class="sidebar nav nav-stacked fixed">
         <li>Archive</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
             <li><a href='./cex-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
             <li><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></li>
             <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
