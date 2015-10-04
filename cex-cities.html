@@ -69,12 +69,12 @@
 <div class='content row'>
   <div class='col-sm-9 col-xs-12'>
   <br>
-    <h2><a href='./how-DC-spends.html'>How the DC Area Spends</a></h2>
+    <h2><a href='./how-DC-spends.html'>How the DC Region Spends</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // October 7, 2015 </h3>
-    <p class="content"> Intro paragraph <br><br> The Bureau of Labor Statistics (BLS) surveyed over two million consumer units (similar to households) in the DC area, encompassing the District and neighboring counties in Virginia, Maryland and West Virginia on how they spend. <br><br> Graph<br><br> To better understand how the DC area spends, it's helpful to put it in the context of other urban areas. The interactive chart below shows what percentage of annual expenditures each urban area spends on the selected category. The DC area has the greatest income of any urban area, at $117,645 per consumer unit, so even if it spending the same amount as a different city the percentage will be lower. So what can these spend categories tell us about the DC area? </p>
+    <p class="content"> As any resident of the DC region knows, this is an expensive place to live. That's in part balanced by the region's wealth. But how do expenses compare to other major metropolitan areas? I often wonder this when I visit other cities, purusing their shops and real estate listings. A recent Bureau of Labor Statistics study looks at this very question and reports the average spend of consumer units (like households) across a range of spending categories.<br><br>Check out the interactive chart below to see the percentage of annual expenditure an average consumer unit spends on each cateogory across urban areas. Press a button to change the view and hover over a bar to see the actual dollar amount spent.</p>
 
-    <div class="content">
+    <div class="btn-content">
     <input name="updateButton" 
            type="button" 
            value="Eating Out" 
@@ -99,13 +99,13 @@
            onclick="entData()" 
            class="d3btn"/>
 
+          <br>
+
       <input name="updateButton" 
            type="button" 
            value="Reading" 
            onclick="rData()" 
            class="d3btn"/>
-           
-           <br>
 
     <input name="updateButton" 
            type="button" 
@@ -127,7 +127,7 @@
 
     <input name="updateButton" 
            type="button" 
-           value="Car Purchases (net overlay)" 
+           value="Car Costs" 
            onclick="carData()" 
            class="d3btn"/>
     </div>
@@ -135,12 +135,12 @@
 <div id="citiesBar">
 <svg class="cex"></svg>
 <script>
-var margin = {top: 20, right: 20, bottom: 60, left: 35},
-    width = 650 - margin.left - margin.right,
-    height =  300- margin.top - margin.bottom;
+var margin = {top: 40, right: 40, bottom: 80, left: 40},
+    width = 675 - margin.left - margin.right,
+    height =  320- margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2);
+    .rangeRoundBands([0, width], .05);
 
 var y = d3.scale.linear()
     .range([height, 0]);
@@ -158,7 +158,7 @@ var tip = d3.tip()
   .attr('class', 'd3-tip')
   .offset([-10, 0])
   .html(function(d) {
-    return "<strong>Frequency:</strong> <span style='color:red'>" + d.Alcohol + "</span>";
+    return "<strong>Eating In: $</strong> <span>" + d.FoodAtHome + "</span>";
   })
 
 var cex = d3.select(".cex")
@@ -181,12 +181,34 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-C
       .selectAll("text")
       .attr("y", 0)
       .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
       .style("text-anchor", "start");;
   cex.append("g")
       .attr("class", "y axis")
       .call(yAxis);
+
+  cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - margin.top)
+        .attr("text-anchor", "middle")  
+        .text("Eating In, Percent of Annual Expenditure");
+
+  cex.append("text")
+        .attr('class', 'd3subtitle')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 3))
+        .attr("text-anchor", "middle")  
+        .text("Hover for the actual amount spent");
+
+  cex.append("text")
+    .attr("text-anchor", "end")
+    .attr("y", 9)
+    .attr("dy", "-4.5em")
+    .attr("transform", "rotate(-90)")
+        .text("% of Annual Expenditure");
+
   cex.selectAll(".bar")
     .data(data)
     .enter()
@@ -210,18 +232,30 @@ function EatOutData() {
       data.sort(function(a, b) { return b.EatOut - a.EatOut; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.EatOut; })]);
+
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return "<strong>Eating Out: $</strong> <span>" + d.FoodAwayFromHome + "</span>";
+        })
+
+    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
     d3.select(".y.axis").remove();
     d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
     sel.enter().append("rect")
       sel.attr("class", "bar")
       sel.attr("x", function(d) { return x(d.City); })
       sel.attr("y", function(d) { return y(d.EatOut); })
       sel.attr("height", function(d) { return height - y(d.EatOut); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -234,9 +268,19 @@ function EatOutData() {
       .selectAll("text")
       .attr("y", 0)
       .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
+      .attr("dy", "0.5em")
+      .attr("transform", "rotate(50)")
       .style("text-anchor", "start");;
+
+      cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("Eating Out, Percent of Annual Expenditure");
 
 function type(d) {
 d.EatOut = +d.EatOut;
@@ -249,18 +293,30 @@ function AlcData() {
       data.sort(function(a, b) { return b.Alcohol - a.Alcohol; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Alcohol; })]);
+
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return "<strong>Alcohol: $</strong> <span>" + d.Alcoholic + "</span>";
+        })
+
+    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
     d3.select(".y.axis").remove();
     d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
     sel.enter().append("rect")
       sel.attr("class", "bar")
       sel.attr("x", function(d) { return x(d.City); })
       sel.attr("y", function(d) { return y(d.Alcohol); })
       sel.attr("height", function(d) { return height - y(d.Alcohol); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -273,9 +329,19 @@ function AlcData() {
       .selectAll("text")
       .attr("y", 0)
       .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
       .style("text-anchor", "start");;
+
+    cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("Alcohol, Percent of Annual Expenditure");
 
 function type(d) {
 d.Alcohol = +d.Alcohol;
@@ -288,18 +354,30 @@ function tobaccoData() {
       data.sort(function(a, b) { return b.Smoke- a.Smoke; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Smoke; })]);
+
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return "<strong>Smoking: $</strong> <span>" + d.Tobacco + "</span>";
+        })
+
+    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
     d3.select(".y.axis").remove();
     d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
     sel.enter().append("rect")
       sel.attr("class", "bar")
       sel.attr("x", function(d) { return x(d.City); })
       sel.attr("y", function(d) { return y(d.Smoke); })
       sel.attr("height", function(d) { return height - y(d.Smoke); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -312,9 +390,19 @@ function tobaccoData() {
       .selectAll("text")
       .attr("y", 0)
       .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
       .style("text-anchor", "start");;
+
+      cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("Smoking(Tobacco), Percent of Annual Expenditure");
 function type(d) {
 d.Smoke = +d.Smoke;
 return d;}
@@ -325,18 +413,30 @@ function ptranData() {
       data.sort(function(a, b) { return b.PTravel - a.PTravel; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.PTravel; })]);
+
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return "<strong>Public transit: $</strong> <span>" + d.Public + "</span>";
+        })
+
+    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
     d3.select(".y.axis").remove();
     d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
     sel.enter().append("rect")
       sel.attr("class", "bar")
       sel.attr("x", function(d) { return x(d.City); })
       sel.attr("y", function(d) { return y(d.PTravel); })
       sel.attr("height", function(d) { return height - y(d.PTravel); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -349,9 +449,19 @@ function ptranData() {
       .selectAll("text")
       .attr("y", 0)
       .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
       .style("text-anchor", "start");;
+
+    cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("Public Transit, Percent of Annual Expenditure");
 
 function type(d) {
 d.PTravel = +d.PTravel;
@@ -364,18 +474,30 @@ function carData() {
       data.sort(function(a, b) { return b.Car - a.Car; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Car; })]);
+
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return "<strong>Car expenses: $</strong> <span>" + d.CarCosts + "</span>";
+        })
+
+    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
     d3.select(".y.axis").remove();
     d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
     sel.enter().append("rect")
       sel.attr("class", "bar")
       sel.attr("x", function(d) { return x(d.City); })
       sel.attr("y", function(d) { return y(d.Car); })
       sel.attr("height", function(d) { return height - y(d.Car); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -388,9 +510,19 @@ function carData() {
       .selectAll("text")
       .attr("y", 0)
       .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
       .style("text-anchor", "start");;
+
+    cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("Car Costs, Percent of Annual Expenditure");
 
 function type(d) {
 d.Car = +d.Car;
@@ -402,18 +534,30 @@ function lookData() {
       data.sort(function(a, b) { return b.Look - a.Look; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Look; })]);
+
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return "<strong>Personal Care: $</strong> <span>" + d.PersonalCare + "</span>";
+        })
+
+    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
     d3.select(".y.axis").remove();
     d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
     sel.enter().append("rect")
       sel.attr("class", "bar")
       sel.attr("x", function(d) { return x(d.City); })
       sel.attr("y", function(d) { return y(d.Look); })
       sel.attr("height", function(d) { return height - y(d.Look); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -426,9 +570,19 @@ function lookData() {
       .selectAll("text")
       .attr("y", 0)
       .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
       .style("text-anchor", "start");;
+
+      cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("Hygiene and Beauty, Percent of Annual Expenditure");
 
 function type(d) {
 d.Look = +d.Look;
@@ -441,18 +595,30 @@ function dressData() {
       data.sort(function(a, b) { return b.Dress - a.Dress; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Dress; })]);
+
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return "<strong>Apparel: $</strong> <span>" + d.Apparel + "</span>";
+        })
+
+    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
     d3.select(".y.axis").remove();
     d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
     sel.enter().append("rect")
       sel.attr("class", "bar")
       sel.attr("x", function(d) { return x(d.City); })
       sel.attr("y", function(d) { return y(d.Dress); })
       sel.attr("height", function(d) { return height - y(d.Dress); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -465,9 +631,19 @@ function dressData() {
       .selectAll("text")
       .attr("y", 0)
       .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
       .style("text-anchor", "start");;
+
+      cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("Apparel, Percent of Annual Expenditure");
 
 function type(d) {
 d.Dress = +d.Dress;
@@ -480,18 +656,30 @@ function entData() {
       data.sort(function(a, b) { return b.Ent - a.Ent; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Ent; })]);
+
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return "<strong>Entertainment: $</strong> <span>" + d.Entertainment + "</span>";
+        })
+
+    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
     d3.select(".y.axis").remove();
     d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
     sel.enter().append("rect")
       sel.attr("class", "bar")
       sel.attr("x", function(d) { return x(d.City); })
       sel.attr("y", function(d) { return y(d.Ent); })
       sel.attr("height", function(d) { return height - y(d.Ent); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -504,9 +692,19 @@ function entData() {
       .selectAll("text")
       .attr("y", 0)
       .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
       .style("text-anchor", "start");;
+
+    cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("Entertainment, Percent of Annual Expenditure");
 
 function type(d) {
 d.Ent = +d.Ent;
@@ -519,18 +717,30 @@ function rData() {
       data.sort(function(a, b) { return b.ReadR - a.ReadR; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.ReadR; })]);
+
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return "<strong>Reading: $</strong> <span>" + d.Reading + "</span>";
+        })
+
+    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
     d3.select(".y.axis").remove();
     d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
     sel.enter().append("rect")
       sel.attr("class", "bar")
       sel.attr("x", function(d) { return x(d.City); })
       sel.attr("y", function(d) { return y(d.ReadR); })
       sel.attr("height", function(d) { return height - y(d.ReadR); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -543,9 +753,19 @@ function rData() {
       .selectAll("text")
       .attr("y", 0)
       .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
       .style("text-anchor", "start");;
+
+    cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("Reading, Percent of Annual Expenditure");
 
 function type(d) {
 d.ReadR = +d.ReadR;
@@ -554,10 +774,84 @@ return d;}
 )};
 </script>
 </div>
-  <p class='content'>First off, DC spends a lot to get around. Not only does is it the fourth highest for percent spend on public transit, it also the third highest for car purchases. Most cities are high in public transit category and then low on car purchases (or vice versa). However, the DC area being at the top for both categories suggest an area ...<br><br> DC likes to spend on eating out. When comparing the amount spent on eating out versus the total amount spent on food DC nears the top of the list...<br><br> The stereotype of DC as the ugly, smart Hollywood isn't dead. The DC area spends the most on reading while the least on apparel and personal care (stay beautiful, Miami!). </p>
+  <p class='content'>The DC area is on the low end for many categories because the region has the largest income and annual expenditure. So even when the dollar amount is high, the piece of the pie is smaller. This isn't to say that the D.C. area is relatively cheaper, major costs like housing are not shown above. But what can we take away from this?<br><br><b>It's expensive to get around the DC region.</b> Not only is the region the fourth highest for percent spent on public transit and in the top half for car costs, in absolute terms it spends the most on car costs and is second to New York in public transit. The DC area is unique in high spending for both categories; most cities are high in one or the other. With a <a target="_blank" class="link" href="http://www.cato.org/blog/nations-worst-managed-transit-agency-0">Metro system that is literally falling apart</a> and heavily congested roadways with rush hour peaks, many in the DC region are trying an expensive mix of both.<br><br><b>This city is full of book nerds</b> The DC region spends the most both in absolute and proportional terms on reading. The category encompasses newspapers, magazines and books. It is the only category that DC comes out on the top, reflecting both the region's highly education population and focus on current events. But, hey, DC maybe put down the book and pick up a fashion mag? The region also proportionally spends the least on looks and clothing.<br><br><b>DC likes to spend on a good time.</b> While proportionally on the low end, DC spends in absolute terms the third most on entertainment, a category that includes everything from event tickets to hobby expenses, pets and tv. DC also likes to eat out. As shown in the chart below DC comes in third on proportion of food budget spent eating out. So, yea we're nerds, but we're nerds that know how to enjoy ourselves.<br></p>
+
+<div id="citiesFood">
+<svg class="cexFood"></svg>
+<script>
+var margin = {top: 20, right: 20, bottom: 60, left: 35},
+    width = 650 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var cexFood = d3.select(".cexFood")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
+  data.sort(function(a, b) { return b.EatRatio - a.EatRatio; });
+  x.domain(data.map(function(d) {return d.City; }));
+  y.domain([0, 50]);
+
+  cexFood.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
+      .style("text-anchor", "start");;
+  cexFood.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  cexFood.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top/4))
+        .attr("text-anchor", "middle")  
+        .text("Eating Out, as Percent of Food Expenditure");
+
+  cexFood.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .attr("x", function(d) { return x(d.City); })
+      .attr("y", function(d) { return y(d.EatRatio); })
+      .attr("height", function(d) { return height - y(d.EatRatio); })
+      .attr("width", x.rangeBand())
+         
+});
+function type(d) {
+  d.EatRatio = +d.EatRatio;
+  return d;
+}
+</script>
+</div>
    <br>
   <hr id='end-line'>
-  <p class='content'><b>Technical notes:</b> Data and graphics are from the 2013-2014 Bureau or Labor Statistics Consumer Expenditure Survey. Data is shown at the MSA level, which typically includes the shown city and surrounding suburbs. The data does not include the effect of local tax rates, which could be significant in categories such as tobacco purchases, or the income elasticity of spend categories. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+  <p class='content'><b>Technical notes:</b> Data comes from the 2013-2014 Bureau of Labor Statistics Consumer Expenditure Survey. Data is shown at the MSA level, which typically encompasses a city and its surrounding suburbs. Not all spending categories are shown. The data does not include the effect of local tax rates, which could be significant in categories such as tobacco or alcohol purchases, or the income elasticity of spend categories. Full defintions of each category shown can be found in the <a class='link' target="_blank" href="http://www.bls.gov/cex/csxgloss.htm">BLS glossary</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
   <br><br>
 </div>
     
