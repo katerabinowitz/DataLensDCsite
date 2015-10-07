@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>How DC Spends</title>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/CEX.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+</head>
+<div id="citiesFood">
+<svg class="cexFood"></svg>
+<script>
+var margin = {top: 20, right: 20, bottom: 60, left: 35},
+    width = 650 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var cexFood = d3.select(".cexFood")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
+  data.sort(function(a, b) { return b.EatRatio - a.EatRatio; });
+  x.domain(data.map(function(d) {return d.City; }));
+  y.domain([0, 50]);
+
+  cexFood.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
+      .style("text-anchor", "start");;
+  cexFood.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  cexFood.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top/4))
+        .attr("text-anchor", "middle")  
+        .text("Eating Out, as Percent of Food Expenditure");
+
+  cexFood.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
+      .attr("x", function(d) { return x(d.City); })
+      .attr("y", function(d) { return y(d.EatRatio); })
+      .attr("height", function(d) { return height - y(d.EatRatio); })
+      .attr("width", x.rangeBand())
+         
+});
+function type(d) {
+  d.EatRatio = +d.EatRatio;
+  return d;
+}
+</script>
+</div>
+<p class='graph-subtitle'>Source: Bureau of Labor Statistics Consumer Expenditure Survey.</p>
