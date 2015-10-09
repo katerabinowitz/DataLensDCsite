@@ -15,11 +15,13 @@
   <link href='./CSS/10-year-dc-development.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/fm-per-capita.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/DDD.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/CEX.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script> 
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>
 var cityCircle;
 var map;
@@ -217,7 +219,13 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
   <br>
-      <h2><a href='./dc-hack-landmark.html'>DC Hack: Landmark for a New Type of Directions</a></h2>
+      <h2><a href='./how-DC-spends.html'>How the DC Region Spends</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // October 8, 2015 </h3>
+    <p class="content"> As any resident of the DC region knows, this is an expensive place to live. That's in part balanced by the region's wealth. But how do expenses compare to other major metropolitan areas? I often wonder this when I visit other cities, purusing their shops and real estate listings. A recent Bureau of Labor Statistics study looks at this very question and reports the average spend of consumer units (like households) across a range of spending categories.<br><br>Check out the interactive chart below to see the percentage of annual expenditure an average consumer unit spends on each cateogory across urban areas. Press a button to change the view and hover over a bar to see the actual dollar amount spent. <a href="http://www.washingtonian.com/blogs/capitalcomment/data/how-the-dc-region-spends-its-money.php" target="blank" class="link">Read the rest in my recent Washingtonian piece.</a></p>
+ <iframe src="http://www.datalensdc.com/cex-interactive.html" width="700" height="500" frameborder='0'></iframe>
+
+    <h2><a href='./dc-hack-landmark.html'>DC Hack: Landmark for a New Type of Directions</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // September 30, 2015 </h3>
      <p class='content'>I love maps but am fairly terrible at using them for their most basic purpose - getting around. I am that person walking with their head down watching the blue dot move with them or alternatively going a block up, checking the street sign, and ever so awkwardly turning around.<br><br> <img class="landmark" src="./Images/landmark.png" alt="Landmark App Example" align="left" style="PADDING-RIGHT:10px"></a>So <a class='link' target="_blank" href="https://www.landmarkdirections.com">Landmark Directions</a>, a recent locally launched app from the mind of <a class='link' target="_blank" href='https://twitter.com/nguyenist'>Stephanie Nguyen</a>, quickly became one of my iPhone go-tos. Landmark (screenshot to the left) lets you navigate the world visually. Enter your destination and Landmark gives you turn by turn directions using photos of landmarks along the way. 
@@ -231,7 +239,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
      <p class='content'>Guilty pleasure confession: One of my favorite shows is <a class='link' target="_blank" href="http://www.foodnetwork.com/shows/diners-drive-ins-and-dives.html">Diners, Drive-Ins and Dives</a>. If you’re uninitiated it’s a show where <a class='link' target="_blank" href="https://www.google.com/search?q=google+images+guy+fieri&espv=2&biw=1274&bih=679&tbm=isch&tbo=u&source=univ&sa=X&ved=0CBwQsARqFQoTCOv5uNjxi8gCFcV7PgodDCQC_g">90’s emoji Guy Fieri</a> visits restaurants around the country. I can’t be sure what it is exactly - how Fieri bleaches only the inner bit of his goatee or unironically uses phrases like “that’s killer!” and “off the hook!” - but if I’m in a hotel room there’s an 85% chance that show is on.</p> 
       <p class='graph-title'>Guy Fieri Diner, Drive-in and Dives Visits</p>
       <p class='graph-subtitle'>Number of times a city is featured on Diners, Drive-ins and Dives</p>
-      <div id="dddbar1">
+  <div id="dddbar1">
 <svg class="ddd"></svg>
 <script>
 (function() {
@@ -298,7 +306,7 @@ function type(d) {
 })();
 </script>
       <p class='graph-subtitle'> Source: <a class='link' target="_blank" href="http://ddd-and-yelp.mybluemix.net/"> Restaurants of Diners Drive-ins and Dives</a> by <a class='link' target="_blank" href="https://twitter.com/MaggieCriqui"> Maggie Criqui</a>.</p>
-      </div>
+      </div> 
     <p class="content">After an embarrassing number of hours spent with Food Network however, I've become disappointed with how rarely Guy Fieri visits my city. <a class='link' target="_blank" href="./DDD-in-DC.html">Read on...</p>
 
     <br>
