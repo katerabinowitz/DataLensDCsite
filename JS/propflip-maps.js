@@ -1,3 +1,6 @@
+      var mapFlip=null
+      var ShortmapFlip =null
+
 function initialize() {
       var customOps=
       [
@@ -151,12 +154,12 @@ function initialize() {
         },
         mapTypeId: MY_MAPTYPE_ID,
         streetViewControl: false,
-        panControl: false,
-        zoomControl:false
+        panControl: false
+        // zoomControl:false
       };
 
-      var mapFlip = new google.maps.Map(document.getElementById('map-flip'), mapOptions);
-      var ShortmapFlip = new google.maps.Map(document.getElementById('short-map-flip'), mapOptions);
+      mapFlip = new google.maps.Map(document.getElementById('map-flip'), mapOptions);
+      ShortmapFlip = new google.maps.Map(document.getElementById('short-map-flip'), mapOptions);
 
       var styledMapOptions= {
         name:'Custom Style'
@@ -168,12 +171,12 @@ function initialize() {
       mapFlip.mapTypes.set(MY_MAPTYPE_ID,customMapType);
       ShortmapFlip.mapTypes.set(MY_MAPTYPE_ID,customMapType);
 
-      mapFlip.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/Prop-Flip-Analysis/master/fullhistorymap.geojson');
-      ShortmapFlip.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/Prop-Flip-Analysis/master/shorthistorymap.geojson');
+      mapFlip.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/Prop-Flip-Analysis/master/fullhistorymapV2.geojson');
+      ShortmapFlip.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/Prop-Flip-Analysis/master/shorthistorymapV2.geojson');
 
   mapFlip.data.setStyle(function(feature) {
     return {
-      fillColor: getColor(feature.getProperty('flipsale')), 
+      fillColor: getColor(feature.getProperty('flipProp')), 
       fillOpacity: 0.8,
       strokeColor: '#b3b3b3',
       strokeWeight: 1,
@@ -183,7 +186,7 @@ function initialize() {
 
     ShortmapFlip.data.setStyle(function(feature) {
     return {
-      fillColor: getSColor(feature.getProperty('flipsale')), 
+      fillColor: getColor(feature.getProperty('flipProp')), 
       fillOpacity: 0.8,
       strokeColor: '#b3b3b3',
       strokeWeight: 1,
@@ -204,37 +207,44 @@ function initialize() {
     function getColor(colorvar) {
     return colorvar== null ? colors[0] :
       colorvar == 0 ? colors[1] :
-      colorvar < 10? colors[2] :
-      colorvar < 50 ? colors[3] :
-      colorvar < 150 ? colors[4] :
-      colorvar < 300 ? colors[5] :
+      colorvar < 5? colors[2] :
+      colorvar < 10 ? colors[3] :
+      colorvar < 15 ? colors[4] :
+      colorvar < 25 ? colors[5] :
       colors[6];
     }; 
 
-    function getSColor(colorvar) {
-    return colorvar== null ? colors[0] :
-      colorvar == 0 ? colors[1] :
-      colorvar < 5? colors[2] :
-      colorvar < 10 ? colors[3] :
-      colorvar < 30 ? colors[4] :
-      colorvar < 50 ? colors[5] :
-      colors[6];
-    }; 
 
       mapFlip.data.addListener('click', function(event) {
       var name = event.feature.getProperty("subhood");
-      var flip = event.feature.getProperty("flipsale");
-      infowindow.setContent("<div id='iw'> <div id='iw-title'>"+ name +"</div><br><p>Flipped Properties: "+ flip + "</p></div>");
-      //infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+      var flipsale=event.feature.getProperty("propflipR").toFixed(0);
+      var flipprop = event.feature.getProperty("flipProp").toFixed(0);
+      infowindow.setContent("<div id='iw'> <div id='iw-title'>"+ name +"</div><br><p>Flipped Properties: "+ flipsale + "<br> Proportion of Flipped Sales to Total: "
+                            + flipprop + "%</p></div>");
       infowindow.open(mapFlip);
+      infowindow.setPosition( event.latLng )
+      infowindow.setOptions( {
+      pixelOffset: {width: 0, height: -3}
+      });
     });
 
       ShortmapFlip.data.addListener('click', function(event) {
       var name = event.feature.getProperty("subhood");
-      var flip = event.feature.getProperty("flipsale");
-      infowindow.setContent("<div id='iw'> <div id='iw-title'>"+ name +"</div><br><p>Flipped Properties: "+ flip + "</p></div>");
-      //infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
+      var flipsale=event.feature.getProperty("propflipR").toFixed(0);
+      var flipprop = event.feature.getProperty("flipProp").toFixed(0);
+      infowindow.setContent("<div id='iw'> <div id='iw-title'>"+ name +"</div><br><p>Flipped Properties: "+ flipsale + "<br> Proportion of Flipped Sales to Total: "
+                            + flipprop + "%</p></div>");
       infowindow.open(ShortmapFlip);
+      infowindow.setPosition( event.latLng )
+      infowindow.setOptions( {
+      pixelOffset: {width: 0, height: -3}
+      });
+      });
+
+    google.maps.event.addDomListener(window, "resize", function() {
+    var center = ShortmapFlip.getCenter();
+    google.maps.event.trigger(ShortmapFlip, "resize");
+    ShortmapFlip.setCenter(center); 
     });
 
 }
