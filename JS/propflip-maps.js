@@ -210,7 +210,7 @@ function initialize() {
       colorvar < 5? colors[2] :
       colorvar < 10 ? colors[3] :
       colorvar < 15 ? colors[4] :
-      colorvar < 25 ? colors[5] :
+      colorvar < 20 ? colors[5] :
       colors[6];
     }; 
 

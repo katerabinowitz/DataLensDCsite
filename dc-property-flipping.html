@@ -73,46 +73,46 @@
 <div class='content row'>
   <div class='col-sm-9 col-xs-12'>
   <br>
-    <h2><a href='./property-flipping.html'>Mapping the Most Flipped Hoods in the District</a></h2>
+    <h2><a href='./property-flipping.html'>In the District's Hottest Neighborhoods, Over 1 in 4 Homes Flipped</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // October 19, 2015 </h3>
-    <p class="content"> Just because I'm not in the market for a home doesn't mean I don't show up to open houses like I have hundreds of thousands to drop. The more open houses I go to, the more trends appear: everything is shiny, new and well placed in an open floor layout; there's a half bath squeezed under the stairs; the bathroom has modern sink no one can wash their face in. Many of these homes have been flipped, a common sight on the hot DC real estate market. House flipping is when a house is bought as a real estate investment, remodeled, and put back on the market at a substantially higher price.<br><br>On a larger scale, flipped homes can alter a real estate market, creating a scarcity of fixer-uppers and an abundance of all-cash deals. It can also be a sign of a changing community. Curious about how home flipping looked from a birds eye view, I mapped flipped homes as a proportion of single family home sales in neighborhoods across the District.</p> 
+    <h3> Kate Rabinowitz // October 21, 2015 </h3>
+    <p class="content"> Just because I'm not in the market for a home doesn't mean I don't show up to open houses like I have hundreds of thousands to drop. The more open houses I go to, the more trends appear: everything is shiny, new and well placed in an open floor layout; there's a half bath squeezed under the stairs; the bathroom has modern sink no one can wash their face in. Many of these homes have been flipped, a common sight on the hot DC real estate market. House flipping is when a house is bought as a real estate investment, remodeled, and put back on the market at a substantially higher price.<br><br>On a larger scale, flipped homes can alter a real estate market, creating a scarcity of fixer-uppers and an abundance of all-cash deals. It can also be a sign of a changing community. Curious about how home flipping looked from a bird's eye view, I mapped flipped homes as a proportion of single family home sales in neighborhoods across the District.</p> 
     <div class="btn-content">
-    <input type="button" name="2013-2015" value="2013-2015" onclick="show2013()" class="updatebtn"/>
-    <input type="button" name="2011-2015" value="2011-2015" onclick="show2011()" class="updatebtn"/>
+    <input type="button" name="2011-2015" value="Show map for 2011-2015" onclick="show2011()" class="updatebtn"/>
+    <input type="button" name="2013-2015" value="Show map for 2013-2015" onclick="show2013()" class="updatebtn"/>
     </div>
     <script>
+        function show2011() {
+    $("#short-history-map").hide();
+   document.getElementById('long-history-map').style.display = "block";
+    var center = mapFlip.getCenter(); 
+   google.maps.event.trigger(mapFlip, 'resize')
+   mapFlip.setCenter(center);
+    }
     function show2013() {
     $("#long-history-map").hide();
    document.getElementById('short-history-map').style.display = "block";
-   var center = ShortmapFlip.getCenter(); 
    google.maps.event.trigger(ShortmapFlip, 'resize'); 
-   ShortmapFlip.setCenter(center);
-    }
-    function show2011() {
-    $("#short-history-map").hide();
-   document.getElementById('long-history-map').style.display = "block";
-   google.maps.event.trigger(mapFlip, 'resize')
     }
     </script>
-    <div id="long-history-map">
-        <p class="graph-title">Flipped Property Sales Transactions, as Percent of Single Family Home Sales (May 2011-September 2015)</p>
+    <div id="long-history-map" style="display:none;">
+        <p class="graph-title">Flipped Homes, as Percent of Single Family Homes on Market (May 2011-September 2015)</p>
         <p class='graph-subtitle'>Darker green indicates greater proportion of flipped homes. Click on a neighborhood for more detail.</p>
         <div id ="map-flip" class="content"><br></div>
-        <p class='graph-subtitle'> Note: Data before 2013 is unavailable for select zip codes, which have been excluded from this map. View the 2013-15 map for a more complete, albeit shorter, picture.<br>Source: MRIS, provided by Kevin Wood to PoPville. There is no data for gray areas.</p>
+        <p class='graph-subtitle'> Note: There is no data for dark gray areas. Data before 10/2013 is unavailable for select zip codes and have not been shown here.<br>Source: MRIS, provided by Kevin Wood to PoPville.</p>
     </div>
 
-    <div id="short-history-map" style="display:none;">
-        <p class="graph-title">Flipped Property Sales Transactions, as Percent of Single Family Home Sales (October 2013-September 2015)</p>
+    <div id="short-history-map">
+        <p class="graph-title">Flipped Homes, as Percent of Single Family Homes on Market (October 2013-September 2015)</p>
         <p class='graph-subtitle'>Darker green indicates greater proportion of flipped homes. Click on a neighborhood for more detail.</p>
         <div id ="short-map-flip" class="content"><br></div>
-        <p class='graph-subtitle'> Source: MRIS, provided by Kevin Wood to PoPville</p>
+        <p class='graph-subtitle'>Note: There is no data for dark gray areas, which are typically green space or commercial areas.<br>Source: MRIS, provided by Kevin Wood to PoPville</p>
     </div>
 
-    <p class="content">The geography of flipped housing skews east in the District, and the more recent map suggests it is moving increasingly eastward. This makes sense as the city's wealthiest properties have historically been located in the most northern and western corners. Many of DC's recent 'up-and-came' neighborhoods, Columbia Heights, Shaw, H St, and Logan Circle, have lower rates of home flipping but are surrounded by flipping booms to the north and east. Hotspots can be seen east of H St, north of Columbia Heights and east of Shaw. So what are the most house-flipped neighborhoods?</p>
+    <p class="content">The geography of flipped housing skews east in the District. This makes sense as the city's most expensive properties have in recent history been located in the most northern and western corners. Many of DC's recent  neighborhoods, Shaw, Logan Circle, Columbia Heights and H St, have lower rates of home flipping but are surrounded by flipping booms to the north and east. Hotspots can be seen east of H St, north of Petworth and east of Shaw. So what are the most house-flipped neighborhoods?</p>
     <div class="btn-content">
-    <input type="button" name="Top2013" value="2013-2015" onclick="Top2013()" class="updatebtn"/>
-    <input type="button" name="Top2011" value="2011-2015" onclick="Top2011()" class="updatebtn"/>
+    <input type="button" name="Top2011" value="View chart for 2011-2015" onclick="Top2011()" class="updatebtn"/>
+    <input type="button" name="Top2013" value="View chart for 2013-2015" onclick="Top2013()" class="updatebtn"/>
     </div>
     <script>
     function Top2013() {
@@ -125,9 +125,9 @@
       }
     </script>
 
-    <div id="flip2011">
-    <p class='graph-title'>Flipped Property Sales Transactions, as Percent of Single Family Home Sales</p>
-    <p class='graph-subtitle'> Subtitle</p>
+    <div id="flip2011" style="display:none;">
+    <p class='graph-title'>Flipped Homes, as Percent of Single Family Homes on Market</p>
+    <p class='graph-subtitle'> May 2011-September 2015</p>
       <svg class="flip1"></svg>
       <script type="text/javascript">
       var chartWidth       = 350,
@@ -195,9 +195,9 @@
     <p class='graph-subtitle'>Source: MRIS, provided by Kevin Wood to PoPville.</p>
     </div>
 
-    <div id="flip2013" style="display:none;">
-    <p class='graph-title'>Flipped Property Sales Transactions, as Percent of Single Family Home Sales</p>
-    <p class='graph-subtitle'> Subtitle</p>
+    <div id="flip2013">
+    <p class='graph-title'>Flipped Homes, as Percent of Single Family Homes on Market</p>
+    <p class='graph-subtitle'> October 2013-September 2015</p>
       <svg class="flip2"></svg>
       <script type="text/javascript">
       var chartWidth       = 350,
@@ -264,10 +264,10 @@
     </script>
     <p class='graph-subtitle'>Source: MRIS, provided by Kevin Wood to PoPville.</p>
     </div>
-    <p class="content">For the most flipped neighborhoods in the District, the proportion of flipped homes on the market is staggering. In XYZ more than one in every five homes on the sales market has been flipped. Largely in the east of the city, while these neighborhoods don't cluster in a specific area they all have in common a <a class="link" target="_blank" href="http://www.washingtonpost.com/realestate/where-we-live-truxton-circle-changing-fast--too-fast-for-some/2014/09/25/49bde166-3ab8-11e4-9c9f-ebb47272e40e_story.html">high </a><a class="link" target="_blank" href="http://wamu.org/programs/metro_connection/15/03/06/dc_residents_work_to_keep_the_reins_as_woodridge_neighborhood_changes">rate</a> <a class="link" target="_blank" href="http://www.washingtonpost.com/realestate/neighborhood-profile-brightwood-park-balancing-history-with-a-boomlet/2014/02/06/8f481fb8-883d-11e3-a5bd-844629433ba3_story.html">of</a> <a class="link" target="_blank" href="http://www.washingtonpost.com/realestate/where-we-live-edgewood-still-affordable-but-newly-desirable/2015/07/23/8dde80a0-1f76-11e5-bf41-c23f5d3face1_story.html">change</a>.</p>
+    <p class="content">For the most flipped neighborhoods in the District, the proportion of flipped homes on the market is staggering. In the last two years there were  11 neighborhoods where more than one in every five homes on the market was flipped. In more than 40 neighborhoods one in ten homes on the market was flipped. Higher percentages of flipped homes in 2013 to 2015, compared with 2011 to 2015, suggests momentum for flipping.<br><br>Largely in the east of the city, while these neighborhoods don't cluster in a specific area they all have in common increasing home prices and gentrifying communities with newer residents generally younger, wealthier and whiter.</p>
     <br>
     <hr id='end-line'>
-    <p class='content'><b>Technical notes:</b> Graphics and rankings are based MRIS data reported monthly by Kevin Wood to PoPville. Select zip codes do not have data before October 2013 and were not included in the 2011-2015 graphics. Flips were defined as the following: (1) a single family home that was bought twice within a two year period, or (2) a single family home that was converted into condos with at least one condo sold within two years. Neighborhood map boundaries were supplied by <a class="link" target="_blank" href="http://opendatadc.org/dataset/neighborhood-boundaries-217-neighborhoods-washpost-justgrimes">Code for DC</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <p class='content'><b>Technical notes:</b> Graphics and rankings are based MRIS data reported monthly by <a class="link" target="_blank" href="http://kevinjosephwood.com/">Kevin Wood</a> to <a class="link" target="_blank" href="http://www.popville.com/">PoPville</a>. Select zip codes do not have data before October 2013 and were not included in the 2011-2015 graphics. Flips were defined as the following: (1) a single family home that was bought twice within a two year period, or (2) a single family home that was converted into condos with at least one condo sold within two years. Neighborhood map boundaries were supplied by <a class="link" target="_blank" href="http://opendatadc.org/dataset/neighborhood-boundaries-217-neighborhoods-washpost-justgrimes">Code for DC</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
     <br><br>
   </div>
 
