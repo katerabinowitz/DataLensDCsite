@@ -16,12 +16,14 @@
   <link href='./CSS/fm-per-capita.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/DDD.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/CEX.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/prop-flip.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script> 
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="./JS/propflip-maps.js"></script>
 <script>
 var cityCircle;
 var map;
@@ -219,7 +221,44 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
   <br>
-      <h2><a href='./how-DC-spends.html'>How the DC Region Spends</a></h2>
+    <h2><a href='./dc-property-flipping.html'>What are the District's Most House-Flipped Neighborhoods?</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // October 21, 2015 </h3>
+    <p class="content"> Just because I'm not in the market for a home doesn't mean I don't show up to open houses like I have hundreds of thousands to drop. The more open houses I go to, the more trends appear: everything is shiny, new and well placed in an open floor layout; there's a half bath squeezed under the stairs; the bathroom has modern sink no one can wash their face in. Many of these homes have been flipped, a common sight on the hot DC real estate market. House flipping is when a house is bought as a real estate investment, remodeled, and put back on the market at a substantially higher price.<br><br>On a larger scale, flipped homes can alter a real estate market, creating a scarcity of fixer-uppers and an abundance of all-cash deals. It can also be a sign of a changing community. Curious about how home flipping looked from a bird's eye view, I mapped flipped homes as a proportion of single family home sales in neighborhoods across the District. <a href="google.com" target="blank" class="link">Read the rest in my recent Washingtonian piece.</a></p> 
+    <div class="btn-content">
+    <input type="button" name="2011-2015" value="Show map for 2011-2015" onclick="show2011()" class="updatebtn"/>
+    <input type="button" name="2013-2015" value="Show map for 2013-2015" onclick="show2013()" class="updatebtn"/>
+    </div>
+    <script>
+        function show2011() {
+    $("#short-history-map").hide();
+   document.getElementById('long-history-map').style.display = "block";
+    var center = mapFlip.getCenter(); 
+   google.maps.event.trigger(mapFlip, 'resize')
+   mapFlip.setCenter(center);
+    }
+    function show2013() {
+    $("#long-history-map").hide();
+   document.getElementById('short-history-map').style.display = "block";
+   google.maps.event.trigger(ShortmapFlip, 'resize'); 
+    }
+    </script>
+    <div id="long-history-map" style="display:none;">
+        <p class="graph-title">Flipped Homes, as Percent of Single Family Homes on Market (May 2011-September 2015)</p>
+        <p class='graph-subtitle'>Darker green indicates greater proportion of flipped homes. Click on a neighborhood for more detail.</p>
+        <div id ="map-flip" class="content"><br></div>
+        <p class='graph-subtitle'> Note: There is no data for dark gray areas. Data before 10/2013 is unavailable for select zip codes and have not been shown here.<br>Source: MRIS, provided by Kevin Wood to PoPville.</p>
+    </div>
+
+    <div id="short-history-map">
+        <p class="graph-title">Flipped Homes, as Percent of Single Family Homes on Market (October 2013-September 2015)</p>
+        <p class='graph-subtitle'>Darker green indicates greater proportion of flipped homes. Click on a neighborhood for more detail.</p>
+        <div id ="short-map-flip" class="content"><br></div>
+        <p class='graph-subtitle'>Note: There is no data for dark gray areas, which are typically green space or commercial areas.<br>Source: MRIS, provided by Kevin Wood to PoPville</p>
+    </div>
+    <br>
+
+    <h2><a href='./how-DC-spends.html'>How the DC Region Spends</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // October 8, 2015 </h3>
     <p class="content"> As any resident of the DC region knows, this is an expensive place to live. That's in part balanced by the region's wealth. But how do expenses compare to other major metropolitan areas? I often wonder this when I visit other cities, purusing their shops and real estate listings. A recent Bureau of Labor Statistics study looks at this very question and reports the average spend of consumer units (like households) across a range of spending categories.<br><br>Check out the interactive chart below to see the percentage of annual expenditure an average consumer unit spends on each cateogory across urban areas. Press a button to change the view and hover over a bar to see the actual dollar amount spent. <a href="http://www.washingtonian.com/blogs/capitalcomment/data/how-the-dc-region-spends-its-money.php" target="blank" class="link">Read the rest in my recent Washingtonian piece.</a></p>
@@ -684,6 +723,7 @@ function type(d) {
     <br>
   			<li>Archive</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
             <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
             <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
             <li><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
