@@ -43,7 +43,7 @@ a:hover {
 	}
 
 	.navbar-custom li:hover {
-	color:#FFFFFF;
+	color:#E62B2B;;
 	text-decoration:none; 
     cursor:pointer; 
 	}
@@ -151,7 +151,7 @@ a:hover {
 	}
 
 	.insidebar li:hover, .connectbar li:hover{
-	color:#FFFFFF;
+	color: #E62B2B;
 	text-decoration:none; 
     cursor:pointer; 
 	}
@@ -166,6 +166,12 @@ a:hover {
 		padding:10px 20px 0 75px;
 		font-size: 22px;
 		line-height:20px;
+	}
+
+	.archiveside:hover{
+	color: #E62B2B;
+	text-decoration:none; 
+    cursor:pointer; 
 	}
 }
 
