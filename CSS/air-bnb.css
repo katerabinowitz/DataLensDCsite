@@ -1,0 +1,49 @@
+#map-bnb{
+	margin:auto;
+	width:70%;
+	height:350px;
+}
+
+#iw {
+	width:175px;
+	text-align: left;
+	font-family: 'Neuton', serif;
+	font-size: 12px;
+	color: #505050;
+}
+
+ #iw #iw-title {
+	text-align: center;
+	font-family: 'Neuton', serif;
+	font-size: 14px;
+	color: #505050;
+}
+
+.bar {
+    fill: #53CFCF;
+    }
+  .label{
+    font: 12px sans-serif;
+  }
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+rect.bordered {
+    stroke: #E6E6E6;
+    stroke-width:2px;   
+  }
+
+text{
+    font: 9px sans-serif;
+  }
+
+ #bbmap {
+    width:70%; 
+    height:300px; 
+    text-align:center;
+  }
