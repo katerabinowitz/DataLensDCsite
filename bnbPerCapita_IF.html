@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>AirBnB in DC</title>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/air-bnb.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
+  <script src="./JS/bnb-hood-map.js"></script>
+
+  <script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' />
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    <p class='graph-title'>Washington D.C. #3 in Airbnb Listings per Capita</p>
+    <p class='graph-subtitle'> Number of Active Airbnb Listings per 1,000 people</p>
+      <div id="rankbar">
+      <svg class="rank"></svg>
+      <script type="text/javascript">
+      var chartWidth       = 350,
+        barHeight        = 20,
+        gapBetweenGroups = 40,
+        spaceForLabels   = 80;
+
+      var x = d3.scale.linear()
+        .range([0, chartWidth]);
+
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Air-BnB/master/BnBPerCapita.csv", type, function(error, data) {
+          x.domain([0, d3.max(data, function(d) { return d.Airpc; })]);
+
+      var chartHeight = barHeight * 13;
+
+      var y = d3.scale.linear()
+        .range([chartHeight + gapBetweenGroups, 0]);
+
+      var yAxis = d3.svg.axis()
+        .scale(y)
+        .tickFormat('')
+        .tickSize(0)
+        .orient("left");
+// Specify the chart area and dimensions
+      var rank = d3.select(".rank")
+        .attr("width", spaceForLabels + chartWidth)
+        .attr("height", chartHeight);
+// Create bars
+    var bar = rank.selectAll("g")
+        .data(data)
+        .enter().append("g")
+        .attr("transform", function(d, i) {
+        return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.length))) + ")";
+    });
+// Create rectangles of the correct width
+    bar.append("rect")
+      .attr("class", "bar")
+      .attr("width", function(d) { return x(d.Airpc); })
+      .attr("height", barHeight - 1);
+// Add text label in bar
+    bar.append("text")
+      .attr("x", function(d) { return x(d.Airpc-0.4); })
+      .attr("y", barHeight / 2)
+      .attr("dy", ".35em")
+        .text(function(d) { return (d.Airpc.toFixed(2)); });
+// Draw labels
+    bar.append("text")
+      .attr("class", "label")
+      .attr("x", function(d) {return - 80; })
+      .attr("y", barHeight/2)
+      .attr("dy", ".1em")
+      .text(function(d) { return d.city; });
+
+    rank.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
+      .call(yAxis);
+    });
+
+    function type(d) {
+      d.Airpc = +d.Airpc; // coerce to number
+    return d;
+    }
+    </script>
+    <p class='graph-subtitle'> Source: InsideAirbnb, U.S. Census Population Estimates.</p>
+  </div>

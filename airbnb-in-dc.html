@@ -168,7 +168,7 @@
         <svg class="schart"></svg>
 <script>
 (function() {
-var margin = {top: 20, right: 0, bottom: 17, left: 35},
+var margin = {top: 20, right: 0, bottom: 35, left: 35},
     width = 420 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
@@ -247,7 +247,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/Air-BnB/master/DCbnbOut
 
   legend.append("text")
       .attr("x", width - 24)
-      .attr("y", 9)
+      .attr("y", 11)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
       .text(function(d) { return d; });
@@ -256,6 +256,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/Air-BnB/master/DCbnbOut
 })();
 </script>
 </div>
+<p class='graph-subtitle'>Source: InsideAirbnb</p>
 <p class="content">One third of all Airbnb listings are run by hosts that have multiple listings. The majority of multi-listing hosts have two listings, though a handful have over 20 listings.<br><br>Nearly two-thirds of all active Airbnb listings are for the entire property. Of those properties, half are highly active with at least 90 estimated nights booked in the past year. These properties most likely serve solely as Airbnb listings and are off the market to DC renters. At just under a thousand, these highly active Airbnb properties will have at most a minimal effect on the rental market but are likely to worry the hotel industry. 
   <br><br>
   <hr id='end-line'>
