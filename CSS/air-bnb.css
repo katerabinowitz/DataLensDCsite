@@ -1,24 +1,13 @@
-#map-bnb{
-	margin:auto;
-	width:70%;
-	height:350px;
+#rankbar {
+  text-align:center;
 }
 
-#iw {
-	width:175px;
-	text-align: left;
-	font-family: 'Neuton', serif;
-	font-size: 12px;
-	color: #505050;
+.bbmaps {
+  text-align:center;
 }
-
- #iw #iw-title {
-	text-align: center;
-	font-family: 'Neuton', serif;
-	font-size: 14px;
-	color: #505050;
+.stackchart {
+  text-align:center;
 }
-
 .bar {
     fill: #53CFCF;
     }
@@ -39,11 +28,5 @@ rect.bordered {
   }
 
 text{
-    font: 9px sans-serif;
-  }
-
- #bbmap {
-    width:70%; 
-    height:300px; 
-    text-align:center;
+    font: 11px sans-serif;
   }
