@@ -17,6 +17,7 @@
   <link href='./CSS/DDD.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/CEX.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/prop-flip.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/air-bnb.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
@@ -220,6 +221,82 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
+  <br>
+   <h2><a href='./airbnb-listings-in-DC.html'>DC Has More Airbnb Listings Per Capita Than New York or Los Angeles</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // November 12, 2015 </h3>
+    <p class="content">Airbnb’s $8 million lobbying effort to win at the San Francisco polls is just the beginning. The lodging company announced Wednesday its “Community Compact,” a plan under which it will “use its experience in cities across the country to work with policymakers here in DC.” That’s a cute way of saying the company plans to hire a ton of lobbyists to work on city and state governments. <br><br>There are two proposals in front of the DC Council right now that seek curtail the company’s reach here. One, backed by the city’s hotel industry, would cap the number of properties an individual Airbnb host could list on the site to five, none of which could be located in the same buildings. A bill pushed by UNITE-HERE Local 25, the union representing the city’s hotel workers, would go much further by limiting hosts to renting out rooms in occupied units instead of whole houses or apartments.<br><br>Airbnb will likely spend thousands of dollars to fight accusations of raising rents, hurting businesses, disrupting neighborhoods, and facilitating the <a class='link' target="_blank" href="http://www.washingtonian.com/blogs/capitalcomment/local-news/dc-sues-owner-of-airbnb-rental-house-used-for-parties.php">occassional Ja Rule house party.</a><br><br>But Airbnb might be more popular in Washington than its opponents care to admit. A poll the company commissioned last month found that of 400 DC voters, 57 percent oppose local regulations that would restrict the types of lodging the site can offer. The survey also found that 35 percent of voters have a favorable opinion Airbnb compared to 9 percent with an unfavorable opinion, though 56 percent had no opinion.<br><br>Airbnb’s claims of popularity are better backed up by the raw numbers. New data suggest DC is a hotbed for the site, ranking third in listings per capita compared to other US cities. The District has over 3,500 listings, of which 2,855 are active.</p>
+    <p class='graph-title'>Washington D.C. #3 in Airbnb Listings per Capita</p>
+    <p class='graph-subtitle'> Number of Active Airbnb Listings per 1,000 people</p>
+      <div id="bnbrankbar">
+      <svg class="bnbrank"></svg>
+      <script type="text/javascript">
+      var chartWidth       = 350,
+        barHeight        = 20,
+        gapBetweenGroups = 40,
+        spaceForLabels   = 80;
+
+      var x = d3.scale.linear()
+        .range([0, chartWidth]);
+
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Air-BnB/master/BnBPerCapita.csv", type, function(error, data) {
+          x.domain([0, d3.max(data, function(d) { return d.Airpc; })]);
+
+      var chartHeight = barHeight * 13;
+
+      var y = d3.scale.linear()
+        .range([chartHeight + gapBetweenGroups, 0]);
+
+      var yAxis = d3.svg.axis()
+        .scale(y)
+        .tickFormat('')
+        .tickSize(0)
+        .orient("left");
+// Specify the chart area and dimensions
+      var bnbrank = d3.select(".bnbrank")
+        .attr("width", spaceForLabels + chartWidth)
+        .attr("height", chartHeight);
+// Create bars
+    var bar = bnbrank.selectAll("g")
+        .data(data)
+        .enter().append("g")
+        .attr("transform", function(d, i) {
+        return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.length))) + ")";
+    });
+// Create rectangles of the correct width
+    bar.append("rect")
+      .attr("class", "bar")
+      .attr("width", function(d) { return x(d.Airpc); })
+      .attr("height", barHeight - 1);
+// Add text label in bar
+    bar.append("text")
+      .attr("x", function(d) { return x(d.Airpc-0.4); })
+      .attr("y", barHeight / 2)
+      .attr("dy", ".35em")
+        .text(function(d) { return (d.Airpc.toFixed(2)); });
+// Draw labels
+    bar.append("text")
+      .attr("class", "label")
+      .attr("x", function(d) {return - 80; })
+      .attr("y", barHeight/2)
+      .attr("dy", ".1em")
+      .text(function(d) { return d.city; });
+
+    bnbrank.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
+      .call(yAxis);
+    });
+
+    function type(d) {
+      d.Airpc = +d.Airpc; // coerce to number
+    return d;
+    }
+    </script>
+    <p class='graph-subtitle'> Source: InsideAirbnb, U.S. Census Population Estimates.</p>
+  </div>
+  <p class="content">There are 4.33 Airbnb listings per 1,000 people across the District, though the rate varies drastically across neighborhoods. <a href="http://www.washingtonian.com/blogs/capitalcomment/data/dc-has-more-airbnb-listings-per-capita-than-new-york.php" target="_blank" class="link"> Read the rest in my recent Washingtonian piece.</p>
+
   <br>
     <h2><a href='./dc-property-flipping.html'>What are the District's Most House-Flipped Neighborhoods?</a></h2>
     <hr id='top-line'>
@@ -722,6 +799,7 @@ function type(d) {
     <br>
   			<li>Recent</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
             <li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
             <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
             <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
