@@ -9,7 +9,7 @@
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/wmata-delay.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/wmata-2015-delay.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -98,7 +98,7 @@ var yAxis = d3.svg.axis()
     .outerTickSize(0)
     .orient("left");
 
-var delayChart = d3.select(".chart")
+var delayChart = d3.select(".delayChart")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -150,8 +150,108 @@ function type(d) {
 <p class="content">Yadda Yadda Yadda</p>
     <p class='graph-title'>Title</p>
     <p class='graph-subtitle'>Metro delays by issue type</p>
-<div id="issuetype">
-<script></script>
+<div id="issueChart">
+<svg class="issueChart"></svg>
+<script>
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = 500 - margin.left - margin.right,
+    height = 960 - margin.top - margin.bottom;
+
+var chartWidth       = 275,
+    barHeight        = 20,
+    gapBetweenGroups = 40,
+    spaceForLabels   = 80;
+
+var y0 = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .5);
+
+var y1 = d3.scale.ordinal();
+
+var x = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.ordinal()
+    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00","#ff8c00"]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y0)
+    .orient("left");
+    // .tickFormat(d3.format(".2s"));
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/DelayIssue.csv", function(error, data) {
+  if (error) throw error;
+
+  var issueName = d3.keys(data[0]).filter(function(key) { return key !== "year"; });
+
+  data.forEach(function(d) {
+    d.issues = issueName.map(function(name) { return {name: name, value: +d[name]}; });
+  });
+
+  y0.domain(data.map(function(d) { return d.year; }));
+  y1.domain(issueName).rangeRoundBands([0, y0.rangeBand()]);
+  x.domain([0, d3.max(data, function(d) { return d3.max(d.issues, function(d) { return d.value; }); })])
+
+  // svg.append("g")
+  //     .attr("class", "x axis")
+  //     .attr("transform", "translate(0," + height + ")")
+  //     .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Year");
+
+  var state = svg.selectAll(".issueChart")
+      .data(data)
+    .enter().append("g")
+      .attr("class", "g")
+      .attr("transform", function(d) { return "translate(" + y0(d.year) + ",0)"; });
+
+  state.selectAll("rect")
+      .data(function(d) { return d.issues; })
+    .enter().append("rect")
+      .attr("width", function(d) { return y1(d.value); })
+      .attr("y", function(d) { return y1(d.name); })
+      .attr("x", function(d) { return x(d.value); })
+      .attr("height", y0.rangeBand())
+      .style("fill", function(d) { return color(d.name); });
+
+  var legend = svg.selectAll(".legend")
+      .data(issueName.slice().reverse())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
+
+});
+</script>
     </div>
     <p class='graph-subtitle'> Source: WMATA Daily Service Report</p>
     <p class='content'>Yadda Yadda</a></p>
@@ -165,7 +265,7 @@ function type(d) {
     <br>
         <li>Recent</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
-            <li><a href='./rise-of-biking.html'>The Rise of Biking in D.C., Visualized</a></li>s
+            <li><a href='./rise-of-biking.html'>The Rise of Biking in D.C., Visualized</a></li>
             <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
             <li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
             <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
