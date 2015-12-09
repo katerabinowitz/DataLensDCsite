@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>Has Metro Bottomed Out?</title>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/wmata-2015-delay.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body>
+<nav class="xsheader navbar navbar-default navbar-static-top">
+  <div class='clearfix xsheader'>      
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span> 
+        </button>
+        <a class="navbar-brand" href="./index.html">
+          <img src="./Images/DataLensDCResponsiveLogo2.png" alt="DataLensDC">  
+        </a>
+      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse dropdown-pull-right" id="main-navbar-custom">
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./subscribe.html">Subscribe</a></li>
+        <li><a href="./archive.html">Archive</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
+          <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
+            <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+            <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+            <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>      
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<nav class="smheader navbar navbar-default navbar-static-top">
+<a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+  <div class="navbar-fixed">
+    <ul class ="headerlist">
+        <li><a href="./about.html">about</a></li>
+        <li><a href="./subscribe.html">subscribe</a></li>
+        <li><a href="mailto:datalensdc@gmail.com">email</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class='content row'>
+  <div class='col-sm-9 col-xs-12'>
+  <br>
+    <h2><a href='./your-commute-is-getting-worse.html'>Has Metro Bottomed Out?</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // December 8, 2015</h3>
+    <p class='content'>It has been a spectacular year of Metro fails. Between a <a href="https://www.washingtonpost.com/local/trafficandcommuting/1-dead-dozens-hurt-on-metro-car-filled-with-smoke/2015/01/12/e832c0f0-9aa8-11e4-a7ee-526210d665b4_story.html" class="link" target="_blank">deadly smoke-filled train</a>, rush hour trains<a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/metro-did-a-bad-job-telling-people-about-orange-and-silver-line-cuts-so-this-guy-put-up-signs.php" class="link" target="_blank"> bypassing a station for months</a>, and increasingly common everyday delays, DC area <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/the-9-kinds-of-metro-haters-wmata-twitter-jokes.php" class="link" target="_blank">residents are fed up</a>. A <a class="link" href="http://www.wmata.com/about_metro/board_of_directors/board_docs/120315_4BCustomerSatisfaction.pdf" target="_blank">recent WMATA survey</a> shows customer satisfaction at a low of 67%, and for good reason. This year's metro delays through November total 772 hours, an increase of a third over 2014. On average there are over two hours of delays everyday. If each of this year's Metro delays were successive, it would be as if WMATA shut down a line for 32 days straight.</p>
+    <p class='graph-title'>2015 Metro delays tally up to over 770 hours of downed service</p>
+    <p class='graph-subtitle'>Total delay time, hours</p>
+<div id="delayAnnual">
+<svg class="delayChart"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 0, bottom: 20, left: 35},
+    width = 400 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var color = d3.scale.ordinal()
+    .range(["#7fc97f", "#beaed4", "#fdc086"]);
+
+var delayChart = d3.select(".delayChart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/AnnualDelay.csv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.Year; }));
+  y.domain([0, d3.max(data, function(d) { return d.DelaySum; })]);
+
+  delayChart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  delayChart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Hours");
+
+  delayChart.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.Year); })
+      .attr("y", function(d) { return y(d.DelaySum); })
+      .attr("height", function(d) { return height - y(d.DelaySum); })
+      .attr("width", x.rangeBand())
+      .attr("fill",function(d,i){return color(i)});
+  delayChart.selectAll(".bartext")
+    .data(data)
+    .enter()
+    .append("text")
+      .attr("class", "bartext")
+      .attr("x", function(d) { return x(d.Year)+80; })
+      .attr("y", function(d) { return y(d.DelaySum) +10; } )
+      .text(function(d){
+        return d.DelaySum;
+        });
+         
+});
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+})();
+</script>
+<p class='graph-subtitle'>Source: <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports.</a></p>
+</div>
+
+<p class='content'>The drastic increase in Metro's downed service is due to more, not longer, delays. The average delay has remained at roughly 8 minutes, while the number of delays has increased over 82% compared to 2013. Metro's new general manager, Paul Wiedefeld, will certainly have his hands full. But Wiedefeld may be starting at just the right time. After particularly terrible service in the winter and early summer, Metro delays have been on decline since August. In the last two months there were fewer delays than the same time last year.</p>
+
+    <p class='graph-title'>Metro delays were terrible this year, but are getting better</p>
+    <p class='graph-subtitle'> Number of Metro delays, monthly (hover for value).</p>
+<div id="YMdelayBig">
+<svg class="myDelay"></svg>
+<script>
+var margin = {top: 10, right: 20, bottom: 30, left: 30},
+    width = 650 - margin.left - margin.right,
+    height = 350 - margin.top - margin.bottom;
+
+var parseDate = d3.time.format("%Y-%m-%d").parse;
+
+var color = d3.scale.category10();
+
+var div = d3.select("body").append("div") 
+    .attr("class", "tooltip")       
+    .style("opacity", 0);
+
+var myDelay = d3.select(".myDelay")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/myDelayTN.csv", function(error, data) {
+  if (error) throw error;
+
+  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+
+  data.forEach(function(d) {
+    d.date = parseDate(d.date);
+  });
+  
+  var yr = color.domain().map(function(name) {
+    return {
+      name: name,
+      values: data.map(function(d) {
+        return {date: d.date, delays: +d[name]};
+      })
+    };
+  });
+
+  var x = d3.time.scale()
+    .domain(d3.extent(data, function(d) { return d.date; }))
+    .range([0, width]);
+
+  var y = d3.scale.linear()
+    .domain([200,800])
+    .range([height, 0]);
+
+  var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .tickFormat(d3.time.format("%b"))
+    .ticks(6);
+
+  var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+  var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.delays); });
+  
+
+  myDelay.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  myDelay.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .attr("x",-30)
+      .text("Number of Delays");
+
+  var chart = myDelay.selectAll(".chart")
+      .data(yr)
+    .enter().append("g")
+
+  chart.append("path")
+      .attr("class", "line")
+      .attr("d", function(d) { return line(d.values); })
+      .style("stroke", function(d) { return color(d.name); });
+
+  var point = chart.append("g")
+    .attr("class", "line-point");
+
+  point.selectAll('circle')
+    .data(function(d){ return d.values})
+    .enter().append('circle')
+    .attr("cx", function(d) { return x(d.date) })
+    .attr("cy", function(d) { return y(d.delays) })
+    .attr("r", 5)
+    .style("fill", "white")
+    .style("stroke", function(d)  { return color(this.parentNode.__data__.name); })
+    .on("mouseover", function(d) {    
+            div.transition()    
+                .duration(200)    
+                .style("opacity", .9);    
+            div .html(d.delays)  
+                .style("left", (d3.event.pageX) + "px")   
+                .style("top", (d3.event.pageY - 28) + "px");  
+            })          
+        .on("mouseout", function(d) {   
+            div.transition()    
+                .duration(500)    
+                .style("opacity", 0); 
+        });
+
+  chart.append("text")
+      .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 2]}; })
+      .attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.delays) + ")"; })
+      .attr("x", 37)
+      .attr("dy", ".35em")
+      .text(function(d) { return d.name; });
+});
+</script>
+</div>
+
+<div id="YMdelaySm">
+<svg class="myDelayS"></svg>
+<script>
+var data = {
+  labels: [
+    'January', 'February', 'March','April','May', 'June', 'July',
+    'August','September','October','November'
+  ],
+  series: [
+      {
+      label: '2013',
+      values: [327, 278,305,335,339,339,417,360,315,343,403]
+    },
+    {
+      label: '2014',
+      values: [469, 340,411,329,403,490,434,510,424,478,597]
+    },
+    {
+      label: '2015',
+      values: [768,756,811,573,548,699,721,626,522,422,409]
+    },]
+};
+
+var chartWidth       = 300,
+    barHeight        = 20,
+    groupHeight      = barHeight * data.series.length,
+    gapBetweenGroups = 10,
+    spaceForLabels   = 150,
+    spaceForLegend   = 150;
+
+// Zip the series data together (first values, second values, etc.)
+var zippedData = [];
+for (var i=0; i<data.labels.length; i++) {
+  for (var j=0; j<data.series.length; j++) {
+    zippedData.push(data.series[j].values[i]);
+  }
+}
+
+// Color scale
+var color = d3.scale.ordinal()
+    .range(["#7fc97f", "#beaed4", "#fdc086"]);
+var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
+
+var x = d3.scale.linear()
+    .domain([0, d3.max(zippedData)])
+    .range([0, chartWidth]);
+
+var y = d3.scale.linear()
+    .range([chartHeight + gapBetweenGroups, 0]);
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .tickFormat('')
+    .tickSize(0)
+    .orient("left");
+
+// Specify the chart area and dimensions
+var chart = d3.select(".myDelayS")
+    .attr("width", spaceForLabels + chartWidth + spaceForLegend)
+    .attr("height", chartHeight);
+
+// Create bars
+var bar = chart.selectAll("g")
+    .data(zippedData)
+    .enter().append("g")
+    .attr("transform", function(d, i) {
+      return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.series.length))) + ")";
+    });
+
+// Create rectangles of the correct width
+bar.append("rect")
+    .attr("fill", function(d,i) { return color(i % data.series.length); })
+    .attr("class", "bar")
+    .attr("width", x)
+    .attr("height", barHeight - 1);
+
+// Add text label in bar
+bar.append("text")
+    .attr("x", function(d) { return x(d) - 10; })
+    .attr("y", barHeight / 2)
+    .attr("fill", "red")
+    .attr("dy", ".35em")
+    .text(function(d) { return d; });
+
+// Draw labels
+bar.append("text")
+    .attr("class", "label")
+    .attr("x", function(d) { return - 20; })
+    .attr("y", groupHeight / 2)
+    .attr("dy", ".35em")
+    .text(function(d,i) {
+      if (i % data.series.length === 0)
+        return data.labels[Math.floor(i/data.series.length)];
+      else
+        return ""});
+
+chart.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
+      .call(yAxis);
+
+// Draw legend
+var legendRectSize = 18,
+    legendSpacing  = 4;
+
+var legend = chart.selectAll('.legend')
+    .data(data.series)
+    .enter()
+    .append('g')
+    .attr('transform', function (d, i) {
+        var height = legendRectSize + legendSpacing;
+        var offset = -gapBetweenGroups/2;
+        var horz = spaceForLabels + chartWidth + 40 - legendRectSize;
+        var vert = i * height - offset;
+        return 'translate(' + horz + ',' + vert + ')';
+    });
+
+legend.append('rect')
+    .attr('width', legendRectSize)
+    .attr('height', legendRectSize)
+    .style('fill', function (d, i) { return color(i); })
+    .style('stroke', function (d, i) { return color(i); });
+
+legend.append('text')
+    .attr('class', 'legend')
+    .attr('x', legendRectSize + legendSpacing)
+    .attr('y', legendRectSize - legendSpacing)
+    .text(function (d) { return d.label; });
+</script>
+</div>
+<p class='graph-subtitle'>Source: <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports.</a></p>
+
+<p class="content">While it may feel like all of Metro is falling apart, nearly two-thirds of this year's increase in delays is due to a single issue: trains never leaving the gate, mostly due to train malfunctions. Through November, 1,658 delays were due to trains that were scheduled to operate, but did not. That is more than double the 2014 occurences, and nearly five times the 2013 rate. Taken with the most common delay cause, train malfunctions during transit, Metro's dilapidated train stock is the biggest drag on Metro performance.</p>
+    <p class='graph-title'>Metro's most pressing issue is trains not leaving the gate</p>
+    <p class='graph-subtitle'>Metro delays by issue type</p>
+<div id="issueChart">
+<svg class="issueChart"></svg>
+<script>
+var data = {
+  labels: [
+    "Mechanical(train)", "Train didn't depart", "Operational","Mechanical(general)",
+    "Fire and Crimes", "Mechanical(station)", "Schedule adherence","External cause","Mechanical(track)",
+    "Maintenance"
+  ],
+  series: [
+    {
+      label: '2013',
+      values: [1440,344,278,418,219,276,59,210,65,48]
+    },
+    {
+      label: '2014',
+      values: [1542,783,439,396,174,282,153,203,104,59]
+    },
+    {
+      label: '2015',
+      values: [1658,1644,523,441,350,276,207,171,152,108]
+    },]
+};
+
+var chartWidth       = 300,
+    barHeight        = 20,
+    groupHeight      = barHeight * data.series.length,
+    gapBetweenGroups = 10,
+    spaceForLabels   = 150,
+    spaceForLegend   = 150;
+var zippedData = [];
+for (var i=0; i<data.labels.length; i++) {
+  for (var j=0; j<data.series.length; j++) {
+    zippedData.push(data.series[j].values[i]);
+  }
+}
+
+var color = d3.scale.ordinal()
+    .range(["#7fc97f", "#beaed4", "#fdc086"]);
+var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
+
+var x = d3.scale.linear()
+    .domain([0, d3.max(zippedData)])
+    .range([0, chartWidth]);
+
+var y = d3.scale.linear()
+    .range([chartHeight + gapBetweenGroups, 0]);
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .tickFormat('')
+    .tickSize(0)
+    .orient("left");
+
+var chart = d3.select(".issueChart")
+    .attr("width", spaceForLabels + chartWidth + spaceForLegend)
+    .attr("height", chartHeight);
+
+var bar = chart.selectAll("g")
+    .data(zippedData)
+    .enter().append("g")
+    .attr("transform", function(d, i) {
+      return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.series.length))) + ")";
+    });
+
+bar.append("rect")
+    .attr("fill", function(d,i) { return color(i % data.series.length); })
+    .attr("class", "bar")
+    .attr("width", x)
+    .attr("height", barHeight - 1);
+
+bar.append("text")
+    .attr("x", function(d) { return x(d) - 3; })
+    .attr("y", barHeight / 2)
+    .attr("fill", "red")
+    .attr("dy", ".35em")
+    .text(function(d) { return d; });
+
+bar.append("text")
+    .attr("class", "label")
+    .attr("x", function(d) { return - 10; })
+    .attr("y", groupHeight / 2)
+    .attr("dy", ".35em")
+    .text(function(d,i) {
+      if (i % data.series.length === 0)
+        return data.labels[Math.floor(i/data.series.length)];
+      else
+        return ""});
+
+chart.append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
+      .call(yAxis);
+
+var legendRectSize = 18,
+    legendSpacing  = 4;
+
+var legend = chart.selectAll('.legend')
+    .data(data.series)
+    .enter()
+    .append('g')
+    .attr('transform', function (d, i) {
+        var height = legendRectSize + legendSpacing;
+        var offset = -gapBetweenGroups/2;
+        var horz = spaceForLabels + chartWidth + 40 - legendRectSize;
+        var vert = i * height - offset;
+        return 'translate(' + horz + ',' + vert + ')';
+    });
+
+legend.append('rect')
+    .attr('width', legendRectSize)
+    .attr('height', legendRectSize)
+    .style('fill', function (d, i) { return color(i); })
+    .style('stroke', function (d, i) { return color(i); });
+
+legend.append('text')
+    .attr('class', 'legend')
+    .attr('x', legendRectSize + legendSpacing)
+    .attr('y', legendRectSize - legendSpacing)
+    .text(function (d) { return d.label; });
+</script>
+    </div>
+    <p class='graph-subtitle'>Source: <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports.</a></p>
+    <p class='content'>WMATA recently announced a number of <a class="link" href="http://www.wmata.com/about_metro/board_of_directors/board_docs/120315_4BCustomerSatisfaction.pdf" target="_blank">initiatives to combat faulty trains</a> including improving delivery of the new 7000-series rail cars; prioritizing train maintenance and upgrades through the Capital Improvement Plan; policy changes to acquire parts; and activating overtime for train maintenance. It remains to be seen whether WMATA can carry through with these initiatives and continue Metro's falling delay count in 2016.</a></p>
+    <br><br>
+    <hr id='end-line'>
+    <p class='content'><b>Technical notes:</b> Analysis and graphs are based off of <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports</a>. Data covers delays through November 30th of each year. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <p class='content'>
+      <br>
+    </div>
+<div class='col-sm-3 side'>
+  <ul class="sidebar nav nav-stacked fixed">
+    <br>
+        <li>Recent</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./rise-of-biking.html'>The Rise of Biking in D.C., Visualized</a></li>
+            <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
+            <li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
+            <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
+            <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
+            <li><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
+            <li><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></li>
+<!--             <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
+            <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
+            <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
+            <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
+            <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li> -->
+        </ul></ul> 
+        <li class="archiveside"><a href="./archive.html"><p style="margin-left:15px">Archive</p></a></li>
+        <br>
+        <li>Connect</li>  
+        <ul><ul class="nav nav-stacked fixed connectbar">
+              <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+              <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+              <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+              <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
+          </ul></ul>
+      </ul>
+    </div>    
+</div>
+</body>
+</html>

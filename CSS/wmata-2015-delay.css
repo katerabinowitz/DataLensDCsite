@@ -1,0 +1,60 @@
+@media (min-width: 0px) and (max-width: 768px){
+     #YMdelayBig{
+          display:none;
+     }
+}
+
+@media (min-width: 768px) {
+    #YMdelaySm{
+        display:none;
+    }
+}
+
+#delayAnnual, #issueChart, #YMdelayBig, #YMdelaySm {
+  text-align:center;
+}
+
+.legend {
+  fill: black;
+  font-family: Consolas, courier;
+  text-anchor: start;
+  font-size: 12px;
+}
+
+text {
+    font-size: 9pt;
+    font-family: Consolas, courier;
+    fill: black;
+  text-anchor: end;
+}
+
+.label {
+  fill: black;
+  font-family: Consolas, courier;
+  font-size: 12px;
+  text-anchor: end;
+}
+
+.bartext {
+  fill: black;
+  font-family: Consolas, courier;
+  font-size: 12px;
+  text-anchor: middle;
+}
+
+.bar:hover {
+  fill: white;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}

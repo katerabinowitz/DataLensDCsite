@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>Has Metro Bottomed Out?</title>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/wmata-2015-delay.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+<p class='graph-title'>2015 Metro delays tally up to over 770 hours of downed service</p>
+    <p class='graph-subtitle'>Total delay time, hours</p>
+<div id="delayAnnual">
+<svg class="delayChart"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 0, bottom: 20, left: 35},
+    width = 400 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var color = d3.scale.ordinal()
+    .range(["#7fc97f", "#beaed4", "#fdc086"]);
+
+var delayChart = d3.select(".delayChart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/AnnualDelay.csv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.Year; }));
+  y.domain([0, d3.max(data, function(d) { return d.DelaySum; })]);
+
+  delayChart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  delayChart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Hours");
+
+  delayChart.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.Year); })
+      .attr("y", function(d) { return y(d.DelaySum); })
+      .attr("height", function(d) { return height - y(d.DelaySum); })
+      .attr("width", x.rangeBand())
+      .attr("fill",function(d,i){return color(i)});
+  delayChart.selectAll(".bartext")
+    .data(data)
+    .enter()
+    .append("text")
+      .attr("class", "bartext")
+      .attr("x", function(d) { return x(d.Year)+80; })
+      .attr("y", function(d) { return y(d.DelaySum) +10; } )
+      .text(function(d){
+        return d.DelaySum;
+        });
+         
+});
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+})();
+</script>
+<p class='graph-subtitle'>Source: <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports.</a></p>
+</div>
