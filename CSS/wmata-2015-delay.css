@@ -1,33 +1,60 @@
-/*.bar {
-    fill: #53CFCF;
-    }*/
+@media (min-width: 0px) and (max-width: 768px){
+     #YMdelayBig{
+          display:none;
+     }
+}
 
-  .axis text {
-    font: 10px sans-serif;
-  }
+@media (min-width: 768px) {
+    #YMdelaySm{
+        display:none;
+    }
+}
 
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-  }
+#delayAnnual, #issueChart, #YMdelayBig, #YMdelaySm {
+  text-align:center;
+}
 
-  rect.bordered {
-    stroke: #E6E6E6;
-    stroke-width:2px;   
-  }
+.legend {
+  fill: black;
+  font-family: Consolas, courier;
+  text-anchor: start;
+  font-size: 12px;
+}
 
-  text.mono {
+text {
     font-size: 9pt;
     font-family: Consolas, courier;
-    fill: #aaa;
-  }
+    fill: black;
+  text-anchor: end;
+}
 
-  text.axis-workweek {
-    fill: #000;
-  }
+.label {
+  fill: black;
+  font-family: Consolas, courier;
+  font-size: 12px;
+  text-anchor: end;
+}
 
-  text.axis-worktime {
-    fill: #000;
-  }
+.bartext {
+  fill: black;
+  font-family: Consolas, courier;
+  font-size: 12px;
+  text-anchor: middle;
+}
+
+.bar:hover {
+  fill: white;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
