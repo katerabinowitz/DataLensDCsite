@@ -14,7 +14,6 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -70,12 +69,12 @@
 <div class='content row'>
   <div class='col-sm-9 col-xs-12'>
   <br>
-    <h2><a href='./your-commute-is-getting-worse.html'>Has Metro Bottomed Out?</a></h2>
+    <h2><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // December 9, 2015</h3>
-    <p class='content'>It has been a spectacular year of Metro fails. Between a <a href="https://www.washingtonpost.com/local/trafficandcommuting/1-dead-dozens-hurt-on-metro-car-filled-with-smoke/2015/01/12/e832c0f0-9aa8-11e4-a7ee-526210d665b4_story.html" class="link" target="_blank">deadly smoke-filled train</a>, rush hour trains<a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/metro-did-a-bad-job-telling-people-about-orange-and-silver-line-cuts-so-this-guy-put-up-signs.php" class="link" target="_blank"> bypassing a station for months</a>, and increasingly common everyday delays, DC area <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/the-9-kinds-of-metro-haters-wmata-twitter-jokes.php" class="link" target="_blank">residents are fed up</a>. A <a class="link" href="http://www.wmata.com/about_metro/board_of_directors/board_docs/120315_4BCustomerSatisfaction.pdf" target="_blank">recent WMATA survey</a> shows customer satisfaction at a low of 67%, and for good reason. This year's metro delays through November total 772 hours, an increase of a third over 2014. On average there are over two hours of delays everyday. If each of this year's Metro delays were successive, it would be as if WMATA shut down a line for 32 days straight.</p>
+    <h3> Kate Rabinowitz // December 10, 2015</h3>
+    <p class='content'>It has been a spectacular year of Metro fails. Between a <a href="https://www.washingtonpost.com/local/trafficandcommuting/1-dead-dozens-hurt-on-metro-car-filled-with-smoke/2015/01/12/e832c0f0-9aa8-11e4-a7ee-526210d665b4_story.html" class="link" target="_blank">deadly smoke-filled train</a>, rush hour trains<a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/metro-did-a-bad-job-telling-people-about-orange-and-silver-line-cuts-so-this-guy-put-up-signs.php" class="link" target="_blank"> bypassing a station for months</a>, and increasingly common everyday delays, DC area <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/the-9-kinds-of-metro-haters-wmata-twitter-jokes.php" class="link" target="_blank">residents are fed up</a>. A <a class="link" href="http://www.wmata.com/about_metro/board_of_directors/board_docs/120315_4BCustomerSatisfaction.pdf" target="_blank">recent WMATA survey</a> shows customer satisfaction at a low of 67%, and for good reason. <br>This year's metro delays through November total 772 hours, an increase of a third over 2014. On average there are over two hours of delays everyday. If each of this year's Metro delays were successive, it would be as if WMATA shut down a line for 32 days straight.</p>
     <p class='graph-title'>2015 Metro delays tally up to over 770 hours of downed service</p>
-    <p class='graph-subtitle'>Total delay time, hours</p>
+    <p class='graph-subtitle'>Total delay time to November 30th of each year, hours</p>
 <div id="delayAnnual">
 <svg class="delayChart"></svg>
 <script>
@@ -158,8 +157,8 @@ function type(d) {
 <p class='graph-subtitle'>Source: <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports.</a></p>
 </div>
 
-<p class='content'>The drastic increase in Metro's downed service is due to more, not longer, delays. The average delay has remained at roughly 8 minutes, while the number of delays has increased over 82% compared to 2013. Metro's new general manager, Paul Wiedefeld, will certainly have his hands full. But Wiedefeld may be starting at just the right time. After particularly terrible service in the winter and early summer, Metro delays have been on decline since August. In the last two months there were fewer delays than the same time last year.</p>
-
+<p class='content'>The drastic increase in Metro's downed service is due to more, not longer, delays. The average delay has remained at roughly 8 minutes, while the number of delays has increased over 82% compared to 2013. Metro's new general manager, Paul Wiedefeld, will certainly have his hands full. But Wiedefeld may be starting at just the right time. After particularly terrible service in the winter and early summer, Metro delays have been on decline since August. In the last two months there were fewer delays than the same time last year. <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/delays-on-metro-are-actually-declining-three-charts.php" class="link" target="_blank">Read the rest in my recent Washingtonian piece.</a></p>
+<!-- 
     <p class='graph-title'>Metro delays were terrible this year, but are getting better</p>
     <p class='graph-subtitle'> Number of Metro delays, monthly (hover for value).</p>
 <div id="YMdelayBig">
@@ -544,7 +543,7 @@ legend.append('text')
     <p class='content'>WMATA recently announced a number of <a class="link" href="http://www.wmata.com/about_metro/board_of_directors/board_docs/120315_4BCustomerSatisfaction.pdf" target="_blank">initiatives to combat faulty trains</a> including improving delivery of the new 7000-series rail cars; prioritizing train maintenance and upgrades through the Capital Improvement Plan; policy changes to acquire parts; and activating overtime for train maintenance. It remains to be seen whether WMATA can carry through with these initiatives and continue Metro's falling delay count in 2016.</a></p>
     <br><br>
     <hr id='end-line'>
-    <p class='content'><b>Technical notes:</b> Analysis and graphs are based off of <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports</a>. Data covers delays through November 30th of each year. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <p class='content'><b>Technical notes:</b> Analysis and graphs are based off of <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports</a>. Data covers delays through November 30th of each year. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p> -->
     <p class='content'>
       <br>
     </div>
@@ -553,14 +552,15 @@ legend.append('text')
     <br>
         <li>Recent</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
             <li><a href='./rise-of-biking.html'>The Rise of Biking in D.C., Visualized</a></li>
             <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
             <li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
             <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
-            <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
+            <!---<li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
             <li><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
             <li><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></li>
-<!--             <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
+            <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
             <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
             <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
             <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>

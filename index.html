@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
+  <link href='./CSS/wmata-2015-delay.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/wmata-delay.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/10-year-dc-development.css' rel='stylesheet' type='text/css'>
@@ -221,7 +222,97 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
-  <br>    <h2><a href='./rise-of-biking.html'>The Rise of Biking in D.C., Visualized</a></h2>
+  <br>    
+    <h2><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // December 10, 2015</h3>
+    <p class='content'>It has been a spectacular year of Metro fails. Between a <a href="https://www.washingtonpost.com/local/trafficandcommuting/1-dead-dozens-hurt-on-metro-car-filled-with-smoke/2015/01/12/e832c0f0-9aa8-11e4-a7ee-526210d665b4_story.html" class="link" target="_blank">deadly smoke-filled train</a>, rush hour trains<a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/metro-did-a-bad-job-telling-people-about-orange-and-silver-line-cuts-so-this-guy-put-up-signs.php" class="link" target="_blank"> bypassing a station for months</a>, and increasingly common everyday delays, DC area <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/the-9-kinds-of-metro-haters-wmata-twitter-jokes.php" class="link" target="_blank">residents are fed up</a>. A <a class="link" href="http://www.wmata.com/about_metro/board_of_directors/board_docs/120315_4BCustomerSatisfaction.pdf" target="_blank">recent WMATA survey</a> shows customer satisfaction at a low of 67%, and for good reason. <br>This year's metro delays through November total 772 hours, an increase of a third over 2014. On average there are over two hours of delays everyday. If each of this year's Metro delays were successive, it would be as if WMATA shut down a line for 32 days straight.</p>
+    <p class='graph-title'>2015 Metro delays tally up to over 770 hours of downed service</p>
+    <p class='graph-subtitle'>Total delay time to November 30th of each year, hours</p>
+<div id="delayAnnual">
+<svg class="delayChart"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 0, bottom: 20, left: 35},
+    width = 400 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var color = d3.scale.ordinal()
+    .range(["#7fc97f", "#beaed4", "#fdc086"]);
+
+var delayChart = d3.select(".delayChart")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/AnnualDelay.csv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.Year; }));
+  y.domain([0, d3.max(data, function(d) { return d.DelaySum; })]);
+
+  delayChart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  delayChart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("Hours");
+
+  delayChart.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.Year); })
+      .attr("y", function(d) { return y(d.DelaySum); })
+      .attr("height", function(d) { return height - y(d.DelaySum); })
+      .attr("width", x.rangeBand())
+      .attr("fill",function(d,i){return color(i)});
+  delayChart.selectAll(".bartext")
+    .data(data)
+    .enter()
+    .append("text")
+      .attr("class", "bartext")
+      .attr("x", function(d) { return x(d.Year)+80; })
+      .attr("y", function(d) { return y(d.DelaySum) +10; } )
+      .text(function(d){
+        return d.DelaySum;
+        });
+         
+});
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+})();
+</script>
+<p class='graph-subtitle'>Source: <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports.</a></p>
+</div>
+<p class='content'>The drastic increase in Metro's downed service is due to more, not longer, delays. The average delay has remained at roughly 8 minutes, while the number of delays has increased over 82% compared to 2013. Metro's new general manager, Paul Wiedefeld, will certainly have his hands full. But Wiedefeld may be starting at just the right time. After particularly terrible service in the winter and early summer, Metro delays have been on decline since August. In the last two months there were fewer delays than the same time last year. <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/delays-on-metro-are-actually-declining-three-charts.php" class="link" target="_blank">Read the rest in my recent Washingtonian piece.</a></p>
+    <br><br>
+    <h2><a href='./rise-of-biking.html'>The Rise of Biking in D.C., Visualized</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // November 16, 2015 </h3>
     <p class="content">Each year, on a weekday without rain sometime between May and July a person stands at the exact same spot from 6am to 10am and again from 3pm to 7pm. They’ve been sent by D.C. Department of Transportation, and they count bikers. In my six years in the District I’ve seen the rapid rise of biking from niche transport to a commonplace commuting option. DDOT’s bike counters put numbers behind that change. The number of bikers may vary on any given day, but when looked at over time it can illuminate how bike ridership has changed across time and geography in the District.<br><br>These counts show that bike ridership has more than doubled from 2008 to 2014. But growth isn't the same across the city. The map below shows the thirty-seven DDOT bike count locations, colored by the number of riders counted in the eight-hour time period. Click on a location to see how ridership has changed over time and how it compares to the median of all count locations.</p> 
@@ -234,6 +325,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <hr id='top-line'>
     <h3> Kate Rabinowitz // November 12, 2015 </h3>
     <p class="content">Airbnb’s $8 million lobbying effort to <a class="link" target="_blank" href="http://www.sfgate.com/bayarea/article/Prop-F-Measure-to-restrict-Airbnb-rentals-6609176.php">win at the San Francisco polls</a> is just the beginning. The lodging company announced Wednesday its “Community Compact,” a plan under which it will “use its experience in cities across the country to work with policymakers here in DC.” That’s a cute way of saying the company plans to hire a ton of lobbyists to work on city and state governments. <br><br>There is currently a  proposal in front of the DC Council that seeks to curtail the company’s reach here. Backed by UNITE-HERE Local 25, the union representing the city’s hotel workers, the bill would limit hosts to renting out rooms in occupied units instead of whole houses or apartments and renting no more than one unit at a time.<br><br>Airbnb will likely spend thousands of dollars to fight accusations of raising rents, hurting businesses, disrupting neighborhoods, and facilitating the <a class='link' target="_blank" href="http://www.washingtonian.com/blogs/capitalcomment/local-news/dc-sues-owner-of-airbnb-rental-house-used-for-parties.php">occassional Ja Rule house party.</a><br><br>But Airbnb might be more popular in Washington than its opponents care to admit. A poll the company commissioned last month found that of 400 DC voters, 57 percent oppose local regulations that would restrict the types of lodging the site can offer. The survey also found that 35 percent of voters have a favorable opinion Airbnb compared to 9 percent with an unfavorable opinion, though 56 percent had no opinion.<br><br>Airbnb’s claims of popularity are better backed up by the raw numbers. New data suggest DC is a hotbed for the site, ranking third in listings per capita compared to other US cities. The District has over 3,500 listings, of which 2,855 are active.</p>
+        <p class='graph-title'>Washington D.C. #3 in Airbnb Listings per Capita</p>
+    <p class='graph-subtitle'> Number of Active Airbnb Listings per 1,000 people</p>
       <div id="bnbrankbar">
       <svg class="bnbrank"></svg>
       <script type="text/javascript">
@@ -803,21 +896,22 @@ function type(d) {
   <div class='col-sm-3 side'>
 	<ul class="sidebar nav nav-stacked fixed">
     <br>
-  			<li>Recent</li>
+        <li>Recent</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
             <li><a href='./rise-of-biking.html'>The Rise of Biking in D.C., Visualized</a></li>
             <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
             <li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
             <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
-            <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
+            <!---<li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
             <li><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
             <li><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></li>
-<!--             <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
+            <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
             <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
             <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
             <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
             <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li> -->
-        </ul></ul> 
+        </ul></ul>  
         <li class="archiveside"><a href="./archive.html"><p style="margin-left:15px">Archive</p></a></li>
         <br>
   			<li>Connect</li>	

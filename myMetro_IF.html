@@ -34,8 +34,8 @@
 <svg class="myDelay"></svg>
 <script>
 var margin = {top: 10, right: 20, bottom: 30, left: 30},
-    width = 650 - margin.left - margin.right,
-    height = 350 - margin.top - margin.bottom;
+    width = 450 - margin.left - margin.right,
+    height = 300 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
 
@@ -174,12 +174,12 @@ var data = {
     },]
 };
 
-var chartWidth       = 300,
+var chartWidth       = 250,
     barHeight        = 20,
     groupHeight      = barHeight * data.series.length,
     gapBetweenGroups = 10,
-    spaceForLabels   = 150,
-    spaceForLegend   = 150;
+    spaceForLabels   = 100,
+    spaceForLegend   = 100;
 
 // Zip the series data together (first values, second values, etc.)
 var zippedData = [];
