@@ -14,21 +14,21 @@
   text-align:center;
 }
 
-.legend {
+#delayAnnual .legend {
   fill: black;
   font-family: Consolas, courier;
   text-anchor: start;
   font-size: 12px;
 }
 
-text {
+#delayAnnual text {
     font-size: 9pt;
     font-family: Consolas, courier;
     fill: black;
   text-anchor: end;
 }
 
-.label {
+#delayAnnual .label {
   fill: black;
   font-family: Consolas, courier;
   font-size: 12px;
@@ -42,7 +42,7 @@ text {
   text-anchor: middle;
 }
 
-.bar:hover {
+#delayAnnual .bar:hover {
   fill: white;
 }
 
