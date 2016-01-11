@@ -1,0 +1,63 @@
+.d3btn {
+  border: 1px solid #44A765;
+  background: #4BBA70;
+  color: #FFF;
+  font-family: 'Neuton', serif;
+  font-weight: normal ;
+  font-size: 16px;
+  padding: 3px;
+  margin: 0 2px 5px 2px;
+}
+
+.d3btn:hover {
+  color: #FFF;
+  background: #5CE68A;
+}
+
+.btn-content {
+  text-align: center;
+  margin-bottom:10px;
+}
+
+#brewbar {
+  text-align:center;
+}
+#brewbar2 {
+  text-align:center;
+}
+
+#brew #planbar .label{
+    font: 12px sans-serif;
+  }
+
+#brew #planbar .axis path,
+#brew #planbar .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+rect.bordered {
+    stroke: #E6E6E6;
+    stroke-width:2px;   
+  }
+
+#brew, #plan, .legend text{
+    font: 11px sans-serif;
+  }
+
+.Xaxis path,
+.Xaxis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.Xaxis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}
+
+.iframe {
+  text-align:center;
+}
