@@ -20,7 +20,8 @@
   <link href='./CSS/CEX.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/prop-flip.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/air-bnb.css' rel='stylesheet' type='text/css'>
-    <link href='./CSS/wmata-2015-delay.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/wmata-2015-delay.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/breweries-cbsa.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
@@ -177,95 +178,26 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
   <br>    
+    <h2><a href='./DC-region-breweries.html'>The DC Region has 70 Breweries, Secondmost on the East Coast.<br>Here they are mapped.</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // January 12, 2016</h3>
+    <p class='content'>Few aspects of DC’s drinking and dining scenes have changed as much in the past five years as beer production. Local breweries were sparse when I first moved to the District. But that started changing in 2011 with the founding of companies like DC Brau, the first DC-based brewery in over 50 years, and Port City Brewing Company, the Alexandria’s first production brewery since Prohibition. Since then, microbreweries and brewpubs have proliferated across the region, just as they have across the rest of the United States. There were 4,144 breweries operating nationwide at the end of 2015 according to the Brewers Association, nearly three times as many as there were in 2008. But how does Washington’s brew scene compare to other metropolitan areas?</p>
+    <iframe width="40%" height="650" frameborder="0" src="http://www.datalensdc.com/IF_brew_cbsa_rank.html"></iframe>
+    <p class='content'>The DC region has the second most breweries of any East Coast city, and ranks ninth nationally. Read the rest in <a href="http://www.washingtonian.com/2016/01/12/70-breweries-around-washington-heres-map/" class="link" target="_link">my recent Washingtonian piece.</a></p>
+    <br><br>
+
+
     <h2><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // December 10, 2015</h3>
     <p class='content'>It has been a spectacular year of Metro fails. Between a <a href="https://www.washingtonpost.com/local/trafficandcommuting/1-dead-dozens-hurt-on-metro-car-filled-with-smoke/2015/01/12/e832c0f0-9aa8-11e4-a7ee-526210d665b4_story.html" class="link" target="_blank">deadly smoke-filled train</a>, rush hour trains<a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/metro-did-a-bad-job-telling-people-about-orange-and-silver-line-cuts-so-this-guy-put-up-signs.php" class="link" target="_blank"> bypassing a station for months</a>, and increasingly common everyday delays, DC area <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/the-9-kinds-of-metro-haters-wmata-twitter-jokes.php" class="link" target="_blank">residents are fed up</a>. A <a class="link" href="http://www.wmata.com/about_metro/board_of_directors/board_docs/120315_4BCustomerSatisfaction.pdf" target="_blank">recent WMATA survey</a> shows customer satisfaction at a low of 67%, and for good reason. <br>This year's metro delays through November total 772 hours, an increase of a third over 2014. On average there are over two hours of delays everyday. If each of this year's Metro delays were successive, it would be as if WMATA shut down a line for 32 days straight.</p>
-    <p class='graph-title'>2015 Metro delays tally up to over 770 hours of downed service</p>
-    <p class='graph-subtitle'>Total delay time to November 30th of each year, hours</p>
-<div id="delayAnnual">
-<svg class="delayChart"></svg>
-<script>
-(function() {
-var margin = {top: 20, right: 0, bottom: 20, left: 35},
-    width = 400 - margin.left - margin.right,
-    height =  300- margin.top - margin.bottom;
+  <iframe src="http://www.datalensdc.com/AnnualWMATA_IF.html" width="100%" height="350" frameborder='0'></iframe>
 
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .outerTickSize(0)
-    .orient("left");
-
-var color = d3.scale.ordinal()
-    .range(["#7fc97f", "#beaed4", "#fdc086"]);
-
-var delayChart = d3.select(".delayChart")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/AnnualDelay.csv", type, function(error, data) {
-  x.domain(data.map(function(d) { return d.Year; }));
-  y.domain([0, d3.max(data, function(d) { return d.DelaySum; })]);
-
-  delayChart.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  delayChart.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-    .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Hours");
-
-  delayChart.selectAll(".bar")
-    .data(data)
-    .enter()
-    .append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.Year); })
-      .attr("y", function(d) { return y(d.DelaySum); })
-      .attr("height", function(d) { return height - y(d.DelaySum); })
-      .attr("width", x.rangeBand())
-      .attr("fill",function(d,i){return color(i)});
-  delayChart.selectAll(".bartext")
-    .data(data)
-    .enter()
-    .append("text")
-      .attr("class", "bartext")
-      .attr("x", function(d) { return x(d.Year)+80; })
-      .attr("y", function(d) { return y(d.DelaySum) +10; } )
-      .text(function(d){
-        return d.DelaySum;
-        });
-         
-});
-function type(d) {
-  d.value = +d.value;
-  return d;
-}
-})();
-</script>
-<p class='graph-subtitle'>Source: <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports.</a></p>
-</div>
-<p class='content'>The drastic increase in Metro's downed service is due to more, not longer, delays. The average delay has remained at roughly 8 minutes, while the number of delays has increased over 82% compared to 2013. Metro's new general manager, Paul Wiedefeld, will certainly have his hands full. But Wiedefeld may be starting at just the right time. After particularly terrible service in the winter and early summer, Metro delays have been on decline since August. In the last two months there were fewer delays than the same time last year. <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/delays-on-metro-are-actually-declining-three-charts.php" class="link" target="_blank">Read the rest in my recent Washingtonian piece.</a></p>
+  <p class='graph-subtitle'>Source: <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports.</a></p>
+  <p class='content'>The drastic increase in Metro's downed service is due to more, not longer, delays. The average delay has remained at roughly 8 minutes, while the number of delays has increased over 82% compared to 2013. Metro's new general manager, Paul Wiedefeld, will certainly have his hands full. But Wiedefeld may be starting at just the right time. After particularly terrible service in the winter and early summer, Metro delays have been on decline since August. In the last two months there were fewer delays than the same time last year. <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/delays-on-metro-are-actually-declining-three-charts.php" class="link" target="_blank">Read the rest in my recent Washingtonian piece.</a></p>
     <br><br>
+
+
     <h2><a href='./rise-of-biking.html'>The Rise of Biking in D.C., Visualized</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // November 16, 2015 </h3>
@@ -275,82 +207,17 @@ function type(d) {
     </div>
     <p class="content">Read on in <a class="link" target="_blank" href="http://www.washingtoncitypaper.com/blogs/citydesk/2015/11/13/the-rise-of-biking-in-d-c-visualized/">my recent piece in the Washington City Paper</a>, or continue here for a <a class="link" target="_blank" href="http://www.washingtoncitypaper.com/blogs/citydesk/2015/11/13/the-rise-of-biking-in-d-c-visualized/">more detailed write-up</a>. 
     <br><br>
+
+
    <h2><a href='./airbnb-listings-in-DC.html'>DC Has More Airbnb Listings Per Capita Than New York or Los Angeles</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // November 12, 2015 </h3>
     <p class="content">Airbnb’s $8 million lobbying effort to <a class="link" target="_blank" href="http://www.sfgate.com/bayarea/article/Prop-F-Measure-to-restrict-Airbnb-rentals-6609176.php">win at the San Francisco polls</a> is just the beginning. The lodging company announced Wednesday its “Community Compact,” a plan under which it will “use its experience in cities across the country to work with policymakers here in DC.” That’s a cute way of saying the company plans to hire a ton of lobbyists to work on city and state governments. <br><br>There is currently a  proposal in front of the DC Council that seeks to curtail the company’s reach here. Backed by UNITE-HERE Local 25, the union representing the city’s hotel workers, the bill would limit hosts to renting out rooms in occupied units instead of whole houses or apartments and renting no more than one unit at a time.<br><br>Airbnb will likely spend thousands of dollars to fight accusations of raising rents, hurting businesses, disrupting neighborhoods, and facilitating the <a class='link' target="_blank" href="http://www.washingtonian.com/blogs/capitalcomment/local-news/dc-sues-owner-of-airbnb-rental-house-used-for-parties.php">occassional Ja Rule house party.</a><br><br>But Airbnb might be more popular in Washington than its opponents care to admit. A poll the company commissioned last month found that of 400 DC voters, 57 percent oppose local regulations that would restrict the types of lodging the site can offer. The survey also found that 35 percent of voters have a favorable opinion Airbnb compared to 9 percent with an unfavorable opinion, though 56 percent had no opinion.<br><br>Airbnb’s claims of popularity are better backed up by the raw numbers. New data suggest DC is a hotbed for the site, ranking third in listings per capita compared to other US cities. The District has over 3,500 listings, of which 2,855 are active.</p>
-        <p class='graph-title'>Washington D.C. #3 in Airbnb Listings per Capita</p>
-    <p class='graph-subtitle'> Number of Active Airbnb Listings per 1,000 people</p>
-<div id="bnbrankbar">
-      <svg class="bnbrank"></svg>
-      <script type="text/javascript">
-      var chartWidth       = 350,
-        barHeight        = 20,
-        gapBetweenGroups = 40,
-        spaceForLabels   = 80;
+    <iframe width="40%" height="340" frameborder="0" src="http://www.datalensdc.com/bnbPerCapita_IF.html"></iframe>
+    <p class="content">There are 4.33 Airbnb listings per 1,000 people across the District, though the rate varies drastically across neighborhoods. <a href="http://www.washingtonian.com/blogs/capitalcomment/data/dc-has-more-airbnb-listings-per-capita-than-new-york.php" target="_blank" class="link"> Read the rest in my recent Washingtonian piece.</p>
+    <br> <br>
 
-      var x = d3.scale.linear()
-        .range([0, chartWidth]);
-
-      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Air-BnB/master/BnBPerCapita.csv", type, function(error, data) {
-          x.domain([0, d3.max(data, function(d) { return d.Airpc; })]);
-
-      var chartHeight = barHeight * 13;
-
-    var y = d3.scale.linear()
-        .range([chartHeight + gapBetweenGroups, 0]);
-
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .tickFormat('')
-        .tickSize(0)
-        .orient("left");
-
-    var bnbrank = d3.select(".bnbrank")
-        .attr("width", spaceForLabels + chartWidth)
-        .attr("height", chartHeight);
-
-    var bar = bnbrank.selectAll("g")
-        .data(data)
-        .enter().append("g")
-        .attr("transform", function(d, i) {
-        return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.length))) + ")";
-    });
-
-    bar.append("rect")
-      .attr("class", "bar")
-      .attr("width", function(d) { return x(d.Airpc); })
-      .attr("height", barHeight - 1);
-
-    bar.append("text")
-      .attr("x", function(d) { return x(d.Airpc-0.4); })
-      .attr("y", barHeight / 2)
-      .attr("dy", ".35em")
-        .text(function(d) { return (d.Airpc.toFixed(2)); });
-
-    bar.append("text")
-      .attr("class", "label")
-      .attr("x", function(d) {return - 80; })
-      .attr("y", barHeight/2)
-      .attr("dy", ".1em")
-      .text(function(d) { return d.city; });
-
-    bnbrank.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
-      .call(yAxis);
-    });
-
-    function type(d) {
-      d.Airpc = +d.Airpc; // coerce to number
-    return d;
-    }
-    </script>
-    <p class='graph-subtitle'> Source: InsideAirbnb, U.S. Census Population Estimates.</p>
-  </div>
-  <p class="content">There are 4.33 Airbnb listings per 1,000 people across the District, though the rate varies drastically across neighborhoods. <a href="http://www.washingtonian.com/blogs/capitalcomment/data/dc-has-more-airbnb-listings-per-capita-than-new-york.php" target="_blank" class="link"> Read the rest in my recent Washingtonian piece.</p>
-
-  <br>
+  
     <h2><a href='./dc-property-flipping.html'>What are the District's Most House-Flipped Neighborhoods?</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // October 22, 2015 </h3>
@@ -852,6 +719,7 @@ function type(d) {
     <br>
         <li>Recent</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./DC-region-breweries.html'>DC Region has 70 Breweries, Secondmost on East Coast</a><li>
             <li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
             <li><a href='./rise-of-biking.html'>The Rise of Biking in D.C., Visualized</a></li>
             <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
