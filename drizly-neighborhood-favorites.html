@@ -2,24 +2,16 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-  <title>Airbnb Listings in DC</title>
+  <title>DC's Favorite Booze in the App Economy</title>
 
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/air-bnb.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script> 
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
-  <script src="./JS/bnb-hood-map.js"></script>
-
-  <script src='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
-  <link href='https://api.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet' />
 
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -76,81 +68,26 @@
 <div class='content row'>
   <div class='col-sm-9 col-xs-12'>
   <br>
-    <h2><a href='./airbnb-listings-in-DC.html'>DC Has More Airbnb Listings Per Capita Than New York or Los Angeles</a></h2>
+    <h2><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // November 12, 2015 </h3>
-    <p class="content">Airbnb’s $8 million lobbying effort to <a class="link" target="_blank" href="http://www.sfgate.com/bayarea/article/Prop-F-Measure-to-restrict-Airbnb-rentals-6609176.php">win at the San Francisco polls</a> is just the beginning. The lodging company announced Wednesday its “Community Compact,” a plan under which it will “use its experience in cities across the country to work with policymakers here in DC.” That’s a cute way of saying the company plans to hire a ton of lobbyists to work on city and state governments. <br><br>There is currently a  proposal in front of the DC Council that seeks to curtail the company’s reach here. Backed by UNITE-HERE Local 25, the union representing the city’s hotel workers, the bill would limit hosts to renting out rooms in occupied units instead of whole houses or apartments and renting no more than one unit at a time.<br><br>Airbnb will likely spend thousands of dollars to fight accusations of raising rents, hurting businesses, disrupting neighborhoods, and facilitating the <a class='link' target="_blank" href="http://www.washingtonian.com/blogs/capitalcomment/local-news/dc-sues-owner-of-airbnb-rental-house-used-for-parties.php">occassional Ja Rule house party.</a><br><br>But Airbnb might be more popular in Washington than its opponents care to admit. A poll the company commissioned last month found that of 400 DC voters, 57 percent oppose local regulations that would restrict the types of lodging the site can offer. The survey also found that 35 percent of voters have a favorable opinion Airbnb compared to 9 percent with an unfavorable opinion, though 56 percent had no opinion.<br><br>Airbnb’s claims of popularity are better backed up by the raw numbers. New data suggest DC is a hotbed for the site, ranking third in listings per capita compared to other US cities. The District has over 3,500 listings, of which 2,855 are active.</p>
-
-    <p class='graph-title'>Washington D.C. #3 in Airbnb Listings per Capita</p>
-    <p class='graph-subtitle'> Number of Active Airbnb Listings per 1,000 people</p>
-      <div id="bnbrankbar">
-      <svg class="bnbrank"></svg>
-      <script type="text/javascript">
-      var chartWidth       = 350,
-        barHeight        = 20,
-        gapBetweenGroups = 40,
-        spaceForLabels   = 80;
-
-      var x = d3.scale.linear()
-        .range([0, chartWidth]);
-
-      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Air-BnB/master/BnBPerCapita.csv", type, function(error, data) {
-          x.domain([0, d3.max(data, function(d) { return d.Airpc; })]);
-
-      var chartHeight = barHeight * 13;
-
-      var y = d3.scale.linear()
-        .range([chartHeight + gapBetweenGroups, 0]);
-
-      var yAxis = d3.svg.axis()
-        .scale(y)
-        .tickFormat('')
-        .tickSize(0)
-        .orient("left");
-// Specify the chart area and dimensions
-      var bnbrank = d3.select(".bnbrank")
-        .attr("width", spaceForLabels + chartWidth)
-        .attr("height", chartHeight);
-// Create bars
-    var bar = bnbrank.selectAll("g")
-        .data(data)
-        .enter().append("g")
-        .attr("transform", function(d, i) {
-        return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.length))) + ")";
-    });
-// Create rectangles of the correct width
-    bar.append("rect")
-      .attr("class", "bar")
-      .attr("width", function(d) { return x(d.Airpc); })
-      .attr("height", barHeight - 1);
-// Add text label in bar
-    bar.append("text")
-      .attr("x", function(d) { return x(d.Airpc-0.4); })
-      .attr("y", barHeight / 2)
-      .attr("dy", ".35em")
-        .text(function(d) { return (d.Airpc.toFixed(2)); });
-// Draw labels
-    bar.append("text")
-      .attr("class", "label")
-      .attr("x", function(d) {return - 80; })
-      .attr("y", barHeight/2)
-      .attr("dy", ".1em")
-      .text(function(d) { return d.city; });
-
-    bnbrank.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
-      .call(yAxis);
-    });
-
-    function type(d) {
-      d.Airpc = +d.Airpc; // coerce to number
-    return d;
-    }
-    </script>
-    <p class='graph-subtitle'> Source: InsideAirbnb, U.S. Census Population Estimates.</p>
-  </div>
-  <p class="content">There are 4.33 Airbnb listings per 1,000 people across the District, though the rate varies drastically across neighborhoods. <a href="http://www.washingtonian.com/blogs/capitalcomment/data/dc-has-more-airbnb-listings-per-capita-than-new-york.php" target="_blank" class="link"> Read the rest in my recent Washingtonian piece.</p>
+    <h3> Dan Henebery // January 28, 2016 </h3>
+    <p class="content">As a historic snowstorm pummeled the East Coast last week, DC residents rushed to stockpile the necessities: milk, bread, rock salt, and a lot of booze. Last-minute liquor store runs are nothing new, but the <a class="link" target="_blank" href="http://www.washingtonian.com/2015/05/29/apps-to-get-condoms-jeans-toilet-paper-or-anything-else-delivered-in-dc/">option to have one’s alcohol delivered is.</a><br><br>Most of what’s been written so far about alcohol-delivery apps like Drizly and Klink has focused on how these new firms are <a class="link" target="_blank" href="http://www.bloomberg.com/bw/articles/2014-09-18/alcohol-delivery-startups-grow-by-wooing-distributors-regulators">disrupting traditional alcohol distribution</a>. But these new companies, which collect volumes of data from their users’ smartphones, also offer insights into a simple, but often elusive question: What do we like to drink?<br><br>Drizly, which launched in September 2014, provided data the most popular alcoholic beverages it sold in Washington last year. The graphic below shows the ten most popular alcoholic beverages around DC by zip code.</p> 
+    <div class="content">
+    <p class='graph-title'>Neighborhood Differences, but DC Favors Vodka and Cheap Beer</p>
+    <p class='graph-subtitle'>Top 10 Drizly Purchases by Zip Code for 2015</p>
+    <iframe class="content" width="100%" height="550" frameborder="0" src="http://danhenebery.github.io/drizly-in-dc/"></iframe>
+    </div>
+    <p class="content">What does this say about DC’s alcohol preferences? Quite a bit, especially about millennial consumers. Drizly’s user base skews young and so do the data. The consumption patterns revealed here reflect the preferences of this user base. This may be why the cheap collegiate favorite Natural Light is the favorite beer in Georgetown.<br><br>
+    Other interesting trends include:</p>
+    <ul class="content" style="list-style-type: none">
+    <li class="content">1. Vodka is very popular throughout DC. This is most pronounced in North Capitol Hill and H Street where the top four items are all vodka.</li>
+    <li class="content">2. Northeast Washington not only produces most of the city’s craft beer, it consumes it at a greater rate as well.</li>
+    <li class="content">3. DC is notable for being <a class="link" target="_blank" href="https://www.washingtonpost.com/news/wonk/wp/2014/07/29/where-the-biggest-beer-wine-and-liquor-drinkers-live-in-the-u-s/">very fond of wine</a>. Wine labels are more disparate than beer or liquor, making an appearance on the most requested items list less likely. With respect to mass-produced wines, however, the area immediately south of Dupont Circle generates the most demand.</li></ul>
+    <p class="content">It is important to note that without an alcohol-delivery service like Drizly, this visual would be impossible or at least very difficult to create. Gauging consumer tastes at the point of sale across a large geographic area is not a simple task. For alcohol it might entail surveying a large number of bars and liquor stores and keeping records on what is sold when and where. Only major alcohol manufacturers like AB InBev, which funds the <a class="link" target="_blank" href="http://researchpark.illinois.edu/directory/anheuser-busch-inbev-bud-analytics-lab">Bud Analytics”</a> lab at the University of Illinois Urbana-Champaign. can afford deep research into what consumers really want.</p>
+    <hr id='end-line'>
+    <p class='content'><b>Technical notes:</b> Data was provided Drizly. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/DanHenebery"> on my github page.</a></p>
+    <p class='content'><b>About the Author: </b>Dan Henebery is a Brookland resident and DataLensDC contributor. He can be followed <a class="link" target="_blank" href="https://twitter.com/DanHenebery">@DanHenebery.</a></p>
+    <br><br>
   </div>
 
 <div class='col-sm-3 side'>
