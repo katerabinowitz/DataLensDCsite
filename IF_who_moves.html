@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>How DC Spends</title>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/CEX.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
+  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body>
+<br>
+    <div class="btn-content">
+    <input name="updateButton" 
+           type="button" 
+           value="Marital Status" 
+           onclick="MarryData()"/>
+
+    <input name="updateButton" 
+           type="button" 
+           value="Gender" 
+           onclick="genderData()"/>
+
+     <input name="updateButton" 
+           type="button" 
+           value="Recent Income" 
+           onclick="above75Data()"/>
+
+    <input name="updateButton" 
+           type="button" 
+           value="Education" 
+           onclick="eduData()"/>
+
+        <input name="updateButton" 
+           type="button" 
+           value="Age" 
+           onclick="ageData()"/>
+    </div>
+
+<div id="citiesBar">
+<svg class="cex"></svg>
+<script>
+var margin = {top: 40, right: 40, bottom: 80, left: 40},
+    width = 600 - margin.left - margin.right,
+    height =  400- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .05);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return d.Age20s + "%";
+  })
+
+var cex = d3.select(".cex")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+cex.call(tip);
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", type, function(error, data) {
+  data.sort(function(a, b) { return b.Age20s - a.Age20s; });
+  x.domain(data.map(function(d) {return d.City; }));
+  y.domain([0, d3.max(data, function(d) { return d.Age20s; })]);
+
+  cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
+      .style("text-anchor", "start");;
+  cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - margin.top/1.5)
+        .attr("text-anchor", "middle")  
+        .text("Nearly half of the District's New Residents in their 20s");
+
+  cex.append("text")
+        .attr('class', 'd3subtitle')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 3))
+        .attr("text-anchor", "middle")  
+        .text("New Residents in their 20's (%)");
+
+  cex.append("text")
+    .attr("text-anchor", "end")
+    .attr("y", 9)
+    .attr("dy", "-4.5em")
+    .attr("transform", "rotate(-90)")
+        .text("% of New Residents");
+
+  cex.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
+      .attr("x", function(d) { return x(d.City); })
+      .attr("y", function(d) { return y(d.Age20s); })
+      .attr("height", function(d) { return height - y(d.Age20s); })
+      .attr("width", x.rangeBand())
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+         
+});
+function type(d) {
+  d.Age20s = +d.Age20s;
+  return d;
+}
+function MarryData() {
+     d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", function(error, data) {
+      data.sort(function(a, b) { return b.married - a.married; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.married; })]);
+
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return d.married + "%";
+        })
+
+    cex.call(tip);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
+    d3.select(".d3subtitle").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.married); })
+      sel.attr("height", function(d) { return height - y(d.married); })
+      .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", "0.5em")
+      .attr("transform", "rotate(50)")
+      .style("text-anchor", "start");;
+
+      cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top/1.5))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("New Residents to DC Among Least Likely to be Married");
+
+      cex.append("text")
+        .attr('class', 'd3subtitle')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 3))
+        .attr("text-anchor", "middle")  
+        .text("New Residents that are Married (%)");
+
+function type(d) {
+d.married = +d.married;
+return d;}
+}
+)};
+
+function genderData() {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", function(error, data) {
+      data.sort(function(a, b) { return b.female - a.female; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([30, d3.max(data, function(d) { return d.female; })]);
+
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return d.female + "%";
+        })
+
+    cex.call(tip);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
+    d3.select(".d3subtitle").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.female); })
+      sel.attr("height", function(d) { return height - y(d.female); })
+      .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
+      .style("text-anchor", "start");;
+
+      cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top/1.5))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("DC Attracts the Highest Proportion of Women");
+
+      cex.append("text")
+        .attr('class', 'd3subtitle')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 3))
+        .attr("text-anchor", "middle")  
+        .text("New Residents that are Women (%)");
+
+function type(d) {
+d.female = +d.female;
+return d;}
+}
+)};
+
+function above75Data() {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", function(error, data) {
+      data.sort(function(a, b) { return b.above75K - a.above75K; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, 25]);
+
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return d.above75K + "%";
+        })
+
+    cex.call(tip);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
+    d3.select(".d3subtitle").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.above75K); })
+      sel.attr("height", function(d) { return height - y(d.above75K); })
+      .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
+      .style("text-anchor", "start");;
+
+    cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top/1.5))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("DC Second in Proportion of Wealthy New Residents");
+
+    cex.append("text")
+        .attr('class', 'd3subtitle')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 3))
+        .attr("text-anchor", "middle")  
+        .text("New residents with previous year income over $75,000 (%)");
+
+function type(d) {
+d.above75K = +d.above75K;
+return d;}
+}
+)};
+
+function eduData() {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", function(error, data) {
+      data.sort(function(a, b) { return b.BAplus - a.BAplus; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.BAplus; })]);
+
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return d.BAplus + "%";
+        })
+
+    cex.call(tip);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
+    d3.select(".d3subtitle").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.BAplus); })
+      sel.attr("height", function(d) { return height - y(d.BAplus); })
+      .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
+      .style("text-anchor", "start");;
+
+    cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top/1.5))
+        .attr("text-anchor", "middle")  
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")       
+        .attr("fill", "gray")
+        .text("New DC Residents Among the Most Highly Educated");
+
+    cex.append("text")
+        .attr('class', 'd3subtitle')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 3))
+        .attr("text-anchor", "middle")  
+        .text("New Residents with at least a Bachelors Degree (%)");
+
+function type(d) {
+d.BAplus = +d.BAplus;
+return d;}
+}
+)};
+
+function ageData() {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", function(error, data) {
+      data.sort(function(a, b) { return b.Age20s - a.Age20s; });
+      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      y.domain([0, d3.max(data, function(d) { return d.Age20s; })]);
+
+    var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .offset([-10, 0])
+        .html(function(d) {
+        return d.Age20s + "%";
+        })
+
+    cex.call(tip);
+      
+    var sel = cex.selectAll("rect")
+         .data(data);
+    sel.exit().remove();
+    d3.select(".y.axis").remove();
+    d3.select(".x.axis").remove();
+    d3.select(".d3title").remove();
+    d3.select(".d3subtitle").remove();
+    sel.enter().append("rect")
+      sel.attr("class", "bar")
+      sel.attr("x", function(d) { return x(d.City); })
+      sel.attr("y", function(d) { return y(d.Age20s); })
+      sel.attr("height", function(d) { return height - y(d.Age20s); })
+      .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+
+    cex.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+    cex.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis)
+      .selectAll("text")
+      .attr("y", 0)
+      .attr("x", 9)
+      .attr("dy", ".05em")
+      .attr("transform", "rotate(50)")
+      .style("text-anchor", "start");;
+
+  cex.append("text")
+        .attr('class', 'd3title')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - margin.top/1.5)
+        .attr("text-anchor", "middle")  
+        .text("Nearly half of the District's New Residents in their 20s");
+
+  cex.append("text")
+        .attr('class', 'd3subtitle')
+        .attr("x", (width / 2))             
+        .attr("y", 0 - (margin.top / 3))
+        .attr("text-anchor", "middle")  
+        .text("New Residents in their 20's (%)");
+
+function type(d) {
+  d.Age20s = +d.Age20s;
+  return d;}
+}
+)};
+</script>
+</body>
+</html>
