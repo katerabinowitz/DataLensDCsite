@@ -59,9 +59,9 @@
 <div id="citiesBar">
 <svg class="cex"></svg>
 <script>
-var margin = {top: 40, right: 40, bottom: 80, left: 40},
+var margin = {top: 40, right: 40, bottom: 60, left: 40},
     width = 550 - margin.left - margin.right,
-    height =  400- margin.top - margin.bottom;
+    height =  380- margin.top - margin.bottom;
 
 var x = d3.scale.ordinal()
     .rangeRoundBands([0, width], .05);
@@ -493,5 +493,6 @@ function type(d) {
 }
 )};
 </script>
+<p class='graph-subtitle'>Source: Census American Community Survey (ACS), 2010-2014.</p>  
 </body>
 </html>
