@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>Metro Ridership</title>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/metro-ridership.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body>
+<nav class="xsheader navbar navbar-default navbar-static-top">
+  <div class='clearfix xsheader'>      
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span> 
+        </button>
+        <a class="navbar-brand" href="./index.html">
+          <img src="./Images/DataLensDCResponsiveLogo2.png" alt="DataLensDC">  
+        </a>
+      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse dropdown-pull-right" id="main-navbar-custom">
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./subscribe.html">Subscribe</a></li>
+        <li><a href="./archive.html">Archive</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
+          <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
+            <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+            <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+            <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>  -->     
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<nav class="smheader navbar navbar-default navbar-static-top">
+<a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+  <div class="navbar-fixed">
+    <ul class ="headerlist">
+        <li><a href="./about.html">about</a></li>
+        <li><a href="./subscribe.html">subscribe</a></li>
+        <li><a href="mailto:datalensdc@gmail.com">email</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class='content row'>
+  <div class='col-sm-9 col-xs-12'>
+  <br>
+    <h2><a href='./metro-ridership.html'>Charting Metro's Declines</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // April 5, 2016 </h3>
+    <div class="content">
+    <p class="content">Over the past five years Metro has <a class="link" target="_blank" href="http://www.washingtonian.com/2015/10/05/metros-ridership-is-still-falling-and-fare-hikes-might-be-the-only-way-to-keep-its-revenue-up/">shed tens of thousands of riders<a>. This decline is in spite of <a class="link" target="_blank" href="http://www.washingtonian.com/2016/03/24/census-washington-metro-area-is-now-larger-than-philadelphia-metro-area/">significant population growth</a> in the DC region during the same time period. Decreasing reliability coupled with the rise of biking and car shares have led more and more residents to quit Metro. While the Metro system as a whole has seen a decline over the past five years, changes in ridership vary greatly across the system and in fact some areas have even seen a rise in riders in recent years. The map below shows average weekday ridership for each Metro station from 2011 to 2015.
+<br>
+    <p class='graph-title'>Metro Ridership Declined across most of DC Region</p>
+    <p class='graph-subtitle'>Change in average weekday ridership by station, 2011-15</p>
+    <iframe width="100%" height="520" frameborder="0" src="https://datalensdc.cartodb.com/viz/59c82e12-f9d0-11e5-9a9c-0e5db1731f59/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+    <p class='graph-subtitle'> Note: Silver line trains were excluded as they did not exist in 2011.</p>
+    <p class='graph-subtitle'> Source: WMATA, via <a target="_blank" href="http://planitmetro.com/2016/03/24/data-download-metrorail-ridership-by-station-by-month-2010-2015/">PlanItMetro</a>.</p>
+
+    <br>
+
+    <p class="content">The vast majority of Metro stations, 72 of 86, saw declines in average weekday ridership from 2011 to 2015. West Falls Church experienced the most dramatic decline, with over a 70% drop in weekday ridership. But the majority of this decline occurred after the Silver line opened and likely reflects people switching to a Silver Line station. Ridership drops of over 20% occurred both on the periphery at stations like Largo and Franconia-Springfield as well as downtown stations like Federal Triange. But not all stations saw a decline. Metro ridership grew at stations near some of the District's biggest construction booms. The NoMa station experienced the greatest increase, with over a 20% rise in average weekday ridership. Navy Yard, Mt. Vernon, and Rhode Island Ave. stations all had nearly or more than 10% growth in riders.
+    <br><br>
+    For many, Metro is their way to and from work. Increasingly that's all Metro is for. Over the past five years ridership has consolidated around commuting hours of the AM peak, from 5 to 9:30am and the PM Peak, from 3 to 7pm. On weekdays the average ridership during the AM and PM peak hours is nearly double ridership during any other period of the day. From 2011 to 2015 these were also the periods of the day where ridership fell the least. Weekday ridership during the late night peak, from 9:30pm to midnight, fell the most with a nearly 30% decline. While the late night peak was already the least popular time during the week to take Metro, riders more and more are leaving it to find other transportation options.<br>
+<p class='graph-title'>Metro Ridership Consolidating around Commuting Hours</p>
+<p class='graph-subtitle'>Average weekday riders, 2015 (top) and Change in ridership, 2011-15 (bottom)</p>
+<div id="barchart1">
+<svg class="riders"></svg>
+<script>
+(function() {
+var margin = {top: 20, right: 0, bottom: 20, left: 45},
+    width = 400 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var chart = d3.select(".riders")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Transportation/master/WMATA%20Ridership/RidebyPeriod.csv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.Period; }));
+  y.domain([0, 250]);
+
+  chart.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  chart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  chart.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Average weekday riders, 2015 (thousands)");
+
+  chart.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.Period); })
+      .attr("y", function(d) { return y(d.Yr15T); })
+      .attr("height", function(d) { return height - y(d.Yr15T); })
+      .attr("width", x.rangeBand());
+         
+});
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+})();
+</script>
+<br>
+<svg class="decline"></svg>
+<script>
+(function() {
+var margin = {top: 17, right: 0, bottom: 0, left: 45},
+    width = 400 - margin.left - margin.right,
+    height =  300- margin.top - margin.bottom;
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .2);
+
+var y = d3.scale.linear()
+    .range([height - margin.top - margin.bottom, 0])
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("top");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .outerTickSize(0)
+    .orient("left");
+
+var chart = d3.select(".decline")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Transportation/master/WMATA%20Ridership/RidebyPeriod.csv", type, function(error, data) {
+  var x0=Math.max(-d3.min(data), d3.max(data));
+  x.domain(data.map(function(d) { return d.fullName; }));
+  y.domain([-35,0]);
+
+  chart.append("g")
+      .attr("class", "x axis")
+      .call(xAxis);
+
+  chart.append("g")
+      .attr("class", "y axis")
+      .call(yAxis);
+
+  chart.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - margin.left)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+      .text("Change in average weekday ridership, 2011-2015 (%)");
+
+  chart.selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.fullName); })
+      .attr("y", function(d) { return y(Math.max(0,d.Change1115)); })
+      .attr("height", function(d) { return Math.abs(y(d.Change1115) - y(0)); })
+      .attr("width", x.rangeBand());
+         
+});
+function type(d) {
+  d.value = +d.value;
+  return d;
+}
+})();
+</script>
+<p class='graph-subtitle'> Source: WMATA, via <a target="_blank" href="http://planitmetro.com/2016/03/24/data-download-metrorail-ridership-by-station-by-month-2010-2015/">PlanItMetro</a>.</p>
+</div>
+<br>
+<p class="content">Ridership decline can create a vicious cycle for Metro. With fewer people riding the Metro because they find it unreliable there is less revenue to make the Metro more reliable. With a new manager, new railcars, and new initiatives underway, Metro is trying hard to win over residents. It's unclear if that will be enough.</p>
+ <br>
+  <hr id='end-line'>
+  <p class='content'><b>Technical notes:</b> Data shown is from WMATA and was released on their <a class="link" target="_blank" href="http://planitmetro.com/2016/03/24/data-download-metrorail-ridership-by-station-by-month-2010-2015/">PlanItMetro</a> blog. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+  <br><br> 
+</div>
+</div>
+
+<div class='col-sm-3 side'>
+  <ul class="sidebar nav nav-stacked fixed">
+    <br>
+        <li>Recent</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./uber-surge-time.html'>When Does Uber Surge Near You?</a></li>
+            <li><a href='./who-moves-to-DC.html'>Who Moves to DC?</a></li>
+            <li><a href='./construction-boom-mapped.html'>Mapped: DC's Construction Boom</a></li>
+            <li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
+            <li><a href='./DC-region-breweries.html'>DC Region has 70 Breweries, Second Most on East Coast</a><li>
+            <li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
+            <li><a href='./rise-of-biking.html'>The Rise of Biking in DC, Visualized</a></li>
+            <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
+            <!---<li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
+            <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
+            <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
+            <li><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
+            <li><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></li>
+            <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
+            <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
+            <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
+            <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
+            <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li> -->
+        </ul></ul> 
+        <li class="archiveside"><a href="./archive.html"><p style="margin-left:15px">Archive</p></a></li>
+        <br>
+        <li>Connect</li>  
+        <ul><ul class="nav nav-stacked fixed connectbar">
+              <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+              <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+              <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+              <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
+          </ul></ul>
+      </ul>
+    </div>    
+</div>
+</body>
+</html>
