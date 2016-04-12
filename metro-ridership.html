@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-  <title>When Does Uber Surge Near You</title>
+  <title>Metro's Ridership Decline</title>
 
   <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/>
 
@@ -11,9 +11,11 @@
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/metro-ridership.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
  <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -68,15 +70,18 @@
 <div class='content row'>
   <div class='col-sm-9 col-xs-12'>
   <br>
-    <h2><a href='./uber-surge-time.html'>See How Often Uber’s Surge Pricing Hits Every Neighborhood in DC</a></h2>
+    <h2><a href='./metro-ridership.html'>Metro Ridership has Declined at Nearly Every Station Since 2011</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // March 17, 2016 </h3>
-    <p class="content"> Metro's 29 hour shutdown led to an <a class="link" target="_blank" href="https://www.washingtonpost.com/news/dr-gridlock/wp/2016/03/16/metro-shutdown-leads-to-record-day-for-uber-company-says/">Uber boom</a>, with a 70 percent increase over the previous week in people signing up for the app as the shutdown drew near. While many worried about sky-high fares, they rarely materialized due to a combination of ride-splitting (the company <a class="link" target="_blank" href="https://newsroom.uber.com/us-dc/trips-by-the-numbers-commuting-during-the-metro-closure/">expanded its UberPool ride-sharing platform</a> to cover the entire region, not just DC), more drivers on the road, and many people in the area just staying home. Uber’s policy of “surge pricing” is, at this point, as ubiquitous as the company itself. The car-hailing service increases its rates when demand for rides outpaces the number of available drivers. In theory, this surge in pricing should encourage more Uber drivers to get on the road bringing prices closer to the standard rate.<br><br>New data show in practice where, when, and how much price surging occurs throughout the District. Select a neighborhood on the map below to show the average rate for an UberX any hour across the week within the selected neighborhood from February 3 to March 2. <a class="link" target="_blank" href="http://www.washingtonian.com/2016/03/17/see-often-ubers-surge-pricing-hits-every-neighborhood-dc/">Read the rest in my recent Washingtonian piece.</a></p>
-
-    <iframe width="100%" height="590px" src="http://www.datalensdc.com/IF_uberSurge.html" frameborder="0" class="content"></iframe>
-  <br><br>
+    <h3> Kate Rabinowitz // April 5, 2016 </h3>
+    <p class="content">Metro has <a class="link" target="_blank" href="http://www.washingtonian.com/2015/10/05/metros-ridership-is-still-falling-and-fare-hikes-might-be-the-only-way-to-keep-its-revenue-up/">shed tens of thousands of riders</a> over the past five years. This decline is despite <a class="link" target="_blank" href="http://www.washingtonian.com/2016/03/24/census-washington-metro-area-is-now-larger-than-philadelphia-metro-area/">significant population growth</a> in the DC region during the same period. Decreasing reliability coupled with the rise of biking and car shares have led more and more residents to quit Metro. While the Metro system as a whole has seen a decline over the past five years, changes in ridership vary greatly across the system. Some areas, in fact, have even seen increases in riders in recent years. The map below shows average weekday ridership for each Metro station from 2011 to 2015. Read the rest in <a href="http://www.washingtonian.com/2016/04/04/metro-ridership-dropped-nearly-every-station-since-2011/" class="link" target="_blank">my recent Washingtonian piece.</a></p>
+    <p class='graph-title'>Metro Ridership Declined across most of DC Region</p>
+    <p class='graph-subtitle'>Change in average weekday ridership by station, 2011-15</p>
+    <iframe width="100%" height="520" frameborder="0" src="https://datalensdc.cartodb.com/viz/59c82e12-f9d0-11e5-9a9c-0e5db1731f59/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+    <p class='graph-subtitle'> Note: Silver line trains were excluded as they did not exist in 2011.</p>
+    <p class='graph-subtitle'> Source: WMATA, via <a target="_blank" href="http://planitmetro.com/2016/03/24/data-download-metrorail-ridership-by-station-by-month-2010-2015/">PlanItMetro</a>.</p>
+    <br>
   <hr id='end-line'>
-  <p class='content'><b>Technical notes:</b> Data shown are from the Uber API. The data was collected by Jennifer A. Stark and Nick Diakopoulos over a month long period from 276 DC locations every three minutes. You can read more about the data, and their findings, <a class="link" target="_blank" href="https://github.com/comp-journalism/2016-03-wapo-uber">here</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+  <p class='content'><b>Technical notes:</b> Data shown is from WMATA and was released on their <a class="link" target="_blank" href="http://planitmetro.com/2016/03/24/data-download-metrorail-ridership-by-station-by-month-2010-2015/">PlanItMetro</a> blog. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
   <br><br> 
 </div>
 

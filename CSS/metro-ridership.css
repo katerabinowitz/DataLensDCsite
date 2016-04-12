@@ -1,0 +1,27 @@
+.riders .bar {
+    fill: #53CFCF;
+    }
+
+.decline .bar {
+  fill:#e6550d;
+}
+
+.riders, .decline, .text {
+    font: 10px sans-serif;
+  }
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+rect.bordered {
+    stroke: #E6E6E6;
+    stroke-width:2px;   
+  }
+
+#barchart1{
+  text-align:center;
+}
