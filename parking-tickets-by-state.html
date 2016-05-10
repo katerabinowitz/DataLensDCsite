@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>DC's Worst Parking Offenders</title>
+
+  <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+  <link href='./CSS/metro-ridership.css' rel='stylesheet' type='text/css'>
+  <link href='./JS/PTG1.JS'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<style>
+  #tickPerCar{width:400px; height: 300px;}
+  </style>
+</head>
+
+<body>
+<nav class="xsheader navbar navbar-default navbar-static-top">
+  <div class='clearfix xsheader'>      
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span> 
+        </button>
+        <a class="navbar-brand" href="./index.html">
+          <img src="./Images/DataLensDCResponsiveLogo2.png" alt="DataLensDC">  
+        </a>
+      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse dropdown-pull-right" id="main-navbar-custom">
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./subscribe.html">Subscribe</a></li>
+        <li><a href="./archive.html">Archive</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
+          <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
+            <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+            <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>            <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>  -->     
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<nav class="smheader navbar navbar-default navbar-static-top">
+<a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+  <div class="navbar-fixed">
+    <ul class ="headerlist">
+        <li><a href="./about.html">about</a></li>
+        <li><a href="./subscribe.html">subscribe</a></li>
+        <li><a href="mailto:datalensdc@gmail.com">email</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class='content row'>
+  <div class='col-sm-9 col-xs-12'>
+  <br>
+    <h2><a href='./parking-tickets-by-state.html'>What State Gets the Most DC Parking Tickets? (Not DC.)</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // May 11, 2016 </h3>
+    <p class="content">In the DC region it's a long held debate who the worst drivers are. With DC jobs split almost evenly across DC, Maryland, and Virginia residents, the District sees drivers from all over put to the test with its one way streets, roundabouts, and parallel parking. What insight can open data provide into the prowess of the region's drivers? Newly released parking ticket data sheds some light. 
+    <br><br>In 2015, DC issued over 1.5 million parking tickets worth more than $73 million in fines. DC residents received less than a third of the tickets, and were not actually the top recipients. Maryland drivers received more DC parking tickets than any other state (DC included). They received 120,000 more DC parking tickets than DC residents, for a total of 554,265 parking tickets worth over $25 million in fines. The trend is consistent with previous years and, of course, <a href="https://twitter.com/MD_Driver_in_DC" target="_blank" class="link">regional lore.</a></p>
+
+    <iframe width="100%" height="360px" src="./iframes/parkingTicketsTotal.html" frameborder="0"></iframe>
+
+    <p class="content">This does not necessary mean Maryland drivers are the worst drivers in the District. More Maryland drivers may drive through the District than DC drivers. Data doesn't exist on all drivers that come through the District, but Maryland drivers in DC are most likely to live in the surrounding suburbs. Comparing parking tickets per number of residents in DC and the surrounding suburbs of Maryland and Virginia, DC moves up to the top by a considerable margin. In 2015 0.64 DC parking tickets were issued for every DC resident, compared to 0.28 and 0.22 per Maryland and Virgina resident, respectively.</p>
+
+    <iframe width="100%" height="400px" src="./iframes/parkingTicketsPerCar.html" frameborder="0"></iframe>
+
+    <p class='content'>DC parking tickets are doled out to residents of all fifty states, as shown in the map below. Generally, the closer a state is to DC the more tickets per vehicle it has received. States between Iowa and California have the lowest number of DC parking tickets. Despite the distance, West Coast states rack up over 7,000 parking tickets in DC a year. Similarly, Alaska, over 3,000 miles away, is surprisingly not the state with the least number of parking tickets accumulated in the District. That would be Wyoming, one of two states with a population less than DC.</p>
+
+    <iframe width="100%" height="600px" src="./iframes/parkingTicketMap.html" frameborder="0"></iframe>    
+
+    <br>
+  <hr id='end-line'>
+  <p class='content'><b>Technical notes:</b> This piece was inspired by <a class="link" target="_blank" href="http://iquantny.tumblr.com/post/117228506219/mapping-the-united-states-of-nyc-parking-tickets">I Quant NY</a>. Data are sourced from <a class="link" target="_blank" href="http://opendata.dc.gov/datasets?q=parking+tickets&sort_by=relevance">District of Columbia Open Data</a>, <a class="link" target="_blank" href="http://68.100.168.134:8080/mpd/listinfractions.jsp">DC Metropolitan Police Department</a>, and <a class="link" target="_blank" href="https://www.census.gov/popest/">Census Population Estimates.</a> You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+  <br><br> 
+</div>
+
+
+<div class='col-sm-3 side'>
+  <ul class="sidebar nav nav-stacked fixed">
+    <br>
+        <li>Recent</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./metro-ridership.html'>Charting Metro's Ridership Decline</a></li>
+            <li><a href='./uber-surge-time.html'>When Does Uber Surge Near You?</a></li>
+            <li><a href='./who-moves-to-DC.html'>Who Moves to DC?</a></li>
+            <li><a href='./construction-boom-mapped.html'>Mapped: DC's Construction Boom</a></li>
+            <li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
+            <li><a href='./DC-region-breweries.html'>DC Region has 70 Breweries, Second Most on East Coast</a><li>
+            <!---<li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
+            <li><a href='./rise-of-biking.html'>The Rise of Biking in DC, Visualized</a></li>
+            <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
+            <li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
+            <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
+            <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
+            <li><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
+            <li><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></li>
+            <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
+            <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
+            <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
+            <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
+            <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li> -->
+        </ul></ul> 
+        <li class="archiveside"><a href="./archive.html"><p style="margin-left:15px">Archive</p></a></li>
+        <br>
+        <li>Connect</li>  
+        <ul><ul class="nav nav-stacked fixed connectbar">
+              <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+              <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+              <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+              <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
+          </ul></ul>
+      </ul>
+    </div>    
+</div>
+</body>
+</html>

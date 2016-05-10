@@ -11,7 +11,6 @@
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
   <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
-  <link href='../CSS/metro-ridership.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -28,16 +27,32 @@
 
   <style>
   body { margin:0; padding:0; }
+
+  .axis path,
+  .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+      }
+      
+  .axis text,
+  .legend text {
+        font-family: 'Neuton', serif;;
+        font-size: 14px;
+        color: #505050;
+      }
   </style>
 
 </head>
 
-   <div id="TickperCar">
-    <svg class="stateAdj"></svg>
-    <script>
-    var margin = {top: 10, right: 20, bottom: 30, left: 10},
+<div id="TickperCar" align="center";>
+<p class='graph-title'>Per Resident, DC Receives the Most DC Parking Tickets</p>
+<p class='graph-subtitle'>Number of DC Parking Tickets by State License Plate Per Resident</p>
+<p class='graph-subtitle'>Virginia and Maryland populations limited to counties near DC.</p>
+<script>
+    var margin = {top: 40, right: 10, bottom: 30, left: 50},
     width = 400 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    height = 300 - margin.top - margin.bottom;
 
 var x0 = d3.scale.ordinal()
     .rangeRoundBands([0, width], .1);
@@ -48,7 +63,7 @@ var y = d3.scale.linear()
     .range([height, 0]);
 
 var color = d3.scale.ordinal()
-    .range(["#b3e2cd", "#fdcdac", "#cbd5e8"]);
+    .range(["#798E87", "#C27D38", "#CCC591"]);
 
 var xAxis = d3.svg.axis()
     .scale(x0)
@@ -57,11 +72,12 @@ var xAxis = d3.svg.axis()
 var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left")
-    .tickFormat(d3.format(".2s"));
+
 
 var svg = d3.select("#TickperCar").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .attr("align","center")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -87,11 +103,10 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Transportation/maste
       .attr("class", "y axis")
       .call(yAxis)
     .append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("transform", "translate("+ -45 +","+(height/2)+")rotate(-90)")
       .attr("dy", ".71em")
-      .style("text-anchor", "end")
-      .text("Parking tickets");
+      .style("text-anchor", "middle")
+      .text("Parking tickets per capita");
 
   var stateAdj = svg.selectAll(".stateAdj")
       .data(data)
@@ -107,6 +122,28 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Transportation/maste
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); })
       .style("fill", function(d) { return color(d.name); });
+
+ var legend = stateAdj.selectAll(".legend")
+      .data(stateNames.slice())
+    .enter().append("g")
+      .attr("class", "legend")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+  legend.append("rect")
+      .attr("x", width - 18)
+      .attr("width", 18)
+      .attr("height", 18)
+      .style("fill", color);
+
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 9)
+      .attr("dy", ".35em")
+      .style("text-anchor", "end")
+      .text(function(d) { return d; });
 });
     </script>
+<p class='graph-subtitle'>Source: District of Columbia Open Data, Census.</p>
     </div>
+    </body>
+</html>

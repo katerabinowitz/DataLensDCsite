@@ -34,18 +34,52 @@
 
   <style>
   body { margin:0; padding:0; }
+  @media (min-width: 0px) and (max-width: 768px){
+  #map {  width:500px; height:500px; margin:auto;}
+  }
+@media (min-width: 768px) {
+  #map {  width:700px; height:500px; margin:auto;}
+  }
+
+.legend label,
+.legend span {
+  display:block;
+  float:left;
+  height:15px;
+  width:30%;
+  text-align:center;
+  font-size:9px;
+  color:black;
+  }
+
   </style>
   </head>
 
   <body>
-  <div id="map"></div>
+  <div id="title">
+<p class='graph-title'>United States of DC Parking Tickets</p>
+<p class='graph-subtitle'>Number of DC Parking Tickets by State License Plate</p>
+</div>
+<div id='legend' style='display:none;'>
+  <strong>Number of DC Parking Tickets</strong>
+  <nav class='legend clearfix'>
+    <span style='background:#f6eff7;'>0 - 500</span>
+    <span style='background:#d0d1e6;'>500-999</span>
+    <span style='background:#a6bddb;'>1K-4.9K</span>
+    <span style='background:#67a9cf;'>5K-9.K</span>
+    <span style='background:#1c9099;'>10K-24.9K</span>
+    <span style='background:#016c59;'>Above 25K</span>
+</div>
 
+  <div id="map" class="content"></div>
 <script>
 L.mapbox.accessToken = 'pk.eyJ1IjoiZGF0YWxlbnNkYyIsImEiOiJjaWVnOGttYnMwMDBqc2htM2ZmcjZ4NmZxIn0.9iGQPNKsl1jtP5KriDm3wQ';
-  var map = L.mapbox.map('map', 'mapbox.streets')
-    .setView([37.8, -96], 4);
-
+  var map = L.mapbox.map('map', 'mapbox.light')
+    .setView([38, -97], 4);
+  map.legendControl.addLegend(document.getElementById('legend').innerHTML);
   var popup = new L.Popup({ autoPan: false });
+
+
 
   $.getJSON("https://raw.githubusercontent.com/katerabinowitz/DC-Transportation/master/Parking%20Tickets/StatePTMap.geojson", function(response) {
             console.log("response", response);
@@ -59,22 +93,19 @@ function getStyle(feature) {
       return {
           weight: 2,
           opacity: 0.1,
-          color: 'black',
+          color: 'gray',
           fillOpacity: 0.7,
           fillColor: getColor(feature.properties.Tickets)
       };
   }
 
-  // get color depending on population density value
   function getColor(d) {
-      return d > 30000 ? '#8c2d04' :
-          d > 5000  ? '#cc4c02' :
-          d > 1000  ? '#ec7014' :
-          d > 700  ? '#fe9929' :
-          d > 600   ? '#fec44f' :
-          d > 500   ? '#fee391' :
-          d > 300   ? '#fff7bc' :
-          '#ffffe5';
+      return d > 25000 ? '#016c59' :
+          d > 10000  ? '#1c9099' :
+          d > 5000   ? '#67a9cf' :
+          d > 1000   ? '#a6bddb' :
+          d > 500   ? '#d0d1e6' :
+          '#f6eff7';
   }
 
   function onEachFeature(feature, layer) {
@@ -91,7 +122,7 @@ function getStyle(feature) {
       var layer = e.target;
 
       popup.setLatLng(e.latlng);
-      popup.setContent('<div class="marker-title">' + layer.feature.properties.name + '</div>' +
+      popup.setContent('<div class="marker-title">' + layer.feature.properties.NAME + '</div>' +
           layer.feature.properties.Tickets + ' parking tickets');
 
       if (!popup._map) popup.openOn(map);
@@ -119,26 +150,8 @@ function getStyle(feature) {
   function zoomToFeature(e) {
       map.fitBounds(e.target.getBounds());
   }
-
-  map.legendControl.addLegend(getLegendHTML());
-
-  function getLegendHTML() {
-    var grades = [0, 300, 500, 600, 700, 1000, 5000, 30000],
-    labels = [],
-    from, to;
-
-    for (var i = 0; i < grades.length; i++) {
-      from = grades[i];
-      to = grades[i + 1];
-
-      labels.push(
-        '<li><span class="swatch" style="background:' + getColor(from + 1) + '"></span> ' +
-        from + (to ? '&ndash;' + to : '+')) + '</li>';
-    }
-
-    return '<span>Parking tickets</span><ul>' + labels.join('') + '</ul>';
-  }
-
+  
 </script>
+<p class='graph-subtitle'>Inspired by <a class="link" target="_blank" href="http://iquantny.tumblr.com/post/117228506219/mapping-the-united-states-of-nyc-parking-tickets">I Quant NY</a><br>Source: District of Columbia Open Data</p>
 </body>
 </html>
