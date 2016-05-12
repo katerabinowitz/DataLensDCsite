@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
-  <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
-  <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css"/>
+  <script src="https://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
 
@@ -19,24 +19,10 @@
   <script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'></script>
   <link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet' />
 
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-65753381-1', 'auto');
-  ga('send', 'pageview');
-  </script>
-
   <style>
   body { margin:0; padding:0; }
-  @media (min-width: 0px) and (max-width: 768px){
-  #map {  width:500px; height:500px; margin:auto;}
-  }
-@media (min-width: 768px) {
-  #map {  width:700px; height:500px; margin:auto;}
-  }
+
+  #map {  width:650px; height:400px; margin:auto;}
 
 .legend label,
 .legend span {
@@ -75,12 +61,11 @@ L.mapbox.accessToken = 'pk.eyJ1IjoiZGF0YWxlbnNkYyIsImEiOiJjaWVnOGttYnMwMDBqc2htM
     .setView([38, -97], 4);
   map.legendControl.addLegend(document.getElementById('legend').innerHTML);
   var popup = new L.Popup({ autoPan: false });
-
-
+  var geojsonLayer;
 
   $.getJSON("https://raw.githubusercontent.com/katerabinowitz/DC-Transportation/master/Parking%20Tickets/StatePTMap.geojson", function(response) {
             console.log("response", response);
-            var geojsonLayer = new L.GeoJSON(response, {
+            geojsonLayer = new L.GeoJSON(response, {
                   style: getStyle,
                   onEachFeature: onEachFeature
             }).addTo(map); 
