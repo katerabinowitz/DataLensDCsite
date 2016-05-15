@@ -8,13 +8,57 @@
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
-  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/wmata-2015-delay.css' rel='stylesheet' type='text/css'>
+  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+  <style>
+    #delayAnnual, #issueChart, #YMdelayBig, #YMdelaySm {
+      text-align:center;
+    }
+
+    #delayAnnual .legend {
+      fill: black;
+      font-family: Consolas, courier;
+      text-anchor: start;
+      font-size: 12px;
+    }
+
+    #delayAnnual text {
+        font-size: 9pt;
+        font-family: Consolas, courier;
+        fill: black;
+      text-anchor: end;
+    }
+
+    #delayAnnual .label {
+      fill: black;
+      font-family: Consolas, courier;
+      font-size: 12px;
+      text-anchor: end;
+    }
+
+    .bartext {
+      fill: black;
+      font-family: Consolas, courier;
+      font-size: 12px;
+      text-anchor: middle;
+    }
+
+    #delayAnnual .bar:hover {
+      fill: white;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+  </style>
 
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -24,9 +68,9 @@
 
   ga('create', 'UA-65753381-1', 'auto');
   ga('send', 'pageview');
-
-</script>
-</head>
+  </script>
+  </head>
+<body>
 <p class='graph-title'>2015 Metro delays tally up to over 770 hours of downed service</p>
     <p class='graph-subtitle'>Total delay time to November 30th of each year, hours</p>
 <div id="delayAnnual">
@@ -110,3 +154,4 @@ function type(d) {
 </script>
 <p class='graph-subtitle'>Source: <a class="link" target="_blank" href="http://www.wmata.com/rail/service_reports/viewReportArchive.cfm">WMATA Daily Service Reports.</a></p>
 </div>
+</body>

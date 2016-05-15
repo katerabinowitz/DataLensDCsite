@@ -4,17 +4,116 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
   <title>How DC Spends</title>
 
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
-  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/CEX.css' rel='stylesheet' type='text/css'>
+  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script> 
-  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script> 
+  <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+  <style>
+       #citiesBar, #citiesFood{
+      text-align:center;
+    }
+
+    .bar {
+      fill: #53CFCF;
+      }
+    .label{
+      font: 12px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    rect.bordered {
+      stroke: #E6E6E6;
+      stroke-width:2px;   
+    }
+
+    text {
+      font: 9px sans-serif;
+    }
+
+    .d3title {
+    font-family: 'Neuton', serif;
+    fill: #505050;
+    font-weight:bold;
+    font-size:20px;
+    }
+
+     .d3subtitle {
+    font-family: 'Neuton', serif;
+    fill: #505050;
+    font-size:16px;
+    }
+
+    .d3-yaxis {
+    font-family: 'Neuton', serif;
+    fill: #505050;
+    font-size:16px;
+    }
+
+  .d3-tip {
+    line-height: 1;
+    font-weight: bold;
+    padding: 5px;
+    background: #fff;
+    color: #505050;
+    border-radius: 2px;
+    font-family: 'Neuton', serif;
+    font-size:14px;
+    font-weight:bold;
+  }
+
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 14px;
+    font-weight:bold;
+    width: 100%;
+    line-height: 1;
+    color: #fff;
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+
+  .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+  }
+
+  .d3btn {
+    border: 1px solid #44A765;
+    background: #4BBA70;
+    color: #FFF;
+    font-family: 'Neuton', serif;
+    font-weight: normal ;
+    font-size: 16px;
+    padding: 3px;
+    margin: 0 2px 5px 2px;
+  }
+
+  .d3btn:hover {
+    color: #FFF;
+    background: #5CE68A;
+  }
+
+  .btn-content {
+    text-align: center;
+    margin-bottom:10px;
+  }
+  </style>
 </head>
 
 <div class="btn-content">
@@ -97,20 +196,11 @@ var yAxis = d3.svg.axis()
     .outerTickSize(0)
     .orient("left");
 
-var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return "<strong>Eating In: $</strong> <span>" + d.FoodAtHome + "</span>";
-  })
-
 var cex = d3.select(".cex")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-cex.call(tip);
 
 d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
   data.sort(function(a, b) { return b.EatIn - a.EatIn; });
@@ -139,13 +229,6 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-C
         .text("Eating In, Percent of Annual Expenditure");
 
   cex.append("text")
-        .attr('class', 'd3subtitle')
-        .attr("x", (width / 2))             
-        .attr("y", 0 - (margin.top / 3))
-        .attr("text-anchor", "middle")  
-        .text("Hover for the actual amount spent");
-
-  cex.append("text")
     .attr("text-anchor", "end")
     .attr("y", 9)
     .attr("dy", "-4.5em")
@@ -162,8 +245,6 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-C
       .attr("y", function(d) { return y(d.EatIn); })
       .attr("height", function(d) { return height - y(d.EatIn); })
       .attr("width", x.rangeBand())
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
          
 });
 function type(d) {
@@ -175,15 +256,6 @@ function EatOutData() {
       data.sort(function(a, b) { return b.EatOut - a.EatOut; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.EatOut; })]);
-
-      var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return "<strong>Eating Out: $</strong> <span>" + d.FoodAwayFromHome + "</span>";
-        })
-
-    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
@@ -197,8 +269,6 @@ function EatOutData() {
       sel.attr("y", function(d) { return y(d.EatOut); })
       sel.attr("height", function(d) { return height - y(d.EatOut); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -237,15 +307,6 @@ function AlcData() {
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Alcohol; })]);
 
-      var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return "<strong>Alcohol: $</strong> <span>" + d.Alcoholic + "</span>";
-        })
-
-    cex.call(tip);
-      
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
@@ -258,8 +319,6 @@ function AlcData() {
       sel.attr("y", function(d) { return y(d.Alcohol); })
       sel.attr("height", function(d) { return height - y(d.Alcohol); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -298,15 +357,6 @@ function tobaccoData() {
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Smoke; })]);
 
-      var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return "<strong>Smoking: $</strong> <span>" + d.Tobacco + "</span>";
-        })
-
-    cex.call(tip);
-      
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
@@ -319,9 +369,7 @@ function tobaccoData() {
       sel.attr("y", function(d) { return y(d.Smoke); })
       sel.attr("height", function(d) { return height - y(d.Smoke); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
-
+      
     cex.append("g")
       .attr("class", "y axis")
       .call(yAxis);
@@ -356,15 +404,6 @@ function ptranData() {
       data.sort(function(a, b) { return b.PTravel - a.PTravel; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.PTravel; })]);
-
-    var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return "<strong>Public transit: $</strong> <span>" + d.Public + "</span>";
-        })
-
-    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
@@ -378,8 +417,6 @@ function ptranData() {
       sel.attr("y", function(d) { return y(d.PTravel); })
       sel.attr("height", function(d) { return height - y(d.PTravel); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -417,15 +454,6 @@ function carData() {
       data.sort(function(a, b) { return b.Car - a.Car; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Car; })]);
-
-    var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return "<strong>Car expenses: $</strong> <span>" + d.CarCosts + "</span>";
-        })
-
-    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
@@ -439,8 +467,7 @@ function carData() {
       sel.attr("y", function(d) { return y(d.Car); })
       sel.attr("height", function(d) { return height - y(d.Car); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
+    
 
     cex.append("g")
       .attr("class", "y axis")
@@ -478,15 +505,6 @@ function lookData() {
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Look; })]);
 
-    var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return "<strong>Personal Care: $</strong> <span>" + d.PersonalCare + "</span>";
-        })
-
-    cex.call(tip);
-      
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
@@ -499,8 +517,8 @@ function lookData() {
       sel.attr("y", function(d) { return y(d.Look); })
       sel.attr("height", function(d) { return height - y(d.Look); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
+      
+      
 
     cex.append("g")
       .attr("class", "y axis")
@@ -538,15 +556,6 @@ function dressData() {
       data.sort(function(a, b) { return b.Dress - a.Dress; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Dress; })]);
-
-      var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return "<strong>Apparel: $</strong> <span>" + d.Apparel + "</span>";
-        })
-
-    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
@@ -560,9 +569,7 @@ function dressData() {
       sel.attr("y", function(d) { return y(d.Dress); })
       sel.attr("height", function(d) { return height - y(d.Dress); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
-
+      
     cex.append("g")
       .attr("class", "y axis")
       .call(yAxis);
@@ -600,15 +607,6 @@ function entData() {
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Ent; })]);
 
-      var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return "<strong>Entertainment: $</strong> <span>" + d.Entertainment + "</span>";
-        })
-
-    cex.call(tip);
-      
     var sel = cex.selectAll("rect")
          .data(data);
     sel.exit().remove();
@@ -621,8 +619,7 @@ function entData() {
       sel.attr("y", function(d) { return y(d.Ent); })
       sel.attr("height", function(d) { return height - y(d.Ent); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
+      
 
     cex.append("g")
       .attr("class", "y axis")
@@ -660,15 +657,6 @@ function rData() {
       data.sort(function(a, b) { return b.ReadR - a.ReadR; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.ReadR; })]);
-
-      var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return "<strong>Reading: $</strong> <span>" + d.Reading + "</span>";
-        })
-
-    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
@@ -682,9 +670,7 @@ function rData() {
       sel.attr("y", function(d) { return y(d.ReadR); })
       sel.attr("height", function(d) { return height - y(d.ReadR); })
       .style("fill", function(d, i){return d.City=="Washington, DC"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
-
+      
     cex.append("g")
       .attr("class", "y axis")
       .call(yAxis);
