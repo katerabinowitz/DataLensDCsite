@@ -4,37 +4,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
   <title>Has Metro Bottomed Out?</title>
 
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
-  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/wmata-2015-delay.css' rel='stylesheet' type='text/css'>
+  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
 
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
+  <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  <style>
+      @media (min-width: 0px) and (max-width: 450px){
+         #YMdelayBig{
+              display:none;
+         }
+    }
 
-  ga('create', 'UA-65753381-1', 'auto');
-  ga('send', 'pageview');
+    @media (min-width: 450px) {
+        #YMdelaySm{
+            display:none;
+        }
+    }
 
-</script>
+    #delayAnnual, #issueChart, #YMdelayBig, #YMdelaySm {
+      text-align:center;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 1.5px;
+    }
+  </style>
 </head>
 
-   <p class='graph-title'>Metro delays were terrible this year, but are getting better</p>
-    <p class='graph-subtitle'> Number of Metro delays, monthly (hover for value).</p>
+  <p class='graph-title'>Metro delays were terrible this year, but are getting better</p>
+  <p class='graph-subtitle'> Number of Metro delays, monthly (hover for value).</p>
 <div id="YMdelayBig">
 <svg class="myDelay"></svg>
 <script>
-var margin = {top: 10, right: 20, bottom: 30, left: 30},
-    width = 450 - margin.left - margin.right,
+var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    width = 500 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y-%m-%d").parse;
@@ -102,9 +121,9 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/myDe
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
+      .attr("y", -55)
       .attr("dy", ".71em")
-      .attr("x",-30)
+      .attr("x",-170)
       .text("Number of Delays");
 
   var chart = myDelay.selectAll(".chart")

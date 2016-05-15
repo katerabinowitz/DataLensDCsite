@@ -4,12 +4,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
   <title>Property Flipping in the District</title>
 
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
-  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/prop-flip.css' rel='stylesheet' type='text/css'>
+  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
@@ -26,9 +25,87 @@
 
   ga('create', 'UA-65753381-1', 'auto');
   ga('send', 'pageview');
+  </script>
 
-</script>
+  <style>
+    #map-flip{
+      margin:auto;
+      width:100%;
+      height:350px;
+    }
+
+    #short-map-flip{
+      margin:auto;
+      width:100%;
+      height:350px;
+    }
+
+
+    #iw {
+      width:175px;
+      text-align: left;
+      font-family: 'Neuton', serif;
+      font-size: 12px;
+      color: #505050;
+    }
+
+     #iw #iw-title {
+      text-align: center;
+      font-family: 'Neuton', serif;
+      font-size: 14px;
+      color: #505050;
+    }
+
+    .bar {
+        fill: #53CFCF;
+        }
+      .label{
+        font: 12px sans-serif;
+      }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+    rect.bordered {
+        stroke: #E6E6E6;
+        stroke-width:2px;   
+      }
+
+    text{
+        font: 9px sans-serif;
+      }
+
+    .updatebtn {
+      border: 1px solid #44A765;
+      background: #4BBA70;
+      color: #FFF;
+      font-family: 'Neuton', serif;
+      font-weight: normal ;
+      font-size: 16px;
+      padding: 3px;
+      margin: 0 2px 5px 2px;
+    }
+
+    .updatebtn:hover {
+      color: #FFF;
+      background: #5CE68A;
+    }
+
+    .btn-content {
+      text-align: center;
+      margin-bottom:10px;
+    }
+
+    #flip2011, #flip2013 {
+      text-align:center;
+    }
+    </style>
 </head>
+<body>
 
     <div class="btn-content">
     <input type="button" name="2011-2015" value="Show map for 2011-2015" onclick="show2011()" class="updatebtn"/>
@@ -62,3 +139,4 @@
         <p class='graph-subtitle'>Note: There is no data for dark gray areas, which are typically green space or commercial areas.<br>Source: MRIS, provided by Kevin Wood to PoPville</p>
     </div>
 
+</body>

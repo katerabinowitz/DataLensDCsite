@@ -21,9 +21,6 @@
   <link href='./CSS/DDD.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/CEX.css' rel='stylesheet' type='text/css'>
   <link href='./CSS/prop-flip.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/air-bnb.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/wmata-2015-delay.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/breweries-cbsa.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
@@ -186,7 +183,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <h3> Kate Rabinowitz // May 11, 2016 </h3>
     <p class="content">There’s a long-held debate around Washington over which jurisdiction is home to the worst drivers. With jobs in DC split about evenly between the city and the suburbs, the District sees drivers from all over put to the test with its one-way streets, traffic circles, back-in-only spaces, and parallel parking. What insight can open data provide into the prowess of the region’s drivers? Newly released parking-ticket data sheds some light. 
     <br><br>The District issued more than 1.5 million parking tickets in 2015, generating more than $73 million in fines. While DC residents received a little less than one-third of the tickets, they were not actually the top recipients. That honor goes to motorists from Maryland, who accrued more DC parking tickets than drivers from anywhere else in the country. Maryland drivers received 120,000 more DC parking tickets than DC residents, for a total of 554,265 parking tickets worth over $25 million in fines. The trend is consistent with previous years and, perhaps more importantly, <a href="https://twitter.com/MD_Driver_in_DC" target="_blank" class="link">regional lore.</a></p>
-    <iframe width="100%" height="360px" src="./iframes/parkingTicketsTotal.html" frameborder="0"></iframe>
+    <iframe width="100%" height="360px" src="./iframes/parkingTicketsTotal.html" style="border:none;"></iframe>
      <p class="content">This does not necessary mean Maryland drivers are the worst drivers in the District. Read the rest and see how other states fare in my <a href="https://www.washingtonian.com/2016/05/11/maryland-drivers-receive-most-parking-tickets-dc/" target="blank" class="link">recent Washingtonian piece.</a></p>
     <br><br>
 
@@ -206,7 +203,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <p class="content">Metro has <a class="link" target="_blank" href="http://www.washingtonian.com/2015/10/05/metros-ridership-is-still-falling-and-fare-hikes-might-be-the-only-way-to-keep-its-revenue-up/">shed tens of thousands of riders</a> over the past five years. This decline is despite <a class="link" target="_blank" href="http://www.washingtonian.com/2016/03/24/census-washington-metro-area-is-now-larger-than-philadelphia-metro-area/">significant population growth</a> in the DC region during the same period. Decreasing reliability coupled with the rise of biking and car shares have led more and more residents to quit Metro. While the Metro system as a whole has seen a decline over the past five years, changes in ridership vary greatly across the system. Some areas, in fact, have even seen increases in riders in recent years. The map below shows average weekday ridership for each Metro station from 2011 to 2015. Read the rest in <a href="http://www.washingtonian.com/2016/04/04/metro-ridership-dropped-nearly-every-station-since-2011/" class="link" target="_blank">my recent Washingtonian piece.</a></p>
     <p class='graph-title'>Metro Ridership Declined across most of DC Region</p>
     <p class='graph-subtitle'>Change in average weekday ridership by station, 2011-15</p>
-    <iframe width="100%" height="520" frameborder="0" src="https://datalensdc.cartodb.com/viz/59c82e12-f9d0-11e5-9a9c-0e5db1731f59/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+    <iframe width="100%" height="520" style="border:none" src="https://datalensdc.cartodb.com/viz/59c82e12-f9d0-11e5-9a9c-0e5db1731f59/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
     <p class='graph-subtitle'> Note: Silver line trains were excluded as they did not exist in 2011.</p>
     <p class='graph-subtitle'> Source: WMATA, via <a target="_blank" href="http://planitmetro.com/2016/03/24/data-download-metrorail-ridership-by-station-by-month-2010-2015/">PlanItMetro</a>.</p>
     <br><br>
@@ -217,7 +214,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <h3> Kate Rabinowitz // March 17, 2016 </h3>
     <p class="content"> Metro's 29 hour shutdown led to an <a class="link" target="_blank" href="https://www.washingtonpost.com/news/dr-gridlock/wp/2016/03/16/metro-shutdown-leads-to-record-day-for-uber-company-says/">Uber boom</a>, with a 70 percent increase over the previous week in people signing up for the app as the shutdown drew near. While many worried about sky-high fares, they rarely materialized due to a combination of ride-splitting (the company <a class="link" target="_blank" href="https://newsroom.uber.com/us-dc/trips-by-the-numbers-commuting-during-the-metro-closure/">expanded its UberPool ride-sharing platform</a> to cover the entire region, not just DC), more drivers on the road, and many people in the area just staying home. Uber’s policy of “surge pricing” is, at this point, as ubiquitous as the company itself. The car-hailing service increases its rates when demand for rides outpaces the number of available drivers. In theory, this surge in pricing should encourage more Uber drivers to get on the road bringing prices closer to the standard rate.<br><br>New data show in practice where, when, and how much price surging occurs throughout the District. Select a neighborhood on the map below to show the average rate for an UberX any hour across the week within the selected neighborhood from February 3 to March 2. <a class="link" target="_blank" href="http://www.washingtonian.com/2016/03/17/see-often-ubers-surge-pricing-hits-every-neighborhood-dc/">Read the rest in my recent Washingtonian piece.</a></p>
 
-    <iframe width="100%" height="590px" src="http://www.datalensdc.com/IF_uberSurge.html" frameborder="0" class="content"></iframe>
+    <iframe width="100%" height="590px" src="./iframes/whenUberSurges.html" class="content" style="border:none"></iframe>
     <br><br>
 
 
@@ -225,7 +222,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <hr id='top-line'>
     <h3> Kate Rabinowitz // February 26, 2016 </h3>
     <p class="content"> Since 2009 the District's population has surged. More than 1,000 people on average have moved to DC each month, excluding a 2014 dip. The District's growth is part of a larger urban renaissance with many American cities booming. This influx of new residents is reshaping the look and feel of boom cities. In DC change has come in many forms, from <a class="link" target="_blank" href="http://www.washingtonian.com/2015/11/19/hecht-building-ivy-city-photos/">new luxury apartments</a> to <a class="link" target="_blank" href="http://www.washingtonian.com/2015/10/23/dcs-latest-bike-lane-fight-is-not-about-bikes/">contentious bike lanes</a>. So who are DC's new residents, and how do they differ from those moving to other major U.S. cities?<br><br>Check out the interactive chart below to see the demographics of the District's newest residents, and how that compares to other major U.S. cities. Select a button to change the view and hover over a bar to see the exact percentage. Read the rest in <a class="link" target="_blank" href="http://www.washingtonian.com/2016/02/26/moves-washington-dc-young-well-educated-single-women/">my recent Washingtonian piece</a></p> 
-    <iframe width="100%" height="480px" src="http://www.datalensdc.com/IF_who_moves.html" frameborder="0"></iframe>
+    <iframe width="100%" height="500px" src="./iframes/whoMovesToDC.html" class="content" style="border:none"></iframe>
     <br><br>
 
 
@@ -236,7 +233,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <div class="content">
     <p class='graph-title'>More than 1,500 permits for new residential buildings since 2012</p>
     <p class='graph-subtitle'>Residential new building permits issued, January 2012-January 2016 (cumulative)</p>
-    <iframe class="content" width="100%" height="520" frameborder="0" src="https://datalensdc.cartodb.com/viz/a8a271de-c378-11e5-9ef7-0ea31932ec1d/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+    <iframe class="content" width="100%" height="520" style="border:none" src="https://datalensdc.cartodb.com/viz/a8a271de-c378-11e5-9ef7-0ea31932ec1d/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
     <p class='graph-subtitle'>Source: Department of Consumer and Regulatory Affairs Building Permits, via wwww.opendata.dc.gov</p>
     </div>
     <p class="content">Since 2012 the D.C. residential construction boom has blanketed much of the city with the exception of historically preserved neighborhoods...<a href="http://www.washingtoncitypaper.com/blogs/citydesk/2016/02/15/map-d-c-s-construction-boom/" target="blank" class="link">Read the rest in my recent Washington City Paper piece.</a></p>
@@ -250,7 +247,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <div class="content">
     <p class='graph-title'>Neighborhood Differences, but DC Favors Vodka and Cheap Beer</p>
     <p class='graph-subtitle'>Top 10 Drizly Purchases by Zip Code for 2015</p>
-    <iframe class="content" width="100%" height="550" frameborder="0" src="http://danhenebery.github.io/drizly-in-dc/"></iframe>
+    <iframe class="content" width="100%" height="550" style="border:none"  src="http://danhenebery.github.io/drizly-in-dc/"></iframe>
     </div>
     <p class="content">What does this say about DC’s alcohol preferences? Quite a bit, especially about millennial consumers. Drizly’s user base skews young and so do the data. <a class="link" target="_blank" href="./drizly-neighborhood-favorites.html">Read on...</a></p>
     <br><br>
@@ -260,7 +257,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <hr id='top-line'>
     <h3> Kate Rabinowitz // January 12, 2016</h3>
     <p class='content'>Few aspects of DC’s drinking and dining scenes have changed as much in the past five years as beer production. Local breweries were sparse when I first moved to the District. But that started changing in 2011 with the founding of companies like DC Brau, the first DC-based brewery in over 50 years, and Port City Brewing Company, the Alexandria’s first production brewery since Prohibition. Since then, microbreweries and brewpubs have proliferated across the region, just as they have across the rest of the United States. There were 4,144 breweries operating nationwide at the end of 2015 according to the Brewers Association, nearly three times as many as there were in 2008. But how does Washington’s brew scene compare to other metropolitan areas?</p>
-    <iframe width="40%" height="670" frameborder="0" src="http://www.datalensdc.com/IF_brew_cbsa_rank.html"></iframe>
+    <iframe width="40%" height="670" style="border:none"  src="./iframes/breweryCBSARank.html"></iframe>
     <p class='content'>The DC region has the second most breweries of any East Coast city, and ranks ninth nationally. Read the rest in <a href="http://www.washingtonian.com/2016/01/12/70-breweries-around-washington-heres-map/" class="link" target="_link">my recent Washingtonian piece.</a></p>
     <br><br>
 
@@ -269,9 +266,10 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <hr id='top-line'>
     <h3> Kate Rabinowitz // December 10, 2015</h3>
     <p class='content'>It has been a spectacular year of Metro fails. Between a <a href="https://www.washingtonpost.com/local/trafficandcommuting/1-dead-dozens-hurt-on-metro-car-filled-with-smoke/2015/01/12/e832c0f0-9aa8-11e4-a7ee-526210d665b4_story.html" class="link" target="_blank">deadly smoke-filled train</a>, rush hour trains<a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/metro-did-a-bad-job-telling-people-about-orange-and-silver-line-cuts-so-this-guy-put-up-signs.php" class="link" target="_blank"> bypassing a station for months</a>, and increasingly common everyday delays, DC area <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/the-9-kinds-of-metro-haters-wmata-twitter-jokes.php" class="link" target="_blank">residents are fed up</a>. A <a class="link" href="http://www.wmata.com/about_metro/board_of_directors/board_docs/120315_4BCustomerSatisfaction.pdf" target="_blank">recent WMATA survey</a> shows customer satisfaction at a low of 67%, and for good reason. <br>This year's metro delays through November total 772 hours, an increase of a third over 2014. On average there are over two hours of delays everyday. If each of this year's Metro delays were successive, it would be as if WMATA shut down a line for 32 days straight.</p>
-  <iframe src="http://www.datalensdc.com/AnnualWMATA_IF.html" width="100%" height="370" frameborder='0'></iframe>
+    
+    <iframe width="100%" height="380px" src="./iframes/wmataDelayAnnual.html" style="border:none;"></iframe>
 
-  <p class='content'>The drastic increase in Metro's downed service is due to more, not longer, delays. The average delay has remained at roughly 8 minutes, while the number of delays has increased over 82% compared to 2013. Metro's new general manager, Paul Wiedefeld, will certainly have his hands full. But Wiedefeld may be starting at just the right time. After particularly terrible service in the winter and early summer, Metro delays have been on decline since August. In the last two months there were fewer delays than the same time last year. <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/delays-on-metro-are-actually-declining-three-charts.php" class="link" target="_blank">Read the rest in my recent Washingtonian piece.</a></p>
+    <p class='content'>The drastic increase in Metro's downed service is due to more, not longer, delays. The average delay has remained at roughly 8 minutes, while the number of delays has increased over 82% compared to 2013. Metro's new general manager, Paul Wiedefeld, will certainly have his hands full. But Wiedefeld may be starting at just the right time. After particularly terrible service in the winter and early summer, Metro delays have been on decline since August. In the last two months there were fewer delays than the same time last year. <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/delays-on-metro-are-actually-declining-three-charts.php" class="link" target="_blank">Read the rest in my recent Washingtonian piece.</a></p>
     <br><br>
 
 
@@ -290,7 +288,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <hr id='top-line'>
     <h3> Kate Rabinowitz // November 12, 2015 </h3>
     <p class="content">Airbnb’s $8 million lobbying effort to <a class="link" target="_blank" href="http://www.sfgate.com/bayarea/article/Prop-F-Measure-to-restrict-Airbnb-rentals-6609176.php">win at the San Francisco polls</a> is just the beginning. The lodging company announced Wednesday its “Community Compact,” a plan under which it will “use its experience in cities across the country to work with policymakers here in DC.” That’s a cute way of saying the company plans to hire a ton of lobbyists to work on city and state governments. <br><br>There is currently a  proposal in front of the DC Council that seeks to curtail the company’s reach here. Backed by UNITE-HERE Local 25, the union representing the city’s hotel workers, the bill would limit hosts to renting out rooms in occupied units instead of whole houses or apartments and renting no more than one unit at a time.<br><br>Airbnb will likely spend thousands of dollars to fight accusations of raising rents, hurting businesses, disrupting neighborhoods, and facilitating the <a class='link' target="_blank" href="http://www.washingtonian.com/blogs/capitalcomment/local-news/dc-sues-owner-of-airbnb-rental-house-used-for-parties.php">occassional Ja Rule house party.</a><br><br>But Airbnb might be more popular in Washington than its opponents care to admit. A poll the company commissioned last month found that of 400 DC voters, 57 percent oppose local regulations that would restrict the types of lodging the site can offer. The survey also found that 35 percent of voters have a favorable opinion Airbnb compared to 9 percent with an unfavorable opinion, though 56 percent had no opinion.<br><br>Airbnb’s claims of popularity are better backed up by the raw numbers. New data suggest DC is a hotbed for the site, ranking third in listings per capita compared to other US cities. The District has over 3,500 listings, of which 2,855 are active.</p>
-    <iframe width="40%" height="340" frameborder="0" src="http://www.datalensdc.com/bnbPerCapita_IF.html"></iframe>
+    <iframe width="40%" height="340" style="border:none"  src="./iframes/airbnbPerCapita.html"></iframe>
     <p class="content">There are 4.33 Airbnb listings per 1,000 people across the District, though the rate varies drastically across neighborhoods. <a href="http://www.washingtonian.com/blogs/capitalcomment/data/dc-has-more-airbnb-listings-per-capita-than-new-york.php" target="_blank" class="link"> Read the rest in my recent Washingtonian piece.</p>
     <br> <br>
 
@@ -336,7 +334,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <hr id='top-line'>
     <h3> Kate Rabinowitz // October 8, 2015 </h3>
     <p class="content"> As any resident of the DC region knows, this is an expensive place to live. That's in part balanced by the region's wealth. But how do expenses compare to other major metropolitan areas? I often wonder this when I visit other cities, purusing their shops and real estate listings. A recent Bureau of Labor Statistics study looks at this very question and reports the average spend of consumer units (like households) across a range of spending categories.<br><br>Check out the interactive chart below to see the percentage of annual expenditure an average consumer unit spends on each cateogory across urban areas. Press a button to change the view and hover over a bar to see the actual dollar amount spent. <a href="http://www.washingtonian.com/blogs/capitalcomment/data/how-the-dc-region-spends-its-money.php" target="blank" class="link">Read the rest in my recent Washingtonian piece.</a></p>
- <iframe src="http://www.datalensdc.com/cex-interactive.html" width="700" height="500" frameborder='0'></iframe>
+ <iframe src="http://www.datalensdc.com/cex-interactive.html" width="700" height="500" style="border:none" ></iframe>
 
     <h2><a href='./dc-hack-landmark.html'>DC Hack: Landmark for a New Type of Directions</a></h2>
     <hr id='top-line'>
