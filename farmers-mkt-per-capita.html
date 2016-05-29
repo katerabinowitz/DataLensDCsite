@@ -120,7 +120,7 @@
       );
     map.mapTypes.set(MY_MAPTYPE_ID,customMapType);
   
-    map.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/Farmers-Market-City-Comp/master/Output/DCFM.geojson');
+    map.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/farmersMarketCompare/Output/DCFM.geojson');
 
     map.data.addListener('click', function(event) {
       var FMname = event.feature.getProperty("name");
@@ -209,7 +209,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
       var x = d3.scale.linear()
         .range([0, chartWidth]);
 
-      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Farmers-Market-City-Comp/master/Output/Capita%20for%20FM.csv", type, function(error, data) {
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/farmersMarketCompare/Output/Capita%20for%20FM.csv", type, function(error, data) {
           x.domain([0, d3.max(data, function(d) { return d.percapita; })]);
 
       var chartHeight = barHeight * data.length;

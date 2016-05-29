@@ -109,7 +109,7 @@ var ddd = d3.select(".ddd")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/cityDDDsum.csv", type, function(error, data) {
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/DDDinDC/cityDDDsum.csv", type, function(error, data) {
   x.domain(data.map(function(d) { return d.City; }));
   y.domain([0, d3.max(data, function(d) { return d.Resturant; })]);
 
@@ -180,7 +180,7 @@ var chart = d3.select(".ddd2")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/cityDDDsum.csv", type, function(error, data) {
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/DDDinDC/cityDDDsum.csv", type, function(error, data) {
   x.domain(data.map(function(d) { return d.City; }));
   y.domain([0, d3.max(data, function(d) { return d.Rating; })]);
 
@@ -238,7 +238,7 @@ function type(d) {
         .setView([38.9, -77.05], 11)
 
       var featureLayer = L.mapbox.featureLayer()
-        .loadURL('https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/ddd-dmv.geosjon')
+        .loadURL('https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/DDDinDC/ddd-dmv.geojson')
         .addTo(map);
         
 

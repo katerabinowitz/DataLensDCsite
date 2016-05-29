@@ -393,7 +393,7 @@ var ddd = d3.select(".ddd")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/cityDDDsum.csv", type, function(error, data) {
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/DDDinDC/cityDDDsum.csv", type, function(error, data) {
   x.domain(data.map(function(d) { return d.City; }));
   y.domain([0, d3.max(data, function(d) { return d.Resturant; })]);
 
@@ -458,7 +458,7 @@ function type(d) {
       var x = d3.scale.linear()
         .range([0, chartWidth]);
 
-      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Farmers-Market-City-Comp/master/Output/top10FMCity.csv", type, function(error, data) {
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/farmersMarketCompare/Output/top10FMCity.csv", type, function(error, data) {
           x.domain([0, d3.max(data, function(d) { return d.percapita; })]);
 
       var chartHeight = barHeight * data.length;
