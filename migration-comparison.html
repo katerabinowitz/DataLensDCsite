@@ -81,7 +81,7 @@ function initialize() {
   map.mapTypes.set(MY_MAPTYPE_ID,customMapType);
     
   
-  map.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/acsMigrationCityComp/master/Output/citymigration.geojson');
+  map.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/migrationCompareACS/Output/citymigration.geojson');
   map.data.setStyle(function(feature) {
     var migrationscore = feature.getProperty('Migration');
     return {
