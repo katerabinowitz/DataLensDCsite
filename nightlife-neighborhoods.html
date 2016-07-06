@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-  <title>Another Brick in the Ward</title>
+  <title>DC's Shifting Nightlife Neighborhoods</title>
 
   <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/>
 
@@ -26,18 +26,8 @@
 
 </script>
 <style>
-    @media (min-width: 300px) and (max-width: 450px) {
-      .desktop {
-        display:none;
-      }
-    } 
-
-    @media (min-width: 450px) and (max-width: 2000px) {
-      .mobile {
-        display:none;
-      }
-    }
-</style>
+  #tickPerCar{width:400px; height: 300px;}
+  </style>
 </head>
 
 <body>
@@ -82,22 +72,27 @@
 <div class='content row'>
   <div class='col-sm-9 col-xs-12'>
   <br>
-    <h2><a href='./another-brick.html'>Another Brick in the Ward</a></h2>
+    <h2><a href='./nightlife-neighborhoods.html'>DC's Shifting Nightlife Neighborhoods</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // June 29, 2016 </h3>
-    <p class="content">DC is a city with a diversity of people, businesses, and neighborhoods. But walking along the city’s residential streets you may notice one aspect of the city that isn’t particularly diverse at all - facades of DC homes. DC is home to almost exclusively brick homes. <br><br>The map below shows each residential properties in the District by facade...Read on at <a href="http://open.dc.gov/econintel-cotw/06-2016.html" class="link" target="_blank">DMPED's Chart of the Week</a>, a great source for weekly DC data visualization.</p>
-    <div class="content">
-    <div class="mobile">
-    <script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 304px; height: 694px;'><noscript><a href='#'><img alt='Dashboard 3 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ho&#47;houses&#47;Dashboard3&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' width='304' height='694' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='houses&#47;Dashboard3' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ho&#47;houses&#47;Dashboard3&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='no' /><param name='showTabs' value='y' /></object></div>
-  </div>
+    <h3> Kate Rabinowitz // July XX, 2016 </h3>
+    <p class="content">In recent years DC has seen a large influx of new restaurants and bars. But these new businesses aren’t necessarily opening in the same neighborhoods as they would have five or ten years ago. DC's nightlife is geographically changing and spreading to more neighborhoods across the city. For many, where they go out on Saturday night has been slowly shifting south and east. The map below shows this change by comparing the proportion of bars, restaurants with liquor licenses, and nightclubs opened after 2010 in neighborhoods with more than 10 nightlife establishments.</p>
 
-  <div class="desktop">
-    <script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 604px; height: 694px;'><noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ho&#47;houses&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' width='604' height='694' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='houses&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ho&#47;houses&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='no' /><param name='showTabs' value='y' /></object></div>
-  </div>
-  </div>
+    <iframe width="100%" height="600px" src="./iframes/nightlifeMap.html" frameborder="0"></iframe>  
+
+
+
+    <p class="content">Looking at a more detailed timeline shows striking divides. In neighborhoods with the oldest nightlife, more than 60% opened prior to 2007. Conversely, in the Ivy City/Union Market none of today's nightlife was open prior to 2012; in Navy Yard only one-fifth was. All the oldest nightlife neighborhoods, with the exception of Stanton Park, are north of downtown and west of 16th St NW. The newest are more geographically diverse, located in three of the city's four quadrants.</p>
+    <p style="text-align:center;">
+    <img src="./Images/oldNightlife.png" width="100%" height=auto style="max-width:500px;">
+    </p>
+
+    <p style="text-align:center;">
+    <img src="./Images/newNightlife.png" width="100%" height=auto style="max-width:500px;">
+    </p>
+
     <br>
     <hr id='end-line'>
-    <p class='content'><b>Technical notes:</b> Data are available through <a class="link" target="_blank" href="http://opendata.dc.gov/datasets/c5fb3fbe4c694a59a6eef7bf5f8bc49a_25">DC’s open data website</a>. You can find complete code for this<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <p class='content'><b>Technical notes:</b> Data are based on <a class="link" target="_blank" href="http://abra.dc.gov/page/abc-licensees">ABRA ABC Licensees</a>, <a class="link" target="_blank" href="https://github.com/katerabinowitz/ManyHomesofDCData/tree/master/Certificate%20of%20Occupancy%20Data_Hackathon">Certificate of Occupancy</a>, and <a class="link" target="_blank" href="https://www.yelp.com/dc">Yelp</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
     <br><br>
 </div>
 
@@ -107,7 +102,6 @@
     <br>
         <li>Recent</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
-            <li><a href='./another-brick.html'>Another Brick in the Ward</a></li>
             <li><a href='./biketoWork2016.html'>Bike to Work Day: By the Numbers</a></li>
             <li><a href='./parking-tickets-by-state.html'>Maryland Drivers Receive Most DC Parking Tickets</a></li>
             <li><a href='./school-facilities.html'>Shining a Light on DC's Multi-Billion Dollar School Modernization</a></li>
