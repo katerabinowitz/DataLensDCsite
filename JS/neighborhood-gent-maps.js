@@ -171,9 +171,9 @@ function initialize() {
       mapAA.mapTypes.set(MY_MAPTYPE_ID,customMapType);
       mapKids.mapTypes.set(MY_MAPTYPE_ID,customMapType);
 
-      mapIncome.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-Neighborhoods/master/dchoods2.json');
-      mapAA.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-Neighborhoods/master/dchoods2.json');
-      mapKids.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-Neighborhoods/master/dchoods2.json');
+      mapIncome.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/gentrificationFactors/dchoods2.json');
+      mapAA.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/gentrificationFactors/dchoods2.json');
+      mapKids.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/gentrificationFactors/dchoods2.json');
 
   mapIncome.data.setStyle(function(feature) {
     return {

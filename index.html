@@ -92,7 +92,7 @@ function initialize() {
   map.mapTypes.set(MY_MAPTYPE_ID,customMapType);
     
   
-  map.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/acsMigrationCityComp/master/Output/citymigration.geojson');
+  map.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/migrationCompareACS/Output/citymigration.geojson');
   map.data.setStyle(function(feature) {
     var migrationscore = feature.getProperty('Migration');
     return {
@@ -133,6 +133,20 @@ google.maps.event.addDomListener(window, 'load', initialize);
   ga('send', 'pageview');
 
 </script>
+
+<style>
+    @media (min-width: 300px) and (max-width: 450px) {
+      .desktop {
+        display:none;
+      }
+    } 
+
+    @media (min-width: 450px) and (max-width: 2000px) {
+      .mobile {
+        display:none;
+      }
+    }
+</style>
 </head>
 
 <body>
@@ -177,6 +191,37 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
   <br> 
+
+    <h2><a href='./another-brick.html'>Another Brick in the Ward</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // June 29, 2016 </h3>
+    <p class="content">DC is a city with a diversity of people, businesses, and neighborhoods. But walking along the city’s residential streets you may notice one aspect of the city that isn’t particularly diverse at all - facades of DC homes. DC is home to almost exclusively brick homes. <br><br>The map below shows each residential properties in the District by facade...Read on at <a href="http://open.dc.gov/econintel-cotw/06-2016.html" class="link" target="_blank">DMPED's Chart of the Week</a>, a great source for weekly DC data visualization.</p>
+    <div class="content">
+    <div class="mobile">
+    <script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 304px; height: 694px;'><noscript><a href='#'><img alt='Dashboard 3 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ho&#47;houses&#47;Dashboard3&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' width='304' height='694' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='houses&#47;Dashboard3' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ho&#47;houses&#47;Dashboard3&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='no' /><param name='showTabs' value='y' /></object></div>
+  </div>
+
+  <div class="desktop">
+    <script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 604px; height: 694px;'><noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ho&#47;houses&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' width='604' height='694' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='houses&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ho&#47;houses&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='no' /><param name='showTabs' value='y' /></object></div>
+  </div>
+  </div>
+
+<br><br>
+
+    <h2><a href='./biketoWork2016.html'>Bike to Work Day: By the Numbers</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // May 24, 2016 </h3>
+    <p class="content">This past Friday brought sunny weather and <a href="https://www.washingtonian.com/2016/05/18/get-ready-for-bike-to-work-day-2016/" class="link" target="_blank">Bike to Work Day</a>, an annual celebration of biking throughout the DC region. But while some may forego a car, train, or bus to celebrate, Bike to Work Day is just like any other weekday for many. <a href="http://www.datalensdc.com/rise-of-biking.html" class="link" target="_blank">Biking is on the rise </a>throughout DC and will likely become even more popular with the <a href="https://www.washingtonian.com/2016/05/19/metros-huge-maintenance-plan-safetrack-begins-june-4-13-days-single-tracking/" class="link" target="_blank">upcoming Metro maintenance.</a> 
+    <br><br>How did this year’s Bike to Work Day look across some of the region’s most popular bike routes? Automatic bike counters installed by DDOT and Arlington County that collect real-time data on foot and bike traffic give an idea. The chart below compares the number of bike rides for this year’s Bike to Work Day to average weekday ridership so far in May and last year’s Bike to Work Day (BTWD).</p>
+
+    <p class='graph-title'>Bike to Work Day 2016 Brings Many More Bikers</p>
+    <p class='graph-subtitle'>Bike counts for average May weekday to date and Bike to Work Day (BTWD) 2015 and 2016</p>
+    <p style="text-align:center;">
+    <img src="./Images/btwdCounts.png" width="100%" height=auto style="max-width:600px;">
+    </p>
+    <p class='graph-subtitle'>Source: DDOT and Arlington County, via bikearlington.com</p>
+    <p class="content"> Read the rest <a href="https://www.washingtonian.com/2016/05/24/bike-to-work-day-2016-by-the-numbers/" class="link" target="_blank">in my recent Washingtonian piece.</a></p>
+        <br><br>
 
       <h2><a href='./parking-tickets-by-state.html'>Maryland Drivers Receive the Most Parking Tickets in DC</a></h2>
     <hr id='top-line'>
@@ -379,7 +424,7 @@ var ddd = d3.select(".ddd")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DDD-DC/master/cityDDDsum.csv", type, function(error, data) {
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/DDDinDC/cityDDDsum.csv", type, function(error, data) {
   x.domain(data.map(function(d) { return d.City; }));
   y.domain([0, d3.max(data, function(d) { return d.Resturant; })]);
 
@@ -444,7 +489,7 @@ function type(d) {
       var x = d3.scale.linear()
         .range([0, chartWidth]);
 
-      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Farmers-Market-City-Comp/master/Output/top10FMCity.csv", type, function(error, data) {
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/farmersMarketCompare/Output/top10FMCity.csv", type, function(error, data) {
           x.domain([0, d3.max(data, function(d) { return d.percapita; })]);
 
       var chartHeight = barHeight * data.length;
@@ -794,6 +839,8 @@ function type(d) {
     <br>
         <li>Recent</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./another-brick.html'>Another Brick in the Ward</a></li>
+            <li><a href='./biketoWork2016.html'>Bike to Work Day: By the Numbers</a></li>
             <li><a href='./parking-tickets-by-state.html'>Maryland Drivers Receive Most DC Parking Tickets</a></li>
             <li><a href='./school-facilities.html'>Shining a Light on DC's Multi-Billion Dollar School Modernization</a></li>
             <li><a href='./metro-ridership.html'>Charting Metro's Ridership Decline</a></li>
