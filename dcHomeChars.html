@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>Mapping New and Old DC Homes</title>
+
+  <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body>
+<nav class="xsheader navbar navbar-default navbar-static-top">
+  <div class='clearfix xsheader'>      
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span> 
+        </button>
+        <a class="navbar-brand" href="./index.html">
+          <img src="./Images/DataLensDCResponsiveLogo2.png" alt="DataLensDC">  
+        </a>
+      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse dropdown-pull-right" id="main-navbar-custom">
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./subscribe.html">Subscribe</a></li>
+        <li><a href="./archive.html">Archive</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
+          <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
+            <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+            <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>            
+            <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>  -->     
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<nav class="smheader navbar navbar-default navbar-static-top">
+<a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+  <div class="navbar-fixed">
+    <ul class ="headerlist">
+        <li><a href="./about.html">about</a></li>
+        <li><a href="./subscribe.html">subscribe</a></li>
+        <li><a href="mailto:datalensdc@gmail.com">email</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class='content row'>
+  <div class='col-sm-9 col-xs-12'>
+  <br>
+    <h2>Charting the Divide in New and Old DC Homes<a href='./dcHomeChars.html'></a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // July XX, 2016 </h3>
+    <p class="content">While all of DC is a city, some of its residential neighborhoods feel more like a city than others. This feels intuitive walking along the smaller row houses of Capitol Hill compared to the more expansive mid-century homes in upper Northwest. Where is this divide, and how fuzzy is it?<br><br>
+
+    The maps below show the strong divide between homes in the inner and outer sections of the city by house type, year built, and lot size. Generally, homes located closer to the city core are older, built upon smaller lots, and almost entirely row houses. There is a strong interrelatedness between these three housing characteristics that can be seen by the almost identical areas of light shading across the maps. The area extends from Capitol Hill to Georgetown and from Shaw up to Petworth. Conversely homes outside of these neighborhoods tend to have been built later, on larger lots, and more likely to be single (self-standing) or semi-detached homes.</p>
+    
+    <p style="text-align:center;"><img src="./Images/DCHomeBuildMap.png" width="100%" height=auto style="max-width:400px;"></p>
+    <p style="text-align:center;"><img src="./Images/DCLotMap.png" width="100%" height=auto style="max-width:400px;"></p>
+    <p style="text-align:center;"><img src="./Images/DCHomeTypeMap.png" width="100%" height=auto style="max-width:400px;"></p>
+    
+    <p class="content">The divide becomes more distinct when looking at the data by ward. Below shows the median year a home was built, the median lot size, and the percent of homes that are not row houses. Wards 1, 2 and 6, which make up the inner part of the city, are all grouped together on the left.</p>
+
+    <iframe width="100%" height="500px" src="./iframes/wardHouseScatter.html" frameborder="0"></iframe> 
+
+    <p class="content" style="padding-top:0px">Ward 2 has, on median, the oldest homes. The true median may even be older than 1900; that year is often used as default for building year when one cannot be determined. Homes in Wards 7 and 8 are the newest. A peculiar vestige of the L'Enfant Plan may slightly downplay lot size within the inner city - <a class="link" target="_blank" href="http://chrs.org/wp-content/uploads/2013/07/06_CHRS_PublicSpace.pdf">homeowners in the old city do not own their front yards</a>, so front yards are not included in lot size. Ward 3 is by far the least residentially dense ward, with a median lot size of 5,100 square feet, three times that of Ward 6. Ward 3 also has the fewest row houses. In the inner wards more than 80% of all homes are row houses.</p> 
+    <br>
+
+    <hr id='end-line'>
+    <p class='content'><b>Technical notes:</b> Data are available through <a class="link" target="_blank" href="http://opendata.dc.gov/datasets/c5fb3fbe4c694a59a6eef7bf5f8bc49a_25">DC’s open data website</a>. You can find complete code for this<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <br><br>
+</div>
+
+
+<div class='col-sm-3 side'>
+  <ul class="sidebar nav nav-stacked fixed">
+    <br>
+        <li>Recent</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./nightlife-neighborhoods.html'>The Changing Geography of DC Nightlife</a></li>
+            <li><a href='./another-brick.html'>Another Brick in the Ward</a></li>
+            <li><a href='./biketoWork2016.html'>Bike to Work Day: By the Numbers</a></li>
+            <li><a href='./parking-tickets-by-state.html'>Maryland Drivers Receive Most DC Parking Tickets</a></li>
+            <li><a href='./school-facilities.html'>Shining a Light on DC's Multi-Billion Dollar School Modernization</a></li>
+            <li><a href='./metro-ridership.html'>Charting Metro's Ridership Decline</a></li>
+            <li><a href='./uber-surge-time.html'>When Does Uber Surge Near You?</a></li>
+            <li><a href='./who-moves-to-DC.html'>Who Moves to DC?</a></li>
+            <li><a href='./construction-boom-mapped.html'>Mapped: DC's Construction Boom</a></li>
+            <!---<li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
+            <li><a href='./DC-region-breweries.html'>DC Region has 70 Breweries, Second Most on East Coast</a><li>
+            <li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
+            <li><a href='./rise-of-biking.html'>The Rise of Biking in DC, Visualized</a></li>
+            <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
+            <li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
+            <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
+            <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
+            <li><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
+            <li><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></li>
+            <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
+            <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
+            <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
+            <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
+            <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li> -->
+        </ul></ul> 
+        <li class="archiveside"><a href="./archive.html"><p style="margin-left:15px">Archive</p></a></li>
+        <br>
+        <li>Connect</li>  
+        <ul><ul class="nav nav-stacked fixed connectbar">
+              <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+              <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+              <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+              <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
+          </ul></ul>
+      </ul>
+    </div>    
+</div>
+</body>
+</html>

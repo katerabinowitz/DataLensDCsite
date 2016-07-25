@@ -24,7 +24,7 @@ a:hover {
 /*XS screens - Header*/
 /*XS screens - Header*/
 /*XS screens - Header*/
-@media (min-width: 0px) and (max-width: 768px){
+@media (min-width: 0px) and (max-width: 760px){
      .smheader, .side {
           display:none;
      }
