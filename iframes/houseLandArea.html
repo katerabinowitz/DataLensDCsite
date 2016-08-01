@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>DC Homes Land Area</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.20.1/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.20.1/mapbox-gl.css' rel='stylesheet' />
+    
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+  </script>
+
+<style>
+body { margin:0; padding:0; }
+@media (min-width: 0px) and (max-width: 768px){
+  #map {  width:650px; height:600px; margin:auto;}
+  }
+@media (min-width: 768px) {
+  #map {  width:650px; height:600px; margin:auto;}
+  }
+
+#sidebar {
+    position: absolute;
+    top: 420px;
+    left:400px;
+    bottom: 20px;
+    width: 150px;
+    overflow: auto;
+    z-index: 10;
+    text-align:center ;
+    font-size: 16px;
+    font-family: 'Neuton', serif;
+        }
+
+  .legtext {
+  width: 150px;
+  height: 20px;
+  margin: 5px;
+  text-align:center;
+  color:black;
+  }
+
+#title {
+    position: absolute;
+    top: 20px;
+    left:720px;
+    width: 225px;
+    overflow: auto;
+    z-index: 10;
+    background: white;
+}
+
+#source {
+    position: absolute;
+    top: 560px;
+    left:810px;
+    width: 150px;
+    overflow: auto;
+    z-index: 10;
+    background: white;
+}
+
+</style>
+</head>
+
+  <body>
+
+    <div id="title">
+      <p class="graph-title">Largest home plots beyond city center</p>
+    </div>
+
+    <div id="source">
+      <p class="graph-subtitle">Source: DC Open Data</p>
+    </div>
+
+    <div id='sidebar'>
+    <p style="font-weight:bold;">Lot size of homes</p>
+    <div class="legtext" style='background:#E5F6C6;'>Less than 1600 sq.ft.</div>
+    <div class="legtext" style='background:#ABD4C1;'>1600-2500 sq.ft.</div>
+    <div class="legtext" style='background:#7E858B;'>2500-4000 sq.ft.</div>
+    <div class="legtext" style='background:#5D414D;'>4000+ sq.ft.</div>
+    </div>
+
+  <div id="map" class="content"></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGF0YWxlbnNkYyIsImEiOiJjaWVnOGttYnMwMDBqc2htM2ZmcjZ4NmZxIn0.9iGQPNKsl1jtP5KriDm3wQ';
+  
+ var COLORS =  ['#E5F6C6','#ABD4C1','#7E858B','#5D414D'],
+    BREAKS = ["Less than 1600 sq.ft.","1600-2500 sq.ft.","2500-4000 sq.ft.","4000+ sq.ft."],
+    FILTERUSE;
+
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/datalensdc/ciq9yplgq0004c8m4yry64ltu', 
+    center: [-77.005,38.9072], 
+    zoom: 11
+});
+
+map.on('load', function () {
+            map.addSource('resBuild', {
+                type: 'geojson',
+                data: 'https://raw.githubusercontent.com/katerabinowitz/DC-RealEstate/master/DCResHomesExt/resGroups.geojson'
+            });
+            map.addLayer({
+                'id': 'OBJECTID',
+                "type": "circle",
+                "source": "resBuild",
+                "paint": {
+                'circle-radius': {
+                'base': 1.75,
+                'stops': [[11, 2], [22, 180]]
+                     },
+                    "circle-color": {
+                        property: 'landGroup',
+                        type: 'categorical',
+                        stops: [
+                    [BREAKS[0], COLORS[0]],
+                    [BREAKS[1], COLORS[1]],
+                    [BREAKS[2], COLORS[2]],
+                    [BREAKS[3], COLORS[3]]]
+                    }
+                }
+            });
+             })
+</script>
+</body>
+</html>
