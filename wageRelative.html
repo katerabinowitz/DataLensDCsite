@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>DC Relative Wage</title>
+
+  <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body>
+<nav class="xsheader navbar navbar-default navbar-static-top">
+  <div class='clearfix xsheader'>      
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span> 
+        </button>
+        <a class="navbar-brand" href="./index.html">
+          <img src="./Images/DataLensDCResponsiveLogo2.png" alt="DataLensDC">  
+        </a>
+      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse dropdown-pull-right" id="main-navbar-custom">
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./subscribe.html">Subscribe</a></li>
+        <li><a href="./archive.html">Archive</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
+          <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
+            <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+            <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>            
+            <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>  -->     
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<nav class="smheader navbar navbar-default navbar-static-top">
+<a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+  <div class="navbar-fixed">
+    <ul class ="headerlist">
+        <li><a href="./about.html">about</a></li>
+        <li><a href="./subscribe.html">subscribe</a></li>
+        <li><a href="mailto:datalensdc@gmail.com">email</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class='content row'>
+  <div class='col-sm-9 col-xs-12'>
+  <br>
+    <h2><a href='./dcHomeChars.html'>DC's Expensive, but that's not the Whole Story</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // August XX, 2016 </h3>
+    <p class="content">Recently the Tax Foundation <a target="_blank" class="link" href="http://taxfoundation.org/blog/real-value-100-each-state-2016">published a map</a>, widely reported by local media, of the relative value of $100 in each state with the lowest value in DC. While the data is accurate, the results are misleading and overstate the cost of living in DC compared to the rest of the U.S.</p>
+
+    <p style="text-align:center;"><img src="./Images/value100state.png" width="100%" height=auto style="max-width:500px;"></p>
+
+    <p class="content">The map, shows DC to have the lowest relative value of $100 at $84.67. The data is accurate, but it is also a disingenuous conclusion. Regardless of the state of DC statehood, DC is wholly urban and should not be compared to states. Urban areas are generally more expensive, dense, and diverse than rural areas. Any U.S. state has a variety of rural, suburban, and urban areas which would be aggregated at the state-level. A more accurate comparison for DC would be to other cities or, as in the map below, <a class="link" target="_blank" href="http://taxfoundation.org/blog/real-value-100-metropolitan-areas-2016">comparing the relative value of $100 in DC metro areas to other metro areas.</a></p>
+
+    <p style="text-align:center;"><img src="./Images/value100metro.png" width="100%" height=auto style="max-width:500px;"></p>
+
+    <p class="content">When comparing by metro areas, the DC region comes in seventh for the relative value of $100. DC is expensive, but it is not the most expensive place in America as the first map may suggest. Once again, this is an accurate depiction of the data, but fails to tell the whole story. How far $100 goes is an important measure, but should be balanced with how much time is takes to make $100. Urban areas are more expensive to live in, they also tend to have higher wages. I’ve created the map below to illustrate this point. The data shown is how many hours the median person would have to work to gain the relative value of $100, adding Bureau of Labor Statisics median hourly wage to the Tax Foundation analysis.</p>    
+
+    <div style="text-align:center; width:100%; display:block;"><iframe width="100%" height="550px" style="display:block;" src="./iframes/wageValue100.html" frameborder="0"></iframe></div>
+
+    <p class="content">Despite the lower relative value of $100 in the DC region, the median wage is so high that residents have to work less for the same value compared to much of the rest of the country. Areas with the most relative value of $100, mostly in the South and Midwest, also tend to have lower wages and it actually takes those residents longer to earn the same value. The DC region is expensive and does face affordability challenges, but selectively choosing data distorts the real picture.</p>
+
+    <br>
+
+    <hr id='end-line'>
+    <p class='content'><b>Technical notes:</b> Data are available through the Bureau of Labor Statistics and the Bureau of Economic Analysis. You can find complete code for this<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page</a>, as well as the <a class="link" target="_blank" href="https://github.com/TaxFoundation">Tax Foundation's github page.</a></p>
+    <br><br>
+</div>
+
+
+<div class='col-sm-3 side'>
+  <ul class="sidebar nav nav-stacked fixed">
+    <br>
+        <li>Recent</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./dcHomeChars.html'>Charting the Divide in New and Old DC Homes</a></li>
+            <li><a href='./nightlife-neighborhoods.html'>The Changing Geography of DC Nightlife</a></li>
+            <li><a href='./another-brick.html'>Another Brick in the Ward</a></li>
+            <li><a href='./biketoWork2016.html'>Bike to Work Day: By the Numbers</a></li>
+            <li><a href='./parking-tickets-by-state.html'>Maryland Drivers Receive Most DC Parking Tickets</a></li>
+            <li><a href='./school-facilities.html'>Shining a Light on DC's Multi-Billion Dollar School Modernization</a></li>
+            <li><a href='./metro-ridership.html'>Charting Metro's Ridership Decline</a></li>
+            <li><a href='./uber-surge-time.html'>When Does Uber Surge Near You?</a></li>
+            <li><a href='./who-moves-to-DC.html'>Who Moves to DC?</a></li>
+            <li><a href='./construction-boom-mapped.html'>Mapped: DC's Construction Boom</a></li>
+            <!---<li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
+            <li><a href='./DC-region-breweries.html'>DC Region has 70 Breweries, Second Most on East Coast</a><li>
+            <li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
+            <li><a href='./rise-of-biking.html'>The Rise of Biking in DC, Visualized</a></li>
+            <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
+            <li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
+            <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
+            <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
+            <li><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
+            <li><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></li>
+            <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
+            <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
+            <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
+            <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
+            <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li> -->
+        </ul></ul> 
+        <li class="archiveside"><a href="./archive.html"><p style="margin-left:15px">Archive</p></a></li>
+        <br>
+        <li>Connect</li>  
+        <ul><ul class="nav nav-stacked fixed connectbar">
+              <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+              <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+              <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+              <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
+          </ul></ul>
+      </ul>
+    </div>    
+</div>
+</body>
+</html>
+
+
+
