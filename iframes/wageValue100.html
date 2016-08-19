@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>Wage Relative $100 Value Map</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
+    
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+  </script>
+
+<style>
+.tooltip {
+  font: 14px sans-serif;
+  background-color: #fff;
+  padding: 6px;
+}
+
+text {
+  font-family: Arial, sans-serif;
+}
+
+.axis text, text.label {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.legend text {
+  font: 10px sans-serif;
+}
+.legend path {
+  fill: none;
+  stroke: none;
+  shape-rendering: crispEdges;
+}
+
+</style>
+
+</head>
+
+<body>
+
+  <p class="graph-title" style="text-align:left; margin-left:10px">The Wage Relative Value of $100</p>
+  <p class="graph-subtitle" style="text-align:left ; margin-left:20px">Hours of Work Required to Earn the Relative Value of $100</p>
+
+<script>
+var width = 500,
+  height = 450,
+  svg = d3.select('body').append('svg')
+    .attr('width', width)
+    .attr('height', height),
+  dataFormat = {
+    percentage: d3.format('%'),
+    num: d3.format(',.4r'),
+    numLegend: d3.format(',.1r'),
+  },
+
+// Data variables
+  dataPath = 'https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/spendRetort/wageSpend.csv',
+  legendDataType = dataFormat.numLegend,
+  tooltipDataType = dataFormat.num,
+  countyId = 'county',
+  countyName = 'name',
+  stateID = '',
+  stateName = '',
+  observation = 'ratio',
+  rangeTruncated = true,
+
+// Define increments for data scale
+  min = 2, //Floor for the first step
+  max = 10, //Anything above the max is the final step
+  steps = 9, //Final step represents anything at or above max
+  increment = (max - min) / (steps - 1),
+
+// Color variables
+  borderColor = '#fff', //Color of borders between states
+  noDataColor = '#ddd', //Color applied when no data matches an element
+  lowBaseColor = '#371C28', //Color applied at the end of the scale with the lowest values
+  highBaseColor = '#2ECFC3';
+
+// Create distinct colors for each increment based on two base colors
+var colors = [],
+   //Color applied at the end of the scale with the highest values
+  scaleColor = d3.scale.linear()
+    .domain([0, steps - 1])
+    .range([lowBaseColor, highBaseColor])
+    .interpolate(d3.interpolateHcl); //Don't like the colors you get? Try interpolateHcl or interpolateHsl!
+
+// Create basic legend and add generated colors to the 'colors' array
+// Should replace this with D3.js Axis
+for (var c = 0; c < steps; c++) {
+  colors.push(scaleColor(c));
+}
+
+var tooltip = d3.select('body').append('div')
+  .attr('class', 'tooltip')
+  .style('position', 'absolute')
+  .style('opacity', 0);
+
+var projection = d3.geo.albersUsa()
+  .scale(width * 1.2)
+  .translate([width / 2, height - height * 0.6]);
+
+var path = d3.geo.path()
+  .projection(projection);
+
+var mapColor = d3.scale.quantize()
+  .domain([min, max + increment]) //Uses max+increment to make sure cutoffs between steps are correct
+  .range(colors);
+
+var map = svg.append('g')
+  .attr('class', 'counties');
+
+var legend = svg.append('g')
+  .attr('class', 'legend')
+  .attr('transform', 'translate(0,' + (height - height * 0.1) + ')');
+
+queue()
+  .defer(d3.json, 'https://raw.githubusercontent.com/TaxFoundation/interactive-us-county-maps/master/data/us.json')
+  .defer(d3.csv, dataPath)
+  .await(ready);
+
+// Map-building functions
+function ready(error, us, data) {
+  if (error) return console.error(error);
+
+  map.selectAll('path')
+    .data(topojson.feature(us, us.objects.counties).features)
+  .enter().append('path')
+    .attr('d', path)
+    .attr('fill', noDataColor)
+    .attr('id', function (d) { return 'county' + d.id; });
+
+  data.forEach(function (d) {
+    d3.select('#county' + d[countyId])
+      .style('fill', mapColor(parseFloat(d[observation])))
+      .on('mouseover', function () { return addTooltip(d[countyName], parseFloat(d[observation])); })
+      .on('mouseout', function (d) { tooltip.transition().duration(200).style('opacity', 0); });
+  });
+
+  map.append('path')
+    .datum(topojson.mesh(us, us.objects.states, function (a, b) { return a !== b; }))
+    .attr('fill', 'none')
+    .attr('stroke', '#fff')
+    .attr('stroke-width', 1.5)
+    .attr('d', path);
+
+  drawLegend();
+}
+
+var adjustment = d3.scale.linear()
+        .domain([0, width])
+        .range([0, 150]);
+
+function addTooltip(label, number) {
+  tooltip.transition()
+  .duration(200)
+  .style('opacity', 0.9);
+  tooltip.html(
+  label + ': ' + (number ? tooltipDataType(number) : 'No Data')
+  )
+  .style('left', (d3.event.pageX - adjustment(d3.event.pageX)) + 'px')
+  .style('top', (d3.event.pageY + 50) + 'px');
+}
+
+function drawLegend() {
+  var legendData = [{'color': noDataColor, 'label': 'No Data'}],
+    legendDomain = [],
+    legendScale,
+    legendAxis;
+
+  if (rangeTruncated) {
+    for (var i = 0, j = colors.length; i < j; i++) {
+      var fill = colors[i];
+      var label = legendDataType(min + increment * i) + ((i === j - 1) ? '+' : '-' + legendDataType(min + increment * (i + 1)));
+      legendData[i + 1] = { color: fill, label: label };
+    }
+  } else {
+    for (var i = 0, j = colors.length; i < j; i++) {
+      var fill = colors[i];
+      var label = legendDataType(min + increment * i);
+      legendData[i + 1] = { color: fill, label: label };
+    }
+  }
+
+  for (var k = 0, x = legendData.length; k < x; k++) {
+    legendDomain.push(legendData[k].label);
+  }
+
+  legendScale = d3.scale.ordinal()
+    .rangeRoundBands([0, width], 0.2)
+    .domain(legendDomain);
+
+  legendAxis = d3.svg.axis()
+    .scale(legendScale)
+    .orient('bottom');
+
+  legend.call(legendAxis);
+
+  legend.selectAll('rect')
+    .data(legendData)
+  .enter()
+    .append('rect')
+    .attr('x', function (d) {return legendScale(d.label);})
+    .attr('y', -30)
+    .attr('height', 30)
+    .attr('class', 'legend-item')
+    .transition()
+    .duration(700)
+    .attrTween('width', function () {return d3.interpolate(0, legendScale.rangeBand());})
+    .attrTween('fill', function (d) {return d3.interpolate('#fff', d.color);});
+}
+
+</script>
+<p class="graph-subtitle" style="text-align:left ; margin-left:10px">Source: Bureau of Labor Statistics, Bureau of Economic Analysis, Tax Foundation.</p>
+</body>
