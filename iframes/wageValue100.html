@@ -68,8 +68,8 @@
 
 <body>
   <div id="countyMap">
-  <p class="graph-title" >The Wage Relative Value of $100</p>
-  <p class="graph-subtitle">Hours of Work Required to Earn the Relative Value of $100</p>
+  <p class="graph-title" >Real Personal Income</p>
+  <p class="graph-subtitle">Income adjusted for regional price differences and inflation</p>
 
 <script>
 var width = 500,
@@ -79,23 +79,23 @@ var width = 500,
     .attr('height', height)
   dataFormat = {
     percentage: d3.format('%'),
-    num: d3.format(',.4r'),
-    numLegend: d3.format(',.1r'),
+    num: d3.format('$,.4r'),
+    numLegend: d3.format('$,.2s'),
   },
 
-  dataPath = 'https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/spendRetort/wageSpend.csv',
+  dataPath = 'https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/spendRetort/rpiSpend.csv',
   legendDataType = dataFormat.numLegend,
   tooltipDataType = dataFormat.num,
   countyId = 'county',
   countyName = 'name',
   stateID = '',
   stateName = '',
-  observation = 'ratio',
+  observation = 'realPersonalIncome',
   rangeTruncated = true,
 
-  min = 2,
-  max = 10, 
-  steps = 9, 
+  min = 25000,
+  max = 45000, 
+  steps = 5, 
   increment = (max - min) / (steps - 1),
 
   borderColor = '#fff', 
@@ -233,6 +233,6 @@ function drawLegend() {
 }
 
 </script>
+<p class="graph-subtitle">Created by: DataLensDC &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Source: Bureau of Economic Analysis.</p>
 </div>
-<p class="graph-subtitle">Source: Bureau of Labor Statistics, Bureau of Economic Analysis, Tax Foundation.</p>
 </body>
