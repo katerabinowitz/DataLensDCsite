@@ -171,8 +171,8 @@ function initialize() {
       mapFlip.mapTypes.set(MY_MAPTYPE_ID,customMapType);
       ShortmapFlip.mapTypes.set(MY_MAPTYPE_ID,customMapType);
 
-      mapFlip.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/Prop-Flip-Analysis/master/fullhistorymapV2.geojson');
-      ShortmapFlip.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/Prop-Flip-Analysis/master/shorthistorymapV2.geojson');
+      mapFlip.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-RealEstate/master/propertyFlipping/fullhistorymapV2.geojson');
+      ShortmapFlip.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-RealEstate/master/propertyFlipping/shorthistorymapV2.geojson');
 
   mapFlip.data.setStyle(function(feature) {
     return {
