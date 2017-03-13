@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-  <title>The Most House-Flipped DC Neighborhoods</title>
+  <title>A Decade of Demographic Change</title>
 
   <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/>
 
@@ -11,16 +11,11 @@
   <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/prop-flip.css' rel='stylesheet' type='text/css'>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script> 
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
-  <script src="./JS/propflip-maps.js"></script>
-
-  <script>
+ <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -28,11 +23,9 @@
 
   ga('create', 'UA-65753381-1', 'auto');
   ga('send', 'pageview');
-
 </script>
 </head>
 
-<body>
 <body>
 <nav class="xsheader navbar navbar-default navbar-static-top">
   <div class='clearfix xsheader'>      
@@ -53,17 +46,16 @@
           <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
             <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
             <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
-            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
-            <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>  -->     
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>            <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>  -->     
           </ul>
         </li>
       </ul>
   </div>
 </nav>
-  <div class="navbar-fixed">
 
 <nav class="smheader navbar navbar-default navbar-static-top">
 <a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+  <div class="navbar-fixed">
     <ul class ="headerlist">
         <li><a href="./about.html">about</a></li>
         <li><a href="./subscribe.html">subscribe</a></li>
@@ -75,59 +67,52 @@
 <div class='content row'>
   <div class='col-sm-9 col-xs-12'>
   <br>
-    <h2><a href='./dc-property-flipping.html'>What are the District's Most House-Flipped Neighborhoods?</a></h2>
+    <h2><a href='./decadeChange.html'>A Decade of Demographic Change</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // October 22, 2015 // as featured in Washingtonian</h3>
-    <p class="content"> Just because I'm not in the market for a home doesn't mean I don't show up to open houses like I have hundreds of thousands to drop. The more open houses I go to, the more trends appear: everything is shiny, new and well placed in an open floor layout; there's a half bath squeezed under the stairs; the bathroom has modern sink no one can wash their face in. Many of these homes have been flipped, a common sight on the hot DC real estate market. House flipping is when a house is bought as a real estate investment, remodeled, and put back on the market at a substantially higher price.<br><br>On a larger scale, flipped homes can alter a real estate market, creating a scarcity of fixer-uppers and an abundance of all-cash deals. It can also be a sign of a changing community. Curious about how home flipping looked from a bird's eye view, I mapped flipped homes as a proportion of single family home sales in neighborhoods across the District.</p> 
-    <div class="btn-content">
-    <input type="button" name="2011-2015" value="Show map for 2011-2015" onclick="show2011()" class="updatebtn"/>
-    <input type="button" name="2013-2015" value="Show map for 2013-2015" onclick="show2013()" class="updatebtn"/>
-    </div>
-    <script>
-        function show2011() {
-    $("#short-history-map").hide();
-   document.getElementById('long-history-map').style.display = "block";
-    var center = mapFlip.getCenter(); 
-   google.maps.event.trigger(mapFlip, 'resize')
-   mapFlip.setCenter(center);
-    }
-    function show2013() {
-    $("#long-history-map").hide();
-   document.getElementById('short-history-map').style.display = "block";
-   google.maps.event.trigger(ShortmapFlip, 'resize'); 
-    }
-    </script>
-    <div class="content" id="long-history-map" style="display:none;">
-        <p class="graph-title">Flipped Homes, as Percent of Single Family Homes on Market (May 2011-September 2015)</p>
-        <p class='graph-subtitle'>Darker green indicates greater proportion of flipped homes. Click on a neighborhood for more detail.</p>
-        <div id ="map-flip" class="content"><br></div>
-        <p class='graph-subtitle'> Note: There is no data for dark gray areas. Data before 10/2013 is unavailable for select zip codes and have not been shown here.<br>Source: MRIS, provided by Kevin Wood to PoPville.</p>
-    </div>
+    <h3> Kate Rabinowitz // March 2, 2017 // as featured in D.C. Policy Center</h3>
+    <p class="content">The Census Bureau recently <a href="https://www.washingtonpost.com/local/dc-population-reaches-four-decade-high/2016/12/20/53ea8736-c6fa-11e6-bf4b-2c064d32a4bf_story.html?utm_term=.18a065930c12" target="_blank" class="link">announced</a> that D.C.’s population has risen to a four-decade high of almost 700,000, a boom driven largely by an influx of new residents. These new District residents have undeniably changed the demographic makeup of D.C., which on the whole has become whiter, wealthier, and younger over the past decade.<br><br>
+    However, these changes have not happened consistently across all parts of the District. We can see where these trends have been most pronounced when we look at data from individual neighborhoods “clusters” (group of neighborhoods that are frequently used for data analysis and planning purposes). The maps below show changes in race, wealth, and age by neighborhood cluster between two five-year spans, from 2006-2011 and from 2011-2015.</p>
 
-    <div class="content" id="short-history-map">
-        <p class="graph-title">Flipped Homes, as Percent of Single Family Homes on Market (October 2013-September 2015)</p>
-        <p class='graph-subtitle'>Darker green indicates greater proportion of flipped homes. Click on a neighborhood for more detail.</p>
-        <div id ="short-map-flip" class="content"><br></div>
-        <p class='graph-subtitle'>Note: There is no data for dark gray areas, which are typically green space or commercial areas.<br>Source: MRIS, provided by Kevin Wood to PoPville</p>
-        <br>
-    </div>
+    <p style="text-align:center;">
+    <img src="./Images/whiteChange.png" width="100%" height=auto style="max-width:400px;">
+    </p>
 
-    <p class="content">The geography of flipped housing skews east in the District. This makes sense as the city's most expensive properties have in recent history been located in the most northern and western corners. Many of DC's recent  neighborhoods, Shaw, Logan Circle, Columbia Heights and H St, have lower rates of home flipping but are surrounded by flipping booms to the north and east. Hotspots can be seen east of H St, north of Petworth and east of Shaw. So what are the most house-flipped neighborhoods?</p>
+    <p class="content">The most dramatic increases in the proportion of white residents have happened in central D.C., along with a large influx of white residents in the Navy Yard area and modest increases along the southeastern border.<br><br>
 
-    <iframe width="100%" height="525px" style="border:none" class="content" src="./iframes/propFlipTop20.html"></iframe>
+    And while D.C. overall is a whiter city today, the proportion of white residents actually fell in some neighborhoods, largely those located west of Rock Creek Park and east of the Anacostia River. The declines in the proportion of white residents are a part of different trends for each area. For instance, while neighborhoods in the upper Northwest constitute the whitest part of the city, they have become more diverse over the past decade—though many of those neighborhoods remain over 80 percent white. In some areas east of the Anacostia, the opposite holds true: Many of the neighborhoods with a declining proportion of white residents were less than 5 percent white to begin with.</p>
 
-    <p class="content">For the most flipped neighborhoods in the District, the proportion of flipped homes on the market is staggering. In the last two years there were  11 neighborhoods where more than one in every five homes on the market was flipped. In more than 40 neighborhoods one in ten homes on the market was flipped. Higher percentages of flipped homes in 2013 to 2015, compared with 2011 to 2015, suggests momentum for flipping.<br><br>Largely in the east of the city, while these neighborhoods don't cluster in a specific area they all have in common increasing home prices and gentrifying communities with newer residents generally younger, wealthier and whiter.</p>
+    <p style="text-align:center;">
+    <img src="./Images/incChange.png" width="100%" height=auto style="max-width:450px;">
+    </p>
+
+    <p class="content">During our 10-year study period, household incomes increased across the District, and the proportion of households making over $100,000 grew almost everywhere in the city. These changes were most pronounced in the center of the city—most notably Navy Yard and the neighborhood cluster that includes Shaw and Howard University—and in many northwestern neighborhoods bordering Rock Creek Park.<br><br>
+
+    The only neighborhoods that experienced a decrease in the proportion of households earning over $100,000 were east of the Anacostia, such as areas around Kenilworth, Barry Farm, and Fort Dupont. These neighborhoods started with a small proportion of high income earners, and that proportion has continued to decline. The smallest gains also occurred either east of the Anacostia or west of Rock Creek Park. Meanwhile, the neighborhoods in upper Northwest that already had the highest proportion of households with income over $100,000 also grew little in the last decade.</p>
+
+    <p style="text-align:center;">
+    <img src="./Images/age20Change.png" width="100%" height=auto style="max-width:450px;">
+    </p>
+
+    <p class="content">As with changes by race and household income, the rise of younger residents ages 22 to 34 was not a consistent trend throughout the city. Many neighborhoods on either side of North Capitol Street, extending from the areas around Howard University and Eckington up through Fort Totten, saw increases of young people by around 6-10 percent.<br><br>
+
+    Navy Yard saw the greatest increase in younger residents—more than 10 percent—even as the Capitol Hill area just to the north experienced a decrease of over 3 percent. Other neighborhoods that experienced a decline in the proportion of the 22- to 34-year-old age group were scattered west of Rock Creek Park, near American University, or farther east, in neighborhood clusters that include Fort Lincoln and Woodland, and around Fort Circle Park.<br><br>
+    
+    The image of a D.C. that has become wealthier, whiter, and younger over the past decade is true for some, but not all of the District. These trends were less apparent, and in some cases nonexistent, in certain areas east of the Anacostia and west of Rock Creek Park. And they have been largely true for central Northwest neighborhood clusters that include Shaw and Bloomingdale, areas frequently cited as examples of gentrification in D.C. in the past decade.<br><br>
+
+    Yet no neighborhood has changed more dramatically on these measures than Navy Yard, which stood out in each map for having the most significant change. The Navy Yard neighborhood saw a 29% increase in the proportion of white residents, an 18% increase in the proportion of households earning over $100,000, and a 15% increase in the proportion of young residents ages 22-34. The area, which has seen significant development in recent years, <a href="https://www.washingtonpost.com/express/wp/2016/01/08/navy-yard-on-track-to-be-d-c-s-most-densely-populated-neighborhood/?utm_term=.a3f3bd800d8c" target="_blank" class="link">will likely change further</a> as more buildings are built and even more residents move in.</p>
+
     <br>
     <hr id='end-line'>
-    <p class='content'><b>Technical notes:</b> Graphics and rankings are based MRIS data reported monthly by <a class="link" target="_blank" href="http://kevinjosephwood.com/">Kevin Wood</a> to <a class="link" target="_blank" href="http://www.popville.com/">PoPville</a>. Select zip codes do not have data before October 2013 and were not included in the 2011-2015 graphics. Flips were defined as the following: (1) a single family home that was bought twice within a two year period, or (2) a single family home that was converted into condos with at least one condo sold within two years. Neighborhood map boundaries were supplied by <a class="link" target="_blank" href="http://opendatadc.org/dataset/neighborhood-boundaries-217-neighborhoods-washpost-justgrimes">Code for DC</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <p class='content'><b>Technical notes:</b> Data is available through the <a class='link' target='_blank' href='https://www.census.gov/programs-surveys/acs/'>Census Bureau's American Community Survey</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <br><br>
+</div>
 
-  </div>
 
 <div class='col-sm-3 side'>
   <ul class="sidebar nav nav-stacked fixed">
     <br>
         <li>Recent</li>
-          <ul><ul class="nav nav-stacked fixed insidebar">
+        <ul><ul class="nav nav-stacked fixed insidebar">
             <li><a href='./decadeChange.html'>A Decade of Demographic Change</a></li>
             <li><a href='taxiPickups.html'>Mapped: DC Cab Pickups</a></li>
             <li><a href='meetupSpeakers.html'>Almost No Women Speak at DC Tech and Data Meetups</a></li>
