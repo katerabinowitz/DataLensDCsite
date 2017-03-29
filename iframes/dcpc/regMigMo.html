@@ -47,7 +47,7 @@ div.tooltip {
   text-align: left;
   width: 275px;
   height: 40px;
-  padding: 65px 0 0 20px;
+  padding: 85px 0 0 20px;
   border: 0px;
   border-radius: 8px;
   pointer-events:none;
@@ -60,15 +60,15 @@ div.tooltip {
 </head>
 <body>
 
-<p class="graph-title">On Net, DC Residents Moving to Maryland</p>
-<p class="graph-subtitle">Migration flows of residents that move within the DC region</p>
+<p class="graph-title">On net, more D.C. residents move to Maryland than Virginia</p>
+<p class="graph-subtitle">Migration flows within D.C. metro region (hover for value)</p>
 <br>
 
 <svg width="350" height="350"></svg>
 
 <script>
 
-var names= d3.scaleOrdinal(["Washington, DC","Prince George's","Montgomery","Arlington","Fairfax","Alexandria"]);
+var names= d3.scaleOrdinal(["Washington, D.C.","Prince George's","Montgomery","Arlington","Fairfax","Alexandria"]);
 
 var matrix = [
   [0, 10474, 6400, 3555, 2164, 1483], //DC
@@ -219,6 +219,30 @@ group.append("text")
   .append("textPath")
     .attr("xlink:href", function(d, i){return "#group" + i;})
     .text( function(d,i) {if (i==0) {return "Outflow of residents"}});
+
+group.append("text")
+    .attr("class","title")
+    .attr("x", 20)
+    .attr("dy", 25)
+  .append("textPath")
+    .attr("xlink:href", function(d, i){return "#group" + i;})
+    .text(function(d,i) {if (i==0) {return "D.C. to P.G."}});
+
+group.append("text")
+    .attr("class","title")
+    .attr("x", 55)
+    .attr("dy", 25)
+  .append("textPath")
+    .attr("xlink:href", function(d, i){return "#group" + i;})
+    .text(function(d,i) {if (i==1) {return "P.G."}});
+
+group.append("text")
+    .attr("class","title")
+    .attr("x", 55)
+    .attr("dy", 35)
+  .append("textPath")
+    .attr("xlink:href", function(d, i){return "#group" + i;})
+    .text(function(d,i) {if (i==1) {return "D.C."}});
 
 function groupTicks(d, step) {
   var k = (d.endAngle - d.startAngle) / d.value;
