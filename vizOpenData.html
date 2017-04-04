@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>Visualizing Open Data</title>
+
+  <link rel='shortcut icon' href='favicon.ico' type='image/x-icon'/>
+
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='http://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script> 
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65753381-1', 'auto');
+  ga('send', 'pageview');
+</script>
+</head>
+
+<body>
+<nav class="xsheader navbar navbar-default navbar-static-top">
+  <div class='clearfix xsheader'>      
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span>
+          <span class="mybar icon-bar"></span> 
+        </button>
+        <a class="navbar-brand" href="./index.html">
+          <img src="./Images/DataLensDCResponsiveLogo2.png" alt="DataLensDC">  
+        </a>
+      <ul class="navbar-nav navbar-custom navbar-static-top navbar-collapse collapse dropdown-pull-right" id="main-navbar-custom">
+        <li><a href="./about.html">About</a></li>
+        <li><a href="./subscribe.html">Subscribe</a></li>
+        <li><a href="./archive.html">Archive</a></li>
+        <li class="dropdown"><a class="dropdown-toggle" href='#' data-toggle='dropdown'>Connect<span class='caret'></span></a>
+          <ul class="navbar-custom dropmenu dropdown-menu dropdown-pull-right">
+            <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+            <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+            <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>            <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li>  -->     
+          </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
+
+<nav class="smheader navbar navbar-default navbar-static-top">
+<a href="./index.html"><img class="logo" src="./Images/DataLensDC logo.png" alt="DataLensDC"></a>
+  <div class="navbar-fixed">
+    <ul class ="headerlist">
+        <li><a href="./about.html">about</a></li>
+        <li><a href="./subscribe.html">subscribe</a></li>
+        <li><a href="mailto:datalensdc@gmail.com">email</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class='content row'>
+  <div class='col-sm-9 col-xs-12'>
+  <br>
+    <h2><a href='./vizOpenData.html'>Why Visualizing Open Data Isn't Enough</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // April 3, 2017 // as featured in D.C. Policy Center</h3>
+    <p class="content">With a new proposed <a class="link" target="_blank" href="https://drafts.dc.gov/docs/district-of-columbia-data-policy-draft">Data Policy</a>, release of high profile datasets on topics like 311 and taxicabs, and <a class="link" target="_blank" href="https://ogag.dc.gov/">Open Government Advisory Group</a>, the D.C. Government looks interested in moving up the ranks of <a class="link" target="_blank" href="http://us-city.census.okfn.org/">open data cities</a>. This is good news for policymakers, businesses, and citizens. But with open data comes the duty to use it responsibly.
+    <br><br>
+    This doesn’t always happen. A recent example is an <a class="link" target="_blank" href="http://district.ninja/the-vision-zero-initiative-part-1-district-of-pedestrians/">analysis of pedestrian safety</a> that declared that the most dangerous neighborhoods for pedestrians are largely located in and around Capitol Hill, accounting for 21 percent of pedestrian traffic complains within the top 10 neighborhoods (see below).</p>
+
+    <p class="content graph-title">Capitol Hill and surrounding neighborhoods in top 10 for reported neighborhood issues, according to Vision Zero data</p>
+    <p class="content" style="text-align:center;">
+    <img src="./Images/dnvisZero.png" width="100%" height=auto style="max-width:450px;">
+    </p>
+    <p class="graph-subtitle">Source: District Ninja</p>
+
+    <p class="content">The findings were based on data from the city’s <a class="link" target="_blank" href="http://www.dcvisionzero.com/">Vision Zero</a> initiative to reach zero fatalities during transit by 2020. In July 2015, D.C. released an app and <a class="link" target="_blank" href="http://visionzero.ddot.dc.gov/VisionZero/">website</a> as part of the initiative allowing citizens to report pedestrian, bike, or driving safety issues. The District took a great “open by default” approach, quickly making the data publicly available on opendata.dc.gov, and actively engaging the data community.
+    <br><br>
+    All data is not created equal, though, and how data is created must be factored into any analysis. The <a class="link" target="_blank" href="http://district.ninja/the-vision-zero-initiative-part-1-district-of-pedestrians/">pedestrian safety post</a> highlights neighborhoods with the highest number of pedestrian-related complaints. While there is no perfect data on pedestrian safety, other data sources suggest that neighborhoods with the most complaints are almost certainly not the neighborhoods that are most dangerous for pedestrians. For instance, we know that the neighborhoods with the most pedestrian safety complaints (as shown in the map on the left below) actually tend to have higher <a class="link" target="_blank" href="https://www.walkscore.com/DC/Washington_D.C.">Walk Scores</a> than the city average. Capitol Hill is certainly more pedestrian-friendly than neighborhoods like Ivy City, which lacks sidewalks on several blocks. Finally, the map on the right shows crashes that involve pedestrians (also an imperfect measure, as it’s difficult to know the “per pedestrian” rate and is therefore sensitive to population density are very low) around Capitol Hill.</p>
+
+    <p class="content graph-title">Neighborhoods where people self-report a high number of pedestrian safety issues are not always those with a high number of pedestrian-involved crashes</p>
+    <p class="content" style="text-align:center;">
+    <img src="./Images/visZeroIssues.png" width="100%" height=auto style="max-width:350px;">
+    &nbsp; &nbsp; 
+    <img src="./Images/pedCrashDC2.png" width="100%" height=auto style="max-width:359px;">
+    </p>
+
+    <p class="content">The difference in these two maps suggests that it is highly unlikely that the neighborhoods with the most pedestrian-related complaints are actually the most dangerous to pedestrians. What causes this discrepancy? A couple factors could be at play:</p>
+
+    <ul class="content" style="margin-left: 40px;">
+    <li>The Vision Zero data relies on people to self-report pedestrian-related issues. There are a number of hurdles to self-reporting: In order to report an issue, the reporter must be aware of the initiative, and have the necessary technology. They must also have the time and focus to notice and report a complaint and trust their complaint will be addressed—otherwise they won’t bother. For these reasons, technology-based initiatives for citizen engagement tend to result in data that overrepresents wealthier people, offering an incomplete picture. And in fact, the Vision Zero website notes that it provides this data as a supplement to crash data, “to identify risks that would not otherwise be reflected in safety analysis” based solely on historical crash data.</li>
+    <li>Neighborhoods that log that most pedestrian complaints will likely be neighborhoods where people walk a lot. There are more pedestrians downtown and around Capitol Hill than along the outer, more suburban, areas of D.C. Using the absolute number of complaints, as opposed to adjusting for the number of pedestrians, creates an uneven comparison across neighborhoods. (As noted earlier, this is also an issue with the pedestrian-involved crash data used in the map on the right—showing that there’s no quick fix without additional data.)</li>
+    </ul>
+
+    <p class="content">These drawbacks do not mean that self-reported data (like the Vision Zero data) is without value, but instead tells us that using the data without understanding its context can lead to false conclusions. The pedestrian safety analysis may be an extreme case, but many datasets hold similar issues to a varying degree: Crime data only has crimes that are reported, 311 complaints only capture issues raised by the people willing to complain, restaurant inspection failures happen only when restaurants are inspected, and so forth.
+    <br><br>
+    And this is by no means a D.C.-specific issue. Many other cities, such as <a class="link" target="_blank" href="http://www.nyc.gov/html/visionzero/pages/dialogue/map.html">New York</a>, have a similar system for logging Vision Zero issues. San Francisco developed <a class="link" target="_blank" href="http://www.sfcta.org/modeling-and-travel-forecasting/cycletracks-iphone-and-android">CycleTrack</a>, an app now used in many cities, to allow citizens to add their biking data for use in transportation modeling. Boston’s <a class="link" target="_blank" href="https://hbr.org/2013/04/the-hidden-biases-in-big-data">StreetBump</a> app to detect potholes was similarly dependent on smartphones.
+    <br><br>
+    In the case of the pedestrian safety data, then, what could the creators have done differently? At a minimum, the data should have been put into context with its limitations explained. A better analysis would have included additional data sources, like crash data, to provide a more balanced picture. A great analysis would have attempted to factor for pedestrian populations and considered the danger to pedestrians in neighborhoods where most residents have foregone walking. For its part, the District is using a <a class="link" target="_blank" href="http://wamu.org/story/17/03/31/d-c-year-vision-zero-plan-eliminate-pedestrian-fatalities/">number of different data sources</a> to find and fix dangerous transit areas.
+    <br><br>
+    The increasing openness of city data is a great opportunity for citizens, researchers, journalists, and businesses, but the use of this data must come in tandem with an understanding of the inherent limitations of data. In a time of misinformation and “fake news,” the responsibility of creating responsible data analysis is one we all share. These discussions should be at the forefront of the data community. Individual users must consider the origin and context of data. Governments must do a better job of documenting and explaining their data. Only with all these parties working together can we realize the full opportunity of open data to better understand and improve our communities.</p>
+
+    <br>
+    <hr id='end-line'>
+    <p class='content'><b>Technical notes:</b> <a class="link" target="_blank" href="http://opendata.dc.gov/datasets/vision-zero-safety-transportation">Vision Zero issue data</a> and <a class="link" target="_blank" href="http://opendata.dc.gov/datasets/vision-zero-safety-transportation">crash data</a> were used. Both are available on <a class="link" target="_blank" href="http://opendata.dc.gov/">DC's Open Data website</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <br><br>
+</div>
+
+
+<div class='col-sm-3 side'>
+  <ul class="sidebar nav nav-stacked fixed">
+    <br>
+        <li>Recent</li>
+        <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./vizOpenData.html'>Why Visualizing Open Data Isn't Enough</a></li>
+            <li><a href='./bikeinBloom.html'>A Data-Driven Guide to Finding Bike in Bloom</a></li>
+            <li><a href='./decadeChange.html'>A Decade of Demographic Change</a></li>
+            <li><a href='taxiPickups.html'>Mapped: DC Cab Pickups</a></li>
+            <li><a href='meetupSpeakers.html'>Almost No Women Speak at DC Tech and Data Meetups</a></li>
+            <li><a href='DCPL-by-numbers.html'>Today's DC Library: Fewer Books, More Media and Visitors</a></li>
+            <li><a href='fluinDC.html'>When Sick, Where you Live in DC May Matter for Recovery</a></li>
+            <!---<li><a href='./rentReports.html'>Those DC Rent Reports? Take with a Grain of Salt</a></li>
+            <li><a href='./wageRelative.html'>DC's Expensive, but that's not the Whole Story</a></li>
+            <li><a href='./dcHomeChars.html'>Charting the Divide in New and Old DC Homes</a></li>
+            <li><a href='./nightlife-neighborhoods.html'>The Changing Geography of DC Nightlife</a></li>
+            <li><a href='./another-brick.html'>Another Brick in the Ward</a></li>
+            <li><a href='./biketoWork2016.html'>Bike to Work Day: By the Numbers</a></li>
+            <li><a href='./parking-tickets-by-state.html'>Maryland Drivers Receive Most DC Parking Tickets</a></li>
+            <li><a href='./school-facilities.html'>Shining a Light on DC's Multi-Billion Dollar School Modernization</a></li>
+            <li><a href='./metro-ridership.html'>Charting Metro's Ridership Decline</a></li>
+            <li><a href='./uber-surge-time.html'>When Does Uber Surge Near You?</a></li>
+            <li><a href='./who-moves-to-DC.html'>Who Moves to DC?</a></li>
+            <li><a href='./construction-boom-mapped.html'>Mapped: DC's Construction Boom</a></li>
+            <li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
+            <li><a href='./DC-region-breweries.html'>DC Region has 70 Breweries, Second Most on East Coast</a><li>
+            <li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
+            <li><a href='./rise-of-biking.html'>The Rise of Biking in DC, Visualized</a></li>
+            <li><a href='./airbnb-listings-in-DC.html'>DC #3 in Airbnb Per Capita</a></li>
+            <li><a href='./dc-property-flipping.html'>The Most House-Flipped DC Neighborhoods</a></li>
+            <li><a href='./how-DC-spends.html'>How the DC Region Spends</a></li>
+            <li><a href='./dc-hack-landmark.html'>DC Hack: Landmark</a></li>
+            <li><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></li>
+            <li><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></li>
+            <li><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></li>
+            <li><a href='./10-year-dc-development.html'>DC Adding 15M+ Sq Ft in Next 10 Years</a></li>
+            <li><a href='./your-commute-is-getting-worse.html'>Your Metro Commute is Getting Worse</a></li>
+            <li><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></li>
+            <li><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></li> -->
+        </ul></ul> 
+        <li class="archiveside"><a href="./archive.html"><p style="margin-left:15px">Archive</p></a></li>
+        <br>
+        <li>Connect</li>  
+        <ul><ul class="nav nav-stacked fixed connectbar">
+              <li><a href="mailto:datalensdc@gmail.com" target="_blank"> <i class="fa fa-envelope"></i> send an email</a></li>
+              <li><a href="https://twitter.com/DataLensDC" target="_blank"><i class="fa fa-twitter"></i> tweet our way</a></li>
+              <li><a href="https://github.com/katerabinowitz" target="_blank"><i class="fa fa-github"></i> git at us</a></li>
+              <!-- <li><a href="https://www.linkedin.com/pub/kate-rabinowitz/3b/b30/168" target="_blank"><i class="fa fa-linkedin"></i> link up</a></li> -->
+          </ul></ul>
+      </ul>
+    </div>    
+</div>
+</body>
+</html>
