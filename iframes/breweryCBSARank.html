@@ -104,7 +104,7 @@
             gapBetweenGroups = 30,
             axisHeight       = 7;
 
-      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Breweries/master/brewTSum.csv", function(error, data) {
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/Breweries/brewTSum.csv", function(error, data) {
         if (error) throw error;
 
         var color = d3.scale.ordinal()
@@ -219,7 +219,7 @@
         var color = d3.scale.ordinal()
             .range(["#b3e2cd", "#fdcdac", "#cbd5e8", "#f4cae4", "#cccccc"]);
 
-      d3.csv("https://raw.githubusercontent.com/katerabinowitz/Breweries/master/currentNPlan.csv", function(error, data) {
+      d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/Breweries/currentNPlan.csv", function(error, data) {
         if (error) throw error;
 
             color.domain(d3.keys(data[0]).filter(function(key) { return key !== "Place"; }));
