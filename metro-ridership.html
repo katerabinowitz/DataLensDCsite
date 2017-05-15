@@ -15,7 +15,7 @@
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script> 
- <script>
+ <script> 
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -71,16 +71,25 @@
   <br>
     <h2><a href='./metro-ridership.html'>Metro Ridership has Declined at Nearly Every Station Since 2011</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // April 5, 2016 </h3>
-    <p class="content">Metro has <a class="link" target="_blank" href="http://www.washingtonian.com/2015/10/05/metros-ridership-is-still-falling-and-fare-hikes-might-be-the-only-way-to-keep-its-revenue-up/">shed tens of thousands of riders</a> over the past five years. This decline is despite <a class="link" target="_blank" href="http://www.washingtonian.com/2016/03/24/census-washington-metro-area-is-now-larger-than-philadelphia-metro-area/">significant population growth</a> in the DC region during the same period. Decreasing reliability coupled with the rise of biking and car shares have led more and more residents to quit Metro. While the Metro system as a whole has seen a decline over the past five years, changes in ridership vary greatly across the system. Some areas, in fact, have even seen increases in riders in recent years. The map below shows average weekday ridership for each Metro station from 2011 to 2015. Read the rest in <a href="http://www.washingtonian.com/2016/04/04/metro-ridership-dropped-nearly-every-station-since-2011/" class="link" target="_blank">my recent Washingtonian piece.</a></p>
+    <h3> Kate Rabinowitz // April 5, 2016 // as featured in Washingtonian</h3>
+    <p class="content">Metro has <a class="link" target="_blank" href="http://www.washingtonian.com/2015/10/05/metros-ridership-is-still-falling-and-fare-hikes-might-be-the-only-way-to-keep-its-revenue-up/">shed tens of thousands of riders</a> over the past five years. This decline is despite <a class="link" target="_blank" href="http://www.washingtonian.com/2016/03/24/census-washington-metro-area-is-now-larger-than-philadelphia-metro-area/">significant population growth</a> in the DC region during the same period. Decreasing reliability coupled with the rise of biking and car shares have led more and more residents to quit Metro. While the Metro system as a whole has seen a decline over the past five years, changes in ridership vary greatly across the system. Some areas, in fact, have even seen increases in riders in recent years. The map below shows average weekday ridership for each Metro station from 2011 to 2015.</p>
+
     <p class='graph-title'>Metro Ridership Declined across most of DC Region</p>
     <p class='graph-subtitle'>Change in average weekday ridership by station, 2011-15</p>
-    <iframe width="100%" height="520" frameborder="0" src="https://datalensdc.cartodb.com/viz/59c82e12-f9d0-11e5-9a9c-0e5db1731f59/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
+    <iframe width="100%" height="520" frameborder="0" class="content" src="https://datalensdc.cartodb.com/viz/59c82e12-f9d0-11e5-9a9c-0e5db1731f59/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
     <p class='graph-subtitle'> Note: Silver line trains were excluded as they did not exist in 2011.</p>
     <p class='graph-subtitle'> Source: WMATA, via <a target="_blank" href="http://planitmetro.com/2016/03/24/data-download-metrorail-ridership-by-station-by-month-2010-2015/">PlanItMetro</a>.</p>
+
+    <p class="content">The vast majority of Metro stations, 72 of 86, saw declines in average weekday ridership from 2011 to 2015. West Falls Church experienced the most dramatic decline, with over a 70% drop in weekday ridership. But the majority of this decline occurred after the Silver line opened and likely reflects people switching to a Silver Line station. Ridership drops of over 20% occurred both on the periphery at stations like Largo and Franconia-Springfield as well as downtown stations like Federal Triange. But not all stations saw a decline. Metro ridership grew at stations near some of the District's biggest construction booms. The NoMa station experienced the greatest increase, with over a 20% rise in average weekday ridership. Navy Yard, Mt. Vernon, and Rhode Island Ave. stations all had nearly or more than 10% growth in riders.</p>
+
+    <iframe width="100%" height="620px" src="./iframes/metroDeclineByTimeWash.html" class="content" style="border:none"></iframe>
+
+    <p class="content">For many, Metro is their way to and from work. Increasingly that's all Metro is for. Over the past five years ridership has consolidated around commuting hours of the AM peak, from 5 to 9:30am and the PM Peak, from 3 to 7pm. On weekdays the average ridership during the AM and PM peak hours is nearly double ridership during any other period of the day. From 2011 to 2015 these were also the periods of the day where ridership fell the least. Weekday ridership during the late night peak, from 9:30pm to midnight, fell the most with a nearly 30% decline. While the late night peak was already the least popular time during the week to take Metro, riders more and more are leaving it to find other transportation options.
+    <br><br>
+    Ridership decline can create a vicious cycle for Metro. With fewer people riding the Metro because they find it unreliable there is less revenue to make the Metro more reliable. With a new manager, new railcars, and new initiatives underway, Metro is trying hard to win over residents. It's unclear if that will be enough.</p>
     <br>
-  <hr id='end-line'>
-  <p class='content'><b>Technical notes:</b> Data shown is from WMATA and was released on their <a class="link" target="_blank" href="http://planitmetro.com/2016/03/24/data-download-metrorail-ridership-by-station-by-month-2010-2015/">PlanItMetro</a> blog. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+    <hr id='end-line'>
+    <p class='content'><b>Technical notes:</b> Data shown is from WMATA and was released on their <a class="link" target="_blank" href="http://planitmetro.com/2016/03/24/data-download-metrorail-ridership-by-station-by-month-2010-2015/">PlanItMetro</a> blog. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
   <br><br> 
 </div>
 
@@ -89,6 +98,17 @@
     <br>
         <li>Recent</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./dmvMigration.html'>Prince George’s County a Popular Home for Many Former D.C. Residents</a></li>
+            <li><a href='./healthWealthGap.html'>The Health Wealth Gap in D.C.</a></li>
+            <li><a href='./vizOpenData.html'>Why Visualizing Open Data Isn't Enough</a></li>
+            <li><a href='./bikeinBloom.html'>A Data-Driven Guide to Finding Bike in Bloom</a></li>
+            <li><a href='./decadeChange.html'>A Decade of Demographic Change</a></li>
+            <li><a href='taxiPickups.html'>Mapped: DC Cab Pickups</a></li>
+            <!---<li><a href='meetupSpeakers.html'>Almost No Women Speak at DC Tech and Data Meetups</a></li>
+            <li><a href='DCPL-by-numbers.html'>Today's DC Library: Fewer Books, More Media and Visitors</a></li>
+            <li><a href='fluinDC.html'>When Sick, Where you Live in DC May Matter for Recovery</a></li>
+            <li><a href='./rentReports.html'>Those DC Rent Reports? Take with a Grain of Salt</a></li>
+            <li><a href='./wageRelative.html'>DC's Expensive, but that's not the Whole Story</a></li>
             <li><a href='./dcHomeChars.html'>Charting the Divide in New and Old DC Homes</a></li>
             <li><a href='./nightlife-neighborhoods.html'>The Changing Geography of DC Nightlife</a></li>
             <li><a href='./another-brick.html'>Another Brick in the Ward</a></li>
@@ -99,7 +119,7 @@
             <li><a href='./uber-surge-time.html'>When Does Uber Surge Near You?</a></li>
             <li><a href='./who-moves-to-DC.html'>Who Moves to DC?</a></li>
             <li><a href='./construction-boom-mapped.html'>Mapped: DC's Construction Boom</a></li>
-            <!---<li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
+            <li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
             <li><a href='./DC-region-breweries.html'>DC Region has 70 Breweries, Second Most on East Coast</a><li>
             <li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
             <li><a href='./rise-of-biking.html'>The Rise of Biking in DC, Visualized</a></li>

@@ -77,8 +77,8 @@
   <br>
     <h2><a href='./dc-property-flipping.html'>What are the District's Most House-Flipped Neighborhoods?</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // October 22, 2015 </h3>
-    <p class="content"> Just because I'm not in the market for a home doesn't mean I don't show up to open houses like I have hundreds of thousands to drop. The more open houses I go to, the more trends appear: everything is shiny, new and well placed in an open floor layout; there's a half bath squeezed under the stairs; the bathroom has modern sink no one can wash their face in. Many of these homes have been flipped, a common sight on the hot DC real estate market. House flipping is when a house is bought as a real estate investment, remodeled, and put back on the market at a substantially higher price.<br><br>On a larger scale, flipped homes can alter a real estate market, creating a scarcity of fixer-uppers and an abundance of all-cash deals. It can also be a sign of a changing community. Curious about how home flipping looked from a bird's eye view, I mapped flipped homes as a proportion of single family home sales in neighborhoods across the District. <a href="http://www.washingtonian.com/blogs/openhouse/the-real-estate-market/dc-neighborhoods-house-flipping-map.php" target="blank" class="link">Read the rest in my recent Washingtonian piece.</a></p> 
+    <h3> Kate Rabinowitz // October 22, 2015 // as featured in Washingtonian</h3>
+    <p class="content"> Just because I'm not in the market for a home doesn't mean I don't show up to open houses like I have hundreds of thousands to drop. The more open houses I go to, the more trends appear: everything is shiny, new and well placed in an open floor layout; there's a half bath squeezed under the stairs; the bathroom has modern sink no one can wash their face in. Many of these homes have been flipped, a common sight on the hot DC real estate market. House flipping is when a house is bought as a real estate investment, remodeled, and put back on the market at a substantially higher price.<br><br>On a larger scale, flipped homes can alter a real estate market, creating a scarcity of fixer-uppers and an abundance of all-cash deals. It can also be a sign of a changing community. Curious about how home flipping looked from a bird's eye view, I mapped flipped homes as a proportion of single family home sales in neighborhoods across the District.</p> 
     <div class="btn-content">
     <input type="button" name="2011-2015" value="Show map for 2011-2015" onclick="show2011()" class="updatebtn"/>
     <input type="button" name="2013-2015" value="Show map for 2013-2015" onclick="show2013()" class="updatebtn"/>
@@ -97,20 +97,30 @@
    google.maps.event.trigger(ShortmapFlip, 'resize'); 
     }
     </script>
-    <div id="long-history-map" style="display:none;">
+    <div class="content" id="long-history-map" style="display:none;">
         <p class="graph-title">Flipped Homes, as Percent of Single Family Homes on Market (May 2011-September 2015)</p>
         <p class='graph-subtitle'>Darker green indicates greater proportion of flipped homes. Click on a neighborhood for more detail.</p>
         <div id ="map-flip" class="content"><br></div>
         <p class='graph-subtitle'> Note: There is no data for dark gray areas. Data before 10/2013 is unavailable for select zip codes and have not been shown here.<br>Source: MRIS, provided by Kevin Wood to PoPville.</p>
     </div>
 
-    <div id="short-history-map">
+    <div class="content" id="short-history-map">
         <p class="graph-title">Flipped Homes, as Percent of Single Family Homes on Market (October 2013-September 2015)</p>
         <p class='graph-subtitle'>Darker green indicates greater proportion of flipped homes. Click on a neighborhood for more detail.</p>
         <div id ="short-map-flip" class="content"><br></div>
         <p class='graph-subtitle'>Note: There is no data for dark gray areas, which are typically green space or commercial areas.<br>Source: MRIS, provided by Kevin Wood to PoPville</p>
         <br>
     </div>
+
+    <p class="content">The geography of flipped housing skews east in the District. This makes sense as the city's most expensive properties have in recent history been located in the most northern and western corners. Many of DC's recent  neighborhoods, Shaw, Logan Circle, Columbia Heights and H St, have lower rates of home flipping but are surrounded by flipping booms to the north and east. Hotspots can be seen east of H St, north of Petworth and east of Shaw. So what are the most house-flipped neighborhoods?</p>
+
+    <iframe width="100%" height="525px" style="border:none" class="content" src="./iframes/propFlipTop20.html"></iframe>
+
+    <p class="content">For the most flipped neighborhoods in the District, the proportion of flipped homes on the market is staggering. In the last two years there were  11 neighborhoods where more than one in every five homes on the market was flipped. In more than 40 neighborhoods one in ten homes on the market was flipped. Higher percentages of flipped homes in 2013 to 2015, compared with 2011 to 2015, suggests momentum for flipping.<br><br>Largely in the east of the city, while these neighborhoods don't cluster in a specific area they all have in common increasing home prices and gentrifying communities with newer residents generally younger, wealthier and whiter.</p>
+    <br>
+    <hr id='end-line'>
+    <p class='content'><b>Technical notes:</b> Graphics and rankings are based MRIS data reported monthly by <a class="link" target="_blank" href="http://kevinjosephwood.com/">Kevin Wood</a> to <a class="link" target="_blank" href="http://www.popville.com/">PoPville</a>. Select zip codes do not have data before October 2013 and were not included in the 2011-2015 graphics. Flips were defined as the following: (1) a single family home that was bought twice within a two year period, or (2) a single family home that was converted into condos with at least one condo sold within two years. Neighborhood map boundaries were supplied by <a class="link" target="_blank" href="http://opendatadc.org/dataset/neighborhood-boundaries-217-neighborhoods-washpost-justgrimes">Code for DC</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
+
   </div>
 
 <div class='col-sm-3 side'>
@@ -118,6 +128,17 @@
     <br>
         <li>Recent</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./dmvMigration.html'>Prince George’s County a Popular Home for Many Former D.C. Residents</a></li>
+            <li><a href='./healthWealthGap.html'>The Health Wealth Gap in D.C.</a></li>
+            <li><a href='./vizOpenData.html'>Why Visualizing Open Data Isn't Enough</a></li>
+            <li><a href='./bikeinBloom.html'>A Data-Driven Guide to Finding Bike in Bloom</a></li>
+            <li><a href='./decadeChange.html'>A Decade of Demographic Change</a></li>
+            <li><a href='taxiPickups.html'>Mapped: DC Cab Pickups</a></li>
+            <!---<li><a href='meetupSpeakers.html'>Almost No Women Speak at DC Tech and Data Meetups</a></li>
+            <li><a href='DCPL-by-numbers.html'>Today's DC Library: Fewer Books, More Media and Visitors</a></li>
+            <li><a href='fluinDC.html'>When Sick, Where you Live in DC May Matter for Recovery</a></li>
+            <li><a href='./rentReports.html'>Those DC Rent Reports? Take with a Grain of Salt</a></li>
+            <li><a href='./wageRelative.html'>DC's Expensive, but that's not the Whole Story</a></li>
             <li><a href='./dcHomeChars.html'>Charting the Divide in New and Old DC Homes</a></li>
             <li><a href='./nightlife-neighborhoods.html'>The Changing Geography of DC Nightlife</a></li>
             <li><a href='./another-brick.html'>Another Brick in the Ward</a></li>
@@ -128,7 +149,7 @@
             <li><a href='./uber-surge-time.html'>When Does Uber Surge Near You?</a></li>
             <li><a href='./who-moves-to-DC.html'>Who Moves to DC?</a></li>
             <li><a href='./construction-boom-mapped.html'>Mapped: DC's Construction Boom</a></li>
-            <!---<li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
+            <li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
             <li><a href='./DC-region-breweries.html'>DC Region has 70 Breweries, Second Most on East Coast</a><li>
             <li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
             <li><a href='./rise-of-biking.html'>The Rise of Biking in DC, Visualized</a></li>

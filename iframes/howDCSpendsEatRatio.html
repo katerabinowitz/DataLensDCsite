@@ -144,7 +144,7 @@ var cexFood = d3.select(".cexFood")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", type, function(error, data) {
   data.sort(function(a, b) { return b.EatRatio - a.EatRatio; });
   x.domain(data.map(function(d) {return d.City; }));
   y.domain([0, 50]);

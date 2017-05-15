@@ -43,7 +43,7 @@ a:hover {
 	}
 
 	.navbar-custom li:hover {
-	color:#E62B2B;;
+	color:#E62B2B;
 	text-decoration:none; 
     cursor:pointer; 
 	}
@@ -282,4 +282,19 @@ IMG.scatter {
 	border:0;
 	margin:0 75px;
 	width:auto;  
+}
+
+#button {
+    background-color: #d6d9db;
+    border: 2px solid #bbc0c3;
+    color: #E62B2B;
+    padding: 10px 50px 10px 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+}
+
+#button:hover {
+	background-color: #FCFCFC;;
 }

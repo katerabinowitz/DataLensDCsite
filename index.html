@@ -15,113 +15,11 @@
   
   <link href='./CSS/main.css' rel='stylesheet' type='text/css'>
 
-  <link href='./CSS/wmata-delay.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/10-year-dc-development.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/fm-per-capita.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/DDD.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/CEX.css' rel='stylesheet' type='text/css'>
-  <link href='./CSS/prop-flip.css' rel='stylesheet' type='text/css'>
-
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDez_nj2eHP6b_mhMR1fn2Df2_jm-py41M"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script> 
   <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-  <script src="./JS/propflip-maps.js"></script>
-<script>
-var cityCircle;
-var map;
-var infowindow = new google.maps.InfoWindow();
-var MY_MAPTYPE_ID = 'custom_style';
-function initialize() {
-  var customOps = [
-    {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [
-            {"visibility": "simplified"},
-            {"hue": "#0066ff"},
-            {"saturation": 74},
-            {"lightness": 100}
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {"visibility": "simplified"}
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "all",
-        "stylers": [
-            {"visibility": "simplified"}
-        ]
-    },{
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {"visibility": "simplified"},
-            {"color": "#5f94ff"},
-            {"lightness": 26},
-            {"gamma": 5.86}
-        ]
-    }
-];
-  var mapOptions = {
-    zoom: 4,
-    center: new google.maps.LatLng(38, -97),
-    mapTypeControlOptions: {
-    mapTypeId: [google.maps.MapTypeId.ROADMAP, MY_MAPTYPE_ID]
-    },
-    mapTypeId:MY_MAPTYPE_ID,
-    panControl: false,
-    streetViewControl: false,
-    // zoomControl:false
-  };
-  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-  
-  var styledMapOptions= {
-    name:'Custom Style'
-  };
-  
-  var customMapType = new google.maps.StyledMapType(
-    customOps,styledMapOptions
-    );
-  map.mapTypes.set(MY_MAPTYPE_ID,customMapType);
-    
-  
-  map.data.loadGeoJson('https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/migrationCompareACS/Output/citymigration.geojson');
-  map.data.setStyle(function(feature) {
-    var migrationscore = feature.getProperty('Migration');
-    return {
-      icon: getCircle(migrationscore)
-    };
-  });
-function getCircle(migrationscore) {
-  var circle = {
-    path: google.maps.SymbolPath.CIRCLE,
-    fillColor: '#E62B2B',
-    fillOpacity: .2,
-    scale: migrationscore,
-    strokeColor: '#E62B2B',
-    strokeWeight: .5
-  };
-    map.data.addListener('click', function(event) {
-      var cityname = event.feature.getProperty("city");
-      var m2p = event.feature.getProperty("Migrant2Pop");
-      var distance = event.feature.getProperty("wmDistance");
-      infowindow.setContent("<div id='infowindow'>"+"<p>City: "+cityname +"<br> Migrants to city population: "+ m2p + "%<br> How far migrants travel: " + distance + " miles</p></div>");
-      infowindow.setPosition(event.feature.getGeometry().get());
-      infowindow.setOptions({pixelOffset: new google.maps.Size(0,-30)});
-      infowindow.open(map);
-  }); 
-  return circle;
-}
-  }
-google.maps.event.addDomListener(window, 'load', initialize);
-</script>
 
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -133,16 +31,15 @@ google.maps.event.addDomListener(window, 'load', initialize);
   ga('send', 'pageview');
 
 </script>
-
 <style>
     @media (min-width: 300px) and (max-width: 450px) {
-      .desktop {
+      .desktop,.singleBig iframe, .multiBig iframe {
         display:none;
       }
     } 
 
-    @media (min-width: 450px) and (max-width: 2000px) {
-      .mobile {
+    @media (min-width: 450px){
+      .mobile,.singleSmall iframe, .multiSmall iframe {
         display:none;
       }
     }
@@ -191,10 +88,155 @@ google.maps.event.addDomListener(window, 'load', initialize);
 <div class='content row'>
 	<div class='col-sm-9 col-xs-12'>
   <br> 
+    <h2><a href='./dmvMigration.html'>Prince George’s County a Popular Home for Many Former D.C. Residents</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // May 11, 2017 // originally published by <a class="link" target="_blank" href="https://www.dcpolicycenter.org/publications/dc-metro-region-migration-prince-georges-county-popular-destination/">D.C. Policy Center</a></h3>
+
+    <p class="content">While D.C. is an international city, with residents arriving from and departing to places all over the world, most of its domestic migration is very local: Prince George’s County, Montgomery County, Arlington County, Fairfax County, and Alexandria are the top five places within the U.S. that D.C. residents move to and from. They make up 31 percent of where new D.C. residents come from, and 42 percent of where D.C. residents go when they move out.
+    <br><br>
+
+    Within our interconnected metro region, what do these flows of people look like and what places are gaining or losing residents on net? The chart below shows the D.C. metro region by outflows of people moving from one location to another county or city in the region.</p>
+
+    <div class="content mobile" style="text-align:center;">
+        <iframe width="350px" height="550px" src="./iframes/dcpc/regMigMo.html" frameborder="0"></iframe>
+    </div>
+
+    <div class="content desktop" style="text-align:center;">
+      <iframe width="550px" height="675px" src="./iframes/dcpc/regionalMigration.html" frameborder="0"></iframe>
+    </div>
+
+    <p class="content">Each arc on the outer edge of the circle represents the county where people moved from. The length of each arc represents the number of people who left that county to move elsewhere in the metro area (the connected arc). <a class="link" target="_blank" href="./dmvMigration.html">Read on...</a></p>
+    <br><br>
+
+
+    <h2><a href='./healthWealthGap.html'>The Health Wealth Gap in D.C.</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // May 2, 2017 // originally published by <a class="link" target="_blank" href="https://www.dcpolicycenter.org/publications/health-wealth-gap-d-c/">D.C. Policy Center</a></h3>
+    <p class="content">Recent <a class="link" target="_blank" href="http://jamanetwork.com/journals/jama/article-abstract/2513561">research</a> from a team headed by Stanford economist Raj Chetty made headlines last year when it outlined the stark divide in health outcomes between high- and low-income Americans. As the New York Times <a class="link" target="_blank" href="https://www.nytimes.com/interactive/2016/04/11/upshot/for-the-poor-geography-is-life-and-death.html">reports</a>, the Health Inequality Project found that longevity has steadily increased across the nation for the richest Americans, but life expectancy for the poor is highly variable depending on where they live. In this measure, Washington, D.C. does not fare well: among the 100 most populated counties, <a href="https://healthinequality.org/rankings/" class="link" target="_blank">D.C. ranks 65th</a> by average life expectancy for the poorest 20 percent of its residents.
+    <br><br>
+
+    While the Health Inequality Project’s study focuses at life expectancy disparities at the county level, the CDC’s and Robert Wood Johnson Foundation’s <a href="https://www.cdc.gov/500cities/" class="link" target="_blank">500 cities</a> project provides more color to the stark health divide between D.C.’s richest and poorest. Using this data to compare the District’s 32 highest income census tracts, which all make over $110,000 a year, with the 32 lowest income tracts, with annual income under $35,000, reveals striking disparities across behavior, health, and chronic conditions.</p>
+
+    <p class="content graph-title">The wealth gap in healthy activities</p>
+    <p class="content" style="text-align:center;">
+    <img src="./Images/activity.svg" width="100%" height=auto style="max-width:500px;">
+    </p>
+
+    <p class="content">Members of D.C.’s poorest communities were twice as likely to be obese, and report regularly receiving fewer than 7 hours of sleep. They were also three times as likely not to exercise. Higher rates of obesity, along with less sleep and exercise, are well-documented effects of <a href="https://www.dcpolicycenter.org/publications/commute-times-for-district-residents-are-linked-to-income-and-method-of-transportation/" target="_blank" class="link">longer commute times</a>, fewer walkable areas, <a href="https://www.dcpolicycenter.org/publications/food-access-d-c-deeply-connected-poverty-transportation/" class="link" target="_blank">food deserts</a>, crime, and <a href="http://www.npr.org/sections/health-shots/2014/07/14/330434597/this-is-your-stressed-out-brain-on-scarcity" class="link" target="_blank">stress</a> associated with poverty.  The one reported unhealthy activity wealthiest residents were more likely to partake in was binge drinking. <a class="link" target="_blank" href="https://www.dcpolicycenter.org/publications/health-wealth-gap-d-c/">Read on...</a></p>
+    <br><br>
+
+
+
+    <h2><a href='./vizOpenData.html'>Why Visualizing Open Data Isn't Enough</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // April 3, 2017 // originally published by <a class="link" target="_blank" href="https://www.dcpolicycenter.org/publications/visualizing-open-data-vision-zero-pedestrian-safety/">D.C. Policy Center</a></h3>
+    <p class="content">With a new proposed <a class="link" target="_blank" href="https://drafts.dc.gov/docs/district-of-columbia-data-policy-draft">Data Policy</a>, release of high profile datasets on topics like 311 and taxicabs, and <a class="link" target="_blank" href="https://ogag.dc.gov/">Open Government Advisory Group</a>, the D.C. Government looks interested in moving up the ranks of <a class="link" target="_blank" href="http://us-city.census.okfn.org/">open data cities</a>. This is good news for policymakers, businesses, and citizens. But with open data comes the duty to use it responsibly.
+    <br><br>
+    This doesn’t always happen. A recent example is an <a class="link" target="_blank" href="http://district.ninja/the-vision-zero-initiative-part-1-district-of-pedestrians/">analysis of pedestrian safety</a> that declared that the most dangerous neighborhoods for pedestrians are largely located in and around Capitol Hill, accounting for 21 percent of pedestrian traffic complains within the top 10 neighborhoods (see below).</p>
+
+    <p class="content graph-title">Capitol Hill and surrounding neighborhoods in top 10 for reported neighborhood issues, according to Vision Zero data</p>
+    <p class="content" style="text-align:center;">
+    <img src="./Images/dnVisZero.png" width="100%" height=auto style="max-width:450px;">
+    </p>
+    <p class="graph-subtitle">Source: District Ninja</p>
+
+    <p class="content">The findings were based on data from the city’s <a class="link" target="_blank" href="http://www.dcvisionzero.com/">Vision Zero</a> initiative to reach zero fatalities during transit by 2020. In July 2015, D.C. released an app and <a class="link" target="_blank" href="http://visionzero.ddot.dc.gov/VisionZero/">website</a> as part of the initiative allowing citizens to report pedestrian, bike, or driving safety issues. The District took a great “open by default” approach, quickly making the data publicly available on opendata.dc.gov, and actively engaging the data community.
+    <br><br>
+    All data is not created equal, though, and how data is created must be factored into any analysis.<a class="link" href="./vizOpenData.html"> Read on...</a>
+    <br><br>
+
+
+    <h2><a href='./bikeinBloom.html'>A Data-Driven Guide to Finding Bike in Bloom</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // March 17, 2017 // originally published by <a class="link" target="_blank" href="https://www.washingtonian.com/2017/03/17/how-to-find-capital-bikeshares-pink-cherry-blossom-bike/">Washingtonian</a></h3>
+    <p class="content">Despite a cold snap and and a snowstorm that will likely result in a <a href="https://www.washingtonian.com/2017/03/17/things-are-not-looking-good-for-the-cherry-blossoms-after-the-snow/" class="link" target="_blank">greatly diminished peak-bloom period</a>, the National Cherry Blossom Festival is still on. And that means it’s time for the return of one of Capital Bikeshare most popular promotions: the <a href="https://www.capitalbikeshare.com/blog/spot-the-bike-in-bloom" class="link" target="_blank">#BikeinBloom</a>, in which the system adds a single pink bike to its fleet of nearly 4,000. For four weeks, the pink bike is released into the Capital Bikeshare system—which spans DC, Arlington, Alexandria, Fairfax County, and Montgomery County—for riders to find, ride, and photograph. 
+    <br><br>
+    But spotting a single bike among the entire network sounds daunting. Looking back at the bike’s movements during 2016’s Cherry Blossom Festival might provide some insight for Capital Bikeshare users hoping to find this year’s model.
+    <br><br>
+    The pink bike was the most popular vehicle in Capital Bikeshare’s system for the four weeks it was available last year. In 2016, the bike was used 220 times, compared to a fleet-wide average of 77 uses in the same period. But that doesn’t mean the bike in bloom was especially well-traveled. Despite its constant ridership, the pink bike only made to just over a quarter of the nearly 400 stations Capital Bikeshare had at the time. Not surprisingly, it was parked most frequently at docks along the National Mall or other tourist destinations, as shown in the map below. <a href='./bikeinBloom.html' class="link" target="_blank">Read on...</a></p></p>
+
+    <p style="text-align:center;">
+    <img src="./Images/bibMap.png" width="100%" height=auto style="max-width:450px;">
+    </p>
+
+    <br><br>
+
+    <h2><a href='./decadeChange.html'>A Decade of Demographic Change</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // March 2, 2017 // originally published by <a class="link" target="_blank" href="https://www.dcpolicycenter.org/publications/demographic-change-d-c-neighborhoods/">D.C. Policy Center</a></h3>
+    <p class="content">The Census Bureau recently <a href="https://www.washingtonpost.com/local/dc-population-reaches-four-decade-high/2016/12/20/53ea8736-c6fa-11e6-bf4b-2c064d32a4bf_story.html?utm_term=.18a065930c12" target="_blank" class="link">announced</a> that D.C.’s population has risen to a four-decade high of almost 700,000, a boom driven largely by an influx of new residents. These new District residents have undeniably changed the demographic makeup of D.C., which on the whole has become whiter, wealthier, and younger over the past decade.<br><br>
+    However, these changes have not happened consistently across all parts of the District. We can see where these trends have been most pronounced when we look at data from individual neighborhoods “clusters” (group of neighborhoods that are frequently used for data analysis and planning purposes). The maps below show changes in race, wealth, and age by neighborhood cluster between two five-year spans, from 2006-2011 and from 2011-2015. <a href='./decadeChange.html' class="link" target="_blank">Read on...</a></p>
+
+    <p style="text-align:center;">
+    <img src="./Images/whiteChange.png" width="100%" height=auto style="max-width:400px;">
+    </p>
+    <br><br>
+
+    
+    <h2><a href='taxiPickups.html'>Mapped: DC Cab Pickups</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // December 14, 2016 // originally published by <a class="link" target="_blank" href="https://ggwash.org/view/61737/everywhere-someone-hailed-a-cab-in-dc-between-january-and-august-of-this-ye">Greater Greater Washington</a></h3>
+    <p class="content">From January to August 2016, DC cabs picked up more than eight million riders. From looking at when and where, we can see the busy nightlife scene on U Street NW, the midday tourist boost on the Capitol Grounds, and the sheer diversity of reasons people go to Dupont Circle. <a class="link" target="_blank" href="taxiPickups.html">Read on...</a></p>
+    
+    <img src="./Images/cabPickupMap.png" width="60%" height=auto style="max-width:600px; display: block; margin: 0 auto;">
+    <br><br>
+
+    <h2><a href='meetupSpeakers.html'>In 2016, Almost No Women Spoke at DC Tech and Data Meetups</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // November 7, 2016 </h3>
+    <p class="content">DC is often cited as the <a href="http://tech.co/dc-is-the-top-city-for-women-in-tech-2016-02" class="link" target="_blank">#1 place for women in tech</a>, but you wouldn’t know it by attending some of the area’s biggest tech meetups. The region has an active tech and data meetup community that hosts professional events. They can be great places to learn, network, and job search. Unfortunately, these events rarely reflect the industry’s diversity in DC, and that can have far-reaching effects. Taken back by the speaker gap the data revealed, I’ve also created <a class="link" target=_"blank" href="http://wespeaktoo.org/">wespeaktoo.org</a> to help promote women speakers.  
+    <br><br>
+    I looked at the gender diversity of speakers at 114 events in 2016 from 16 DC area meetups. These meetups were selected because they had over 1,000 members and typically held educational events featuring a single or few speakers. The results were startling. In 2016, there were no single-speaker events where a woman was the speaker. <a class="link" target="_blank" href='meetupSpeakers.html'>Read on...</a></p>
+
+    <div class="singleBig">
+    <iframe width="100%" height="600px" src="./iframes/meetupSingleBig.html" frameborder="0"></iframe> 
+    </div>
+
+    <div class="singleSmall">
+    <iframe width="100%" height="550px" src="./iframes/meetupSingleSmall.html" frameborder="0"></iframe> 
+    </div>
+
+    <h2><a href='DCPL-by-numbers.html'>Today's DC Library: Fewer Books, but More Media and Visitors</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // October 19, 2016 // originally published by <a class="link" target="_blank" href="https://ggwash.org/view/43200/dcs-libraries-have-far-fewer-books-and-way-more-e-books-and-audio-and-visual-resources-than-they-used-to">Greater Greater Washington</a></h3>
+    <p class="content">As reading habits change, so does the DC Public Library. With the number of books down, but other media and library visits up, the library is much more than its book collection, as I recently wrote for <a class="link" target="_blank" href="http://greatergreaterwashington.org/post/33880/dcs-libraries-have-far-fewer-books-and-way-more-e-books-and-audio-and-visual-resources-than-they-/">Greater Greater Washington.</a><br><br>
+
+    The meaning of curling up to a book has broadened over the past decade. It could mean an actual physical book, but also scrolling down your smartphone or listening to a book over headphones. With a limited collections budget, how has the DC Public Library balanced traditional physical books with newer mediums? <a target="_blank" class="link" href='DCPL-by-numbers.html'>Read on...</a></p>
+
+    <p style="text-align:center;"><img src="./Images/DCPLholdingsArea.png" width="70%" height=auto style="max-width:500px;"></p>
+ 
+
+    <h2><a href='fluinDC.html'>When Sick, Where you Live in DC May Matter for Recovery</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // October 4, 2016 // originally published by <a class="link" target="_blank" href="https://ggwash.org/view/43061/in-dc-access-to-medical-care-really-depends-on-where-you-live">Greater Greater Washington</a></h3>
+    <p class="content">With colder weather comes colds. As recently reported by Greater Greater Washington, emergency response times are longer in Wards 7 and 8, located east of the Anacostia. But what about access to non-emergency medical care? Suppose you come down with the flu. Besides chicken soup and bedrest, how will you get better? Where you live in the city may make a difference. <a class="link" target="_blank" href="fluinDC.html">Read on...</a>
+
+    <br><br>
+
+    <h2><a href='rentReports.html'>All Those Reports About DC Rents? Best to Take Them With a Grain of Salt</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // September 2, 2016  // originally published by <a class="link" target="_blank" href="http://dc.urbanturf.com/articles/blog/all_those_reports_about_dc_rents/11631">Urban Turf</a></h3>
+    <p class="content">On a weekly basis, the email inbox at <a class="link" target="_blank" href="http://dc.urbanturf.com/articles/blog/all_those_reports_about_dc_rents/11631">UrbanTurf</a> is filled with new reports and studies from rental and real estate start-ups highlighting one trend or another about DC’s housing market. Asked by the popular real estate blog to look into the <a class="link" target="_blank" href="http://dc.urbanturf.com/articles/blog/all_those_reports_about_dc_rents/11631">methodology behind these reports</a>, I found a lot to be desired. <a class="link" target="_blank" href="rentReports.html">Read on to learn the issues with these reports</a>, like recent the RadPad findings shown below...</p>
+    <p style="text-align:center;"><img src="./Images/radPadRent.png" width="100%" height=auto style="max-width:500px;"></p>
+
+    <br><br>
+
+    <h2><a href='./wageRelative.html'>DC's Expensive, but that's not the Whole Story</a></h2>
+    <hr id='top-line'>
+    <h3> Kate Rabinowitz // August 31, 2016 // originally published by <a class="link" target="_blank" href="https://ggwash.org/view/42724/dc-is-expensive-but-thats-not-the-whole-story">Greater Greater Washington</a></h3>
+    <p class="content">Earlier this month, a map saying that $100 will buy you less in DC than any other state made the online rounds. But while it's true $100 will buy you less in DC, it's misleading to leave it at that because DC's higher incomes mean it's easier to make $100 here than in many other places.</p>
+
+    <p style="text-align:center;"><img src="./Images/value100state.png" width="100%" height=auto style="max-width:500px;"></p>
+
+    <p class="content">The above map, which came from the <a target="_blank" class="link" href="http://taxfoundation.org/blog/real-value-100-each-state-2016">Tax Foundation's Alan Cole</a> uses the relative value of $100 across states to highlight how prices of the same goods vary. "The same amount of cash can buy you comparatively more in a low-price state than in a high-price state," writes Cole. For instance, in Mississippi, the state with the lowest prices, you could spend $100 to buy goods that would on average cost $115.34 in the US. Conversely, DC has the lowest relative value of $100: If you spend $100 in DC you would receive goods that on average cost $84.67.</p>
+
+    <p class="content">Concluding that DC is the most expensive place in America is a bit disingenuous. <a href="./wageRelative.html" class="link" target="_blank">Read on...</a></p>
+
+    <br><br>
 
     <h2><a href='./dcHomeChars.html'>Charting the Divide in New and Old DC Homes</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // August 1, 2016 </h3>
+    <h3> Kate Rabinowitz // August 1, 2016  // originally published by <a class="link" target="_blank" href="https://ggwash.org/view/42525/how-dcs-central-and-outer-neighborhoods-differ-in-3-maps">Greater Greater Washington</a></h3>
     <p class="content">While all of DC is a city, some of its residential neighborhoods feel more like a city than others. This feels intuitive walking along the smaller row houses of Capitol Hill compared to the more expansive mid-century homes in upper Northwest.<br><br>
 
     The maps below show this divide between homes in the inner and outer sections of the city by house type, year built, and lot size. Generally, homes located closer to the city core are older, built upon smaller lots, and almost entirely row houses. There is a strong interrelatedness between these three housing characteristics that can be seen by the almost identical areas of light shading across the maps. The area extends from Capitol Hill to Georgetown and from Shaw up to Petworth. Conversely homes outside of these neighborhoods tend to have been built later, on larger lots, and more likely to be single (self-standing) or semi-detached homes.<a href='./dcHomeChars.html' class="link" target="_blank"> Read on...</a></p>
@@ -205,7 +247,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
     <h2><a href='./nightlife-neighborhoods.html'>The Changing Geography of DC Nightlife</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // July 15, 2016 </h3>
+    <h3> Kate Rabinowitz // July 15, 2016 // originally published by <a class="link" target="_blank" href="https://www.washingtonian.com/2016/07/15/dc-growing-nightlife-map-navy-yard-union-market/">Washingtonian</a></h3>
     <p class="content">In recent years DC has seen a large influx of new restaurants and bars. But these new businesses aren’t necessarily opening in the same neighborhoods as they would have five or ten years ago. And for many, where they go out on Saturday night has been slowly moving east. The map below shows the percent of today's nightlife establishments (bars, nightclubs, and restaurants with liquor licenses) that opened after 2010, for neighborhoods with more than 10 nightlife establishments.<a href='./nightlife-neighborhoods.html' class="link" target="_blank"> Read on...</a></p>
 
     <iframe width="100%" height="600px" src="./iframes/nightlifeMap.html" frameborder="0"></iframe>  
@@ -214,8 +256,8 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
     <h2><a href='./another-brick.html'>Another Brick in the Ward</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // June 29, 2016 </h3>
-    <p class="content">DC is a city with a diversity of people, businesses, and neighborhoods. But walking along the city’s residential streets you may notice one aspect of the city that isn’t particularly diverse at all - facades of DC homes. DC is home to almost exclusively brick homes. <br><br>The map below shows each residential properties in the District by facade...Read on at <a href="http://open.dc.gov/econintel-cotw/06-2016.html" class="link" target="_blank">DMPED's Chart of the Week</a>, a great source for weekly DC data visualization.</p>
+    <h3> Kate Rabinowitz // June 29, 2016 // originally published as a <a class="link" target="_blank" href="http://open.dc.gov/econintel-cotw/06-2016.html">DMPED Chart of the Week</a></h3>
+    <p class="content">DC is a city with a diversity of people, businesses, and neighborhoods. But walking along the city’s residential streets you may notice one aspect of the city that isn’t particularly diverse at all - facades of DC homes. DC is home to almost exclusively brick homes. <br><br>The map below shows each residential properties in the District by facade.<a href="./another-brick.html" class="link" target="_blank"> Read on...</p>
     <div class="content">
     <div class="mobile">
     <script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 304px; height: 694px;'><noscript><a href='#'><img alt='Dashboard 3 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ho&#47;houses&#47;Dashboard3&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' width='304' height='694' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='houses&#47;Dashboard3' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;ho&#47;houses&#47;Dashboard3&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='no' /><param name='showTabs' value='y' /></object></div>
@@ -230,9 +272,9 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
     <h2><a href='./biketoWork2016.html'>Bike to Work Day: By the Numbers</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // May 24, 2016 </h3>
+    <h3> Kate Rabinowitz // May 24, 2016 // originally published by <a class="link" target="_blank" href="https://www.washingtonian.com/2016/05/24/bike-to-work-day-2016-by-the-numbers/">Washingtonian</a></h3>
     <p class="content">This past Friday brought sunny weather and <a href="https://www.washingtonian.com/2016/05/18/get-ready-for-bike-to-work-day-2016/" class="link" target="_blank">Bike to Work Day</a>, an annual celebration of biking throughout the DC region. But while some may forego a car, train, or bus to celebrate, Bike to Work Day is just like any other weekday for many. <a href="http://www.datalensdc.com/rise-of-biking.html" class="link" target="_blank">Biking is on the rise </a>throughout DC and will likely become even more popular with the <a href="https://www.washingtonian.com/2016/05/19/metros-huge-maintenance-plan-safetrack-begins-june-4-13-days-single-tracking/" class="link" target="_blank">upcoming Metro maintenance.</a> 
-    <br><br>How did this year’s Bike to Work Day look across some of the region’s most popular bike routes? Automatic bike counters installed by DDOT and Arlington County that collect real-time data on foot and bike traffic give an idea. The chart below compares the number of bike rides for this year’s Bike to Work Day to average weekday ridership so far in May and last year’s Bike to Work Day (BTWD).</p>
+    <br><br>How did this year’s Bike to Work Day look across some of the region’s most popular bike routes? Automatic bike counters installed by DDOT and Arlington County that collect real-time data on foot and bike traffic give an idea. The chart below compares the number of bike rides for this year’s Bike to Work Day to average weekday ridership so far in May and last year’s Bike to Work Day (BTWD). <a href="./biketoWork2016.html" class="link" target="_blank">Read on...</a></p>
 
     <p class='graph-title'>Bike to Work Day 2016 Brings Many More Bikers</p>
     <p class='graph-subtitle'>Bike counts for average May weekday to date and Bike to Work Day (BTWD) 2015 and 2016</p>
@@ -240,618 +282,20 @@ google.maps.event.addDomListener(window, 'load', initialize);
     <img src="./Images/btwdCounts.png" width="100%" height=auto style="max-width:600px;">
     </p>
     <p class='graph-subtitle'>Source: DDOT and Arlington County, via bikearlington.com</p>
-    <p class="content"> Read the rest <a href="https://www.washingtonian.com/2016/05/24/bike-to-work-day-2016-by-the-numbers/" class="link" target="_blank">in my recent Washingtonian piece.</a></p>
         <br><br>
 
-      <h2><a href='./parking-tickets-by-state.html'>Maryland Drivers Receive the Most Parking Tickets in DC</a></h2>
+    <h2><a href='./parking-tickets-by-state.html'>Maryland Drivers Receive the Most Parking Tickets in DC</a></h2>
     <hr id='top-line'>
-    <h3> Kate Rabinowitz // May 11, 2016 </h3>
+    <h3> Kate Rabinowitz // May 11, 2016 // originally published by <a class="link" target="_blank" href="https://www.washingtonian.com/2016/05/11/maryland-drivers-receive-most-parking-tickets-dc/">Washingtonian</a></h3>
     <p class="content">There’s a long-held debate around Washington over which jurisdiction is home to the worst drivers. With jobs in DC split about evenly between the city and the suburbs, the District sees drivers from all over put to the test with its one-way streets, traffic circles, back-in-only spaces, and parallel parking. What insight can open data provide into the prowess of the region’s drivers? Newly released parking-ticket data sheds some light. 
     <br><br>The District issued more than 1.5 million parking tickets in 2015, generating more than $73 million in fines. While DC residents received a little less than one-third of the tickets, they were not actually the top recipients. That honor goes to motorists from Maryland, who accrued more DC parking tickets than drivers from anywhere else in the country. Maryland drivers received 120,000 more DC parking tickets than DC residents, for a total of 554,265 parking tickets worth over $25 million in fines. The trend is consistent with previous years and, perhaps more importantly, <a href="https://twitter.com/MD_Driver_in_DC" target="_blank" class="link">regional lore.</a></p>
     <iframe width="100%" height="360px" src="./iframes/parkingTicketsTotal.html" style="border:none;"></iframe>
-     <p class="content">This does not necessary mean Maryland drivers are the worst drivers in the District. Read the rest and see how other states fare in my <a href="https://www.washingtonian.com/2016/05/11/maryland-drivers-receive-most-parking-tickets-dc/" target="blank" class="link">recent Washingtonian piece.</a></p>
-    <br><br>
+     <p class="content">This does not necessary mean Maryland drivers are the worst drivers in the District.<a href="./parking-tickets-by-state.html" target="blank" class="link"> Read the rest and see how other states fare...</a></p>
+     <br>
 
-    <h2><a href='./school-facilities.html'>Shining a Light on DC's Multi-Billion Dollar School Facilities Investment</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // April 18, 2016 </h3>
-    <p class="content">In the late 1990s, DC public schools were on the <a class="link" target="_blank" href="https://www.washingtonpost.com/archive/politics/1997/02/18/in-lieu-of-planning-patchwork/458079f3-0aab-49ef-a013-30b6d2e92e2f/">brink of collapse</a>. Thousands of fire code violations led to temporary closings. A GAO report found over 70% of DC public schools had inadequate features, such as windows and heating. All had asbestos, many lead paint.
-    <br><br>
-    Since then the District has spent billions of dollars restoring and modernizing its schools, some to <a class="link" target="_blank" href="http://www.perkinseastman.com/project_3405944_dunbar_high_school">award-winning levels.</a> But much of that investment has been opaque. Last year the DC Auditor found the school modernization program <a class="link" target="_blank" href="http://www.washingtoncitypaper.com/blogs/looselips/2015/07/09/audited-school-modernization-program-rigged-against-accountability/">lacks accountability, transparency, and basic financial management.</a> 
-    <br><br>
-    <a class="link" target="_blank" href="http://www.codefordc.org"> Code for DC</a> in partnership with <a class="link" target="_blank" href="http://www.21csf.org/csf-home/">21st Century School Fund</a> has launched <a class="link" target="_blank" href="www.forgenerationstocome.org">forgenerationstocome.org</a> to increase transparency on the billions spent on DC school facilities. <a class="link" target="_blank" href="./school-facilities.html">Read on...</a>
-    <br><br>
+    <input id="button" type="button" name="b1" value="Next page  >" onclick="location.href='index2.html'" style="float: right;">
+    <br><br><br><br>
 
-    <h2><a href='./metro-ridership.html'>Metro Ridership has Declined at Nearly Every Station Since 2011</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // April 5, 2016 </h3>
-    <p class="content">Metro has <a class="link" target="_blank" href="http://www.washingtonian.com/2015/10/05/metros-ridership-is-still-falling-and-fare-hikes-might-be-the-only-way-to-keep-its-revenue-up/">shed tens of thousands of riders</a> over the past five years. This decline is despite <a class="link" target="_blank" href="http://www.washingtonian.com/2016/03/24/census-washington-metro-area-is-now-larger-than-philadelphia-metro-area/">significant population growth</a> in the DC region during the same period. Decreasing reliability coupled with the rise of biking and car shares have led more and more residents to quit Metro. While the Metro system as a whole has seen a decline over the past five years, changes in ridership vary greatly across the system. Some areas, in fact, have even seen increases in riders in recent years. The map below shows average weekday ridership for each Metro station from 2011 to 2015. Read the rest in <a href="http://www.washingtonian.com/2016/04/04/metro-ridership-dropped-nearly-every-station-since-2011/" class="link" target="_blank">my recent Washingtonian piece.</a></p>
-    <p class='graph-title'>Metro Ridership Declined across most of DC Region</p>
-    <p class='graph-subtitle'>Change in average weekday ridership by station, 2011-15</p>
-    <iframe width="100%" height="520" style="border:none" src="https://datalensdc.cartodb.com/viz/59c82e12-f9d0-11e5-9a9c-0e5db1731f59/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-    <p class='graph-subtitle'> Note: Silver line trains were excluded as they did not exist in 2011.</p>
-    <p class='graph-subtitle'> Source: WMATA, via <a target="_blank" href="http://planitmetro.com/2016/03/24/data-download-metrorail-ridership-by-station-by-month-2010-2015/">PlanItMetro</a>.</p>
-    <br><br>
-
-     
-   <h2><a href='./uber-surge-time.html'>See How Often Uber’s Surge Pricing Hits Every Neighborhood in DC</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // March 17, 2016 </h3>
-    <p class="content"> Metro's 29 hour shutdown led to an <a class="link" target="_blank" href="https://www.washingtonpost.com/news/dr-gridlock/wp/2016/03/16/metro-shutdown-leads-to-record-day-for-uber-company-says/">Uber boom</a>, with a 70 percent increase over the previous week in people signing up for the app as the shutdown drew near. While many worried about sky-high fares, they rarely materialized due to a combination of ride-splitting (the company <a class="link" target="_blank" href="https://newsroom.uber.com/us-dc/trips-by-the-numbers-commuting-during-the-metro-closure/">expanded its UberPool ride-sharing platform</a> to cover the entire region, not just DC), more drivers on the road, and many people in the area just staying home. Uber’s policy of “surge pricing” is, at this point, as ubiquitous as the company itself. The car-hailing service increases its rates when demand for rides outpaces the number of available drivers. In theory, this surge in pricing should encourage more Uber drivers to get on the road bringing prices closer to the standard rate.<br><br>New data show in practice where, when, and how much price surging occurs throughout the District. Select a neighborhood on the map below to show the average rate for an UberX any hour across the week within the selected neighborhood from February 3 to March 2. <a class="link" target="_blank" href="http://www.washingtonian.com/2016/03/17/see-often-ubers-surge-pricing-hits-every-neighborhood-dc/">Read the rest in my recent Washingtonian piece.</a></p>
-
-    <iframe width="100%" height="590px" src="./iframes/whenUberSurges.html" class="content" style="border:none"></iframe>
-    <br><br>
-
-
-    <h2><a href='./who-moves-to-DC.html'>Who Moves to DC? Young, Well-Educated Single Women</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // February 26, 2016 </h3>
-    <p class="content"> Since 2009 the District's population has surged. More than 1,000 people on average have moved to DC each month, excluding a 2014 dip. The District's growth is part of a larger urban renaissance with many American cities booming. This influx of new residents is reshaping the look and feel of boom cities. In DC change has come in many forms, from <a class="link" target="_blank" href="http://www.washingtonian.com/2015/11/19/hecht-building-ivy-city-photos/">new luxury apartments</a> to <a class="link" target="_blank" href="http://www.washingtonian.com/2015/10/23/dcs-latest-bike-lane-fight-is-not-about-bikes/">contentious bike lanes</a>. So who are DC's new residents, and how do they differ from those moving to other major U.S. cities?<br><br>Check out the interactive chart below to see the demographics of the District's newest residents, and how that compares to other major U.S. cities. Select a button to change the view and hover over a bar to see the exact percentage. Read the rest in <a class="link" target="_blank" href="http://www.washingtonian.com/2016/02/26/moves-washington-dc-young-well-educated-single-women/">my recent Washingtonian piece</a></p> 
-    <iframe width="100%" height="500px" src="./iframes/whoMovesToDC.html" class="content" style="border:none"></iframe>
-    <br><br>
-
-
-    <h2><a href='./construction-boom-mapped.html'>Mapped: DC's Construction Boom</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // February 15, 2016 </h3>
-    <p class="content">D.C. is undergoing a construction boom this decade which is dramatically altering the city landscape. To keep up with a <a class="link" target="_blank" href="http://www.washingtoncitypaper.com/blogs/citydesk/2015/12/03/census-d-c-getting-bigger-whiter-more-educated/">growing population</a> and increasing demand for urban living, vacant lots are being built up and apartment buildings are rising up to the height restriction around the city.</p> 
-    <div class="content">
-    <p class='graph-title'>More than 1,500 permits for new residential buildings since 2012</p>
-    <p class='graph-subtitle'>Residential new building permits issued, January 2012-January 2016 (cumulative)</p>
-    <iframe class="content" width="100%" height="520" style="border:none" src="https://datalensdc.cartodb.com/viz/a8a271de-c378-11e5-9ef7-0ea31932ec1d/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
-    <p class='graph-subtitle'>Source: Department of Consumer and Regulatory Affairs Building Permits, via wwww.opendata.dc.gov</p>
-    </div>
-    <p class="content">Since 2012 the D.C. residential construction boom has blanketed much of the city with the exception of historically preserved neighborhoods...<a href="http://www.washingtoncitypaper.com/blogs/citydesk/2016/02/15/map-d-c-s-construction-boom/" target="blank" class="link">Read the rest in my recent Washington City Paper piece.</a></p>
-    <br><br>
-
-
-    <h2><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></h2>
-    <hr id='top-line'>
-    <h3> Dan Henebery // January 28, 2016 </h3>
-    <p class="content">As a historic snowstorm pummeled the East Coast last week, DC residents rushed to stockpile the necessities: milk, bread, rock salt, and a lot of booze. Last-minute liquor store runs are nothing new, but the <a class="link" target="_blank" href="http://www.washingtonian.com/2015/05/29/apps-to-get-condoms-jeans-toilet-paper-or-anything-else-delivered-in-dc/">option to have one’s alcohol delivered is.</a><br><br>Most of what’s been written so far about alcohol-delivery apps like Drizly and Klink has focused on how these new firms are <a class="link" target="_blank" href="http://www.bloomberg.com/bw/articles/2014-09-18/alcohol-delivery-startups-grow-by-wooing-distributors-regulators">disrupting traditional alcohol distribution</a>. But these new companies, which collect volumes of data from their users’ smartphones, also offer insights into a simple, but often elusive question: What do we like to drink?<br><br>Drizly, which launched in September 2014, provided data the most popular alcoholic beverages it sold in Washington last year. The graphic below shows the ten most popular alcoholic beverages around DC by zip code.</p> 
-    <div class="content">
-    <p class='graph-title'>Neighborhood Differences, but DC Favors Vodka and Cheap Beer</p>
-    <p class='graph-subtitle'>Top 10 Drizly Purchases by Zip Code for 2015</p>
-    <iframe class="content" width="100%" height="550" style="border:none"  src="http://danhenebery.github.io/drizly-in-dc/"></iframe>
-    </div>
-    <p class="content">What does this say about DC’s alcohol preferences? Quite a bit, especially about millennial consumers. Drizly’s user base skews young and so do the data. <a class="link" target="_blank" href="./drizly-neighborhood-favorites.html">Read on...</a></p>
-    <br><br>
-
-
-    <h2><a href='./DC-region-breweries.html'>The DC Region has 70 Breweries, Second Most on the East Coast.<br>Here they are mapped.</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // January 12, 2016</h3>
-    <p class='content'>Few aspects of DC’s drinking and dining scenes have changed as much in the past five years as beer production. Local breweries were sparse when I first moved to the District. But that started changing in 2011 with the founding of companies like DC Brau, the first DC-based brewery in over 50 years, and Port City Brewing Company, the Alexandria’s first production brewery since Prohibition. Since then, microbreweries and brewpubs have proliferated across the region, just as they have across the rest of the United States. There were 4,144 breweries operating nationwide at the end of 2015 according to the Brewers Association, nearly three times as many as there were in 2008. But how does Washington’s brew scene compare to other metropolitan areas?</p>
-    <iframe width="100%" height="670" style="border:none"  src="./iframes/breweryCBSARank.html" class="content"></iframe>
-    <p class='content'>The DC region has the second most breweries of any East Coast city, and ranks ninth nationally. Read the rest in <a href="http://www.washingtonian.com/2016/01/12/70-breweries-around-washington-heres-map/" class="link" target="_link">my recent Washingtonian piece.</a></p>
-    <br><br>
-
-
-    <h2><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // December 10, 2015</h3>
-    <p class='content'>It has been a spectacular year of Metro fails. Between a <a href="https://www.washingtonpost.com/local/trafficandcommuting/1-dead-dozens-hurt-on-metro-car-filled-with-smoke/2015/01/12/e832c0f0-9aa8-11e4-a7ee-526210d665b4_story.html" class="link" target="_blank">deadly smoke-filled train</a>, rush hour trains<a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/metro-did-a-bad-job-telling-people-about-orange-and-silver-line-cuts-so-this-guy-put-up-signs.php" class="link" target="_blank"> bypassing a station for months</a>, and increasingly common everyday delays, DC area <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/the-9-kinds-of-metro-haters-wmata-twitter-jokes.php" class="link" target="_blank">residents are fed up</a>. A <a class="link" href="http://www.wmata.com/about_metro/board_of_directors/board_docs/120315_4BCustomerSatisfaction.pdf" target="_blank">recent WMATA survey</a> shows customer satisfaction at a low of 67%, and for good reason. <br>This year's metro delays through November total 772 hours, an increase of a third over 2014. On average there are over two hours of delays everyday. If each of this year's Metro delays were successive, it would be as if WMATA shut down a line for 32 days straight.</p>
-    
-    <iframe width="100%" height="380px" src="./iframes/wmataDelayAnnual.html" style="border:none;"></iframe>
-
-    <p class='content'>The drastic increase in Metro's downed service is due to more, not longer, delays. The average delay has remained at roughly 8 minutes, while the number of delays has increased over 82% compared to 2013. Metro's new general manager, Paul Wiedefeld, will certainly have his hands full. But Wiedefeld may be starting at just the right time. After particularly terrible service in the winter and early summer, Metro delays have been on decline since August. In the last two months there were fewer delays than the same time last year. <a href="http://www.washingtonian.com/blogs/capitalcomment/transportation/delays-on-metro-are-actually-declining-three-charts.php" class="link" target="_blank">Read the rest in my recent Washingtonian piece.</a></p>
-    <br><br>
-
-
-    <h2><a href='./rise-of-biking.html'>The Rise of Biking in D.C., Visualized</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // November 16, 2015 </h3>
-    <p class="content">Each year, on a weekday without rain sometime between May and July a person stands at the exact same spot from 6am to 10am and again from 3pm to 7pm. They’ve been sent by D.C. Department of Transportation, and they count bikers. In my six years in the District I’ve seen the rapid rise of biking from niche transport to a commonplace commuting option. DDOT’s bike counters put numbers behind that change. The number of bikers may vary on any given day, but when looked at over time it can illuminate how bike ridership has changed across time and geography in the District.<br><br>These counts show that bike ridership has more than doubled from 2008 to 2014. But growth isn't the same across the city. The map below shows the thirty-seven DDOT bike count locations, colored by the number of riders counted in the eight-hour time period. Click on a location to see how ridership has changed over time and how it compares to the median of all count locations.</p> 
-    <div class="content">
-      <script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script><div class='tableauPlaceholder' style='width: 454px; height: 733px;'><noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Bo&#47;Book1_6125&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz' width='120%' height='733' style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='site_root' value='' /><param name='name' value='Book1_6125&#47;Dashboard1' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Bo&#47;Book1_6125&#47;Dashboard1&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='no' /><param name='showVizHome' value='no' /><param name='showTabs' value='y' /><param name='bootstrapWhenNotified' value='true' /></object></div>
-    </div>
-    <p class="content">Read on in <a class="link" target="_blank" href="http://www.washingtoncitypaper.com/blogs/citydesk/2015/11/13/the-rise-of-biking-in-d-c-visualized/">my recent piece in the Washington City Paper</a>, or continue here for a <a class="link" target="_blank" href="http://www.washingtoncitypaper.com/blogs/citydesk/2015/11/13/the-rise-of-biking-in-d-c-visualized/">more detailed write-up</a>. 
-    <br><br>
-
-
-   <h2><a href='./airbnb-listings-in-DC.html'>DC Has More Airbnb Listings Per Capita Than New York or Los Angeles</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // November 12, 2015 </h3>
-    <p class="content">Airbnb’s $8 million lobbying effort to <a class="link" target="_blank" href="http://www.sfgate.com/bayarea/article/Prop-F-Measure-to-restrict-Airbnb-rentals-6609176.php">win at the San Francisco polls</a> is just the beginning. The lodging company announced Wednesday its “Community Compact,” a plan under which it will “use its experience in cities across the country to work with policymakers here in DC.” That’s a cute way of saying the company plans to hire a ton of lobbyists to work on city and state governments. <br><br>There is currently a  proposal in front of the DC Council that seeks to curtail the company’s reach here. Backed by UNITE-HERE Local 25, the union representing the city’s hotel workers, the bill would limit hosts to renting out rooms in occupied units instead of whole houses or apartments and renting no more than one unit at a time.<br><br>Airbnb will likely spend thousands of dollars to fight accusations of raising rents, hurting businesses, disrupting neighborhoods, and facilitating the <a class='link' target="_blank" href="http://www.washingtonian.com/blogs/capitalcomment/local-news/dc-sues-owner-of-airbnb-rental-house-used-for-parties.php">occassional Ja Rule house party.</a><br><br>But Airbnb might be more popular in Washington than its opponents care to admit. A poll the company commissioned last month found that of 400 DC voters, 57 percent oppose local regulations that would restrict the types of lodging the site can offer. The survey also found that 35 percent of voters have a favorable opinion Airbnb compared to 9 percent with an unfavorable opinion, though 56 percent had no opinion.<br><br>Airbnb’s claims of popularity are better backed up by the raw numbers. New data suggest DC is a hotbed for the site, ranking third in listings per capita compared to other US cities. The District has over 3,500 listings, of which 2,855 are active.</p>
-    <iframe width="100%" height="340" style="border:none"  src="./iframes/airbnbPerCapita.html" class="content"></iframe>
-    <p class="content">There are 4.33 Airbnb listings per 1,000 people across the District, though the rate varies drastically across neighborhoods. <a href="http://www.washingtonian.com/blogs/capitalcomment/data/dc-has-more-airbnb-listings-per-capita-than-new-york.php" target="_blank" class="link"> Read the rest in my recent Washingtonian piece.</p>
-    <br> <br>
-
-  
-    <h2><a href='./dc-property-flipping.html'>What are the District's Most House-Flipped Neighborhoods?</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // October 22, 2015 </h3>
-    <p class="content"> Just because I'm not in the market for a home doesn't mean I don't show up to open houses like I have hundreds of thousands to drop. The more open houses I go to, the more trends appear: everything is shiny, new and well placed in an open floor layout; there's a half bath squeezed under the stairs; the bathroom has modern sink no one can wash their face in. Many of these homes have been flipped, a common sight on the hot DC real estate market. House flipping is when a house is bought as a real estate investment, remodeled, and put back on the market at a substantially higher price.<br><br>On a larger scale, flipped homes can alter a real estate market, creating a scarcity of fixer-uppers and an abundance of all-cash deals. It can also be a sign of a changing community. Curious about how home flipping looked from a bird's eye view, I mapped flipped homes as a proportion of single family home sales in neighborhoods across the District. <a href="http://www.washingtonian.com/blogs/openhouse/the-real-estate-market/dc-neighborhoods-house-flipping-map.php" target="blank" class="link">Read the rest in my recent Washingtonian piece.</a></p> 
-    <div class="btn-content">
-    <input type="button" name="2011-2015" value="Show map for 2011-2015" onclick="show2011()" class="updatebtn"/>
-    <input type="button" name="2013-2015" value="Show map for 2013-2015" onclick="show2013()" class="updatebtn"/>
-    </div>
-    <script>
-        function show2011() {
-    $("#short-history-map").hide();
-   document.getElementById('long-history-map').style.display = "block";
-    var center = mapFlip.getCenter(); 
-   google.maps.event.trigger(mapFlip, 'resize')
-   mapFlip.setCenter(center);
-    }
-    function show2013() {
-    $("#long-history-map").hide();
-   document.getElementById('short-history-map').style.display = "block";
-   google.maps.event.trigger(ShortmapFlip, 'resize'); 
-    }
-    </script>
-    <div id="long-history-map" style="display:none;">
-        <p class="graph-title">Flipped Homes, as Percent of Single Family Homes on Market (May 2011-September 2015)</p>
-        <p class='graph-subtitle'>Darker green indicates greater proportion of flipped homes. Click on a neighborhood for more detail.</p>
-        <div id ="map-flip" class="content"><br></div>
-        <p class='graph-subtitle'> Note: There is no data for dark gray areas. Data before 10/2013 is unavailable for select zip codes and have not been shown here.<br>Source: MRIS, provided by Kevin Wood to PoPville.</p>
-    </div>
-
-    <div id="short-history-map">
-        <p class="graph-title">Flipped Homes, as Percent of Single Family Homes on Market (October 2013-September 2015)</p>
-        <p class='graph-subtitle'>Darker green indicates greater proportion of flipped homes. Click on a neighborhood for more detail.</p>
-        <div id ="short-map-flip" class="content"><br></div>
-        <p class='graph-subtitle'>Note: There is no data for dark gray areas, which are typically green space or commercial areas.<br>Source: MRIS, provided by Kevin Wood to PoPville</p>
-    </div>
-    <br>
-
-    <h2><a href='./how-DC-spends.html'>How the DC Region Spends</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // October 8, 2015 </h3>
-    <p class="content"> As any resident of the DC region knows, this is an expensive place to live. That's in part balanced by the region's wealth. But how do expenses compare to other major metropolitan areas? I often wonder this when I visit other cities, purusing their shops and real estate listings. A recent Bureau of Labor Statistics study looks at this very question and reports the average spend of consumer units (like households) across a range of spending categories.<br><br>Check out the interactive chart below to see the percentage of annual expenditure an average consumer unit spends on each cateogory across urban areas. Press a button to change the view and hover over a bar to see the actual dollar amount spent. <a href="http://www.washingtonian.com/blogs/capitalcomment/data/how-the-dc-region-spends-its-money.php" target="blank" class="link">Read the rest in my recent Washingtonian piece.</a></p>
-    <iframe src="./iframes/howDCSpendsCategories.html" width="100%" height="500" style="border:none" ></iframe>
-
-    <h2><a href='./dc-hack-landmark.html'>DC Hack: Landmark for a New Type of Directions</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // September 30, 2015 </h3>
-     <p class='content'>I love maps but am fairly terrible at using them for their most basic purpose - getting around. I am that person walking with their head down watching the blue dot move with them or alternatively going a block up, checking the street sign, and ever so awkwardly turning around.<br><br> <img class="landmark" src="./Images/landmark.png" alt="Landmark App Example" align="left" style="PADDING-RIGHT:10px"></a>So <a class='link' target="_blank" href="https://www.landmarkdirections.com">Landmark Directions</a>, a recent locally launched app from the mind of <a class='link' target="_blank" href='https://twitter.com/nguyenist'>Stephanie Nguyen</a>, quickly became one of my iPhone go-tos. Landmark (screenshot to the left) lets you navigate the world visually. Enter your destination and Landmark gives you turn by turn directions using photos of landmarks along the way. 
-    <br><br>Recently I used Landmark to get around San Francisco and not only did it make navigating the city easier, it also changed the experience of getting around. Instead of being glued to that blue dot on my phone, my head was up and my eyes were taking in all the sights around me searching for that coffee shop, iconic building, or thrift store to take the left at. <br><br> Interested in getting around via Landmark? Download it for your <a class='link' target="_blank" href='https://itunes.apple.com/us/app/landmark-directions/id972096212?mt=8'>iPhone</a> or <a class='link' target="_blank" href='https://play.google.com/store/apps/details?id=com.silicalabs.landmark'>Android</a>. 
-      </p> 
-
-    <br>
-        <h2><a href='./DDD-in-DC.html'>What's Guy Fieri's Problem with DC?</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // September 23, 2015 </h3>
-     <p class='content'>Guilty pleasure confession: One of my favorite shows is <a class='link' target="_blank" href="http://www.foodnetwork.com/shows/diners-drive-ins-and-dives.html">Diners, Drive-Ins and Dives</a>. If you’re uninitiated it’s a show where <a class='link' target="_blank" href="https://www.google.com/search?q=google+images+guy+fieri&espv=2&biw=1274&bih=679&tbm=isch&tbo=u&source=univ&sa=X&ved=0CBwQsARqFQoTCOv5uNjxi8gCFcV7PgodDCQC_g">90’s emoji Guy Fieri</a> visits restaurants around the country. I can’t be sure what it is exactly - how Fieri bleaches only the inner bit of his goatee or unironically uses phrases like “that’s killer!” and “off the hook!” - but if I’m in a hotel room there’s an 85% chance that show is on.</p> 
-      <p class='graph-title'>Guy Fieri Diner, Drive-in and Dives Visits</p>
-      <p class='graph-subtitle'>Number of times a city is featured on Diners, Drive-ins and Dives</p>
-  <div id="dddbar1">
-<svg class="ddd"></svg>
-<script>
-(function() {
-var margin = {top: 20, right: 20, bottom: 65, left: 35},
-    width = 650 - margin.left - margin.right,
-    height =  300- margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .outerTickSize(0)
-    .orient("left");
-
-var ddd = d3.select(".ddd")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/DDDinDC/cityDDDsum.csv", type, function(error, data) {
-  x.domain(data.map(function(d) { return d.City; }));
-  y.domain([0, d3.max(data, function(d) { return d.Resturant; })]);
-
-  ddd.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis)
-      .selectAll("text")
-      .attr("y", 0)
-      .attr("x", 9)
-      .attr("dy", ".35em")
-      .attr("transform", "rotate(60)")
-      .style("text-anchor", "start");;
-
-  ddd.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
-
-  ddd.selectAll(".bar")
-    .data(data)
-    .enter()
-    .append("rect")
-      .attr("class", "bar")
-      .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
-      .attr("x", function(d) { return x(d.City); })
-      .attr("y", function(d) { return y(d.Resturant); })
-      .attr("height", function(d) { return height - y(d.Resturant); })
-      .attr("width", x.rangeBand());
-         
-});
-function type(d) {
-  d.Resturant = +d.Resturant;
-  return d;
-}
-})();
-</script>
-      <p class='graph-subtitle'> Source: <a class='link' target="_blank" href="http://ddd-and-yelp.mybluemix.net/"> Restaurants of Diners Drive-ins and Dives</a> by <a class='link' target="_blank" href="https://twitter.com/MaggieCriqui"> Maggie Criqui</a>.</p>
-      </div> 
-    <p class="content">After an embarrassing number of hours spent with Food Network however, I've become disappointed with how rarely Guy Fieri visits my city. <a class='link' target="_blank" href="./DDD-in-DC.html">Read on...</p>
-
-    <br>
-    <h2><a href='./gentrification-by-numbers.html'>DC Gentrification by the Numbers</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // September 14, 2015 </h3>
-    <p class="content"> Gentrification is a much discussed topic in DC, along with many other American cities. The term describes a shift from a poorer neighborhood often populated with minority families to a wealthier neighborhood often populated with white singles and couples. Many District residents see the effects around them daily, passing by the luxury shops at CityCenter or a construction site for a new high-end apartment building.<br><br>I wanted to look at gentrification by the numbers over the past decade to better understand what these changes look like and where they are occurring...<a class='link' href='./gentrification-by-numbers.html'>Read on</a></p>
-
-    <br>
-    <h2><a href='./farmers-mkt-per-capita.html'>DC #1 in Farmer's Markets per Capita</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // August 31, 2015 </h3>
-    <p class='content'>My husband’s first words to me were basically “Where can I find a good local farmer’s market?” to which I responded MARRY ME. That's how much I like farmer's markets. I’ve been fortunate that wherever I’ve lived in the District a good farmer’s market has never been more than a short Saturday morning jaunt in warmer months. I was curious if I simply gravitated to places near markets or this was more of a universal DC experience, and how DC compared to other American cities.</p> 
-    <p class='graph-title'>Top 10 Farmer's Market Cities</p>
-    <p class='graph-subtitle'> Number of farmer's markets per 100,000 people</p>
-      <div id="rankbar">
-      <svg class="rank"></svg>
-      <script type="text/javascript">
-      var chartWidth       = 275,
-        barHeight        = 20,
-        gapBetweenGroups = 40,
-        spaceForLabels   = 80;
-
-      var x = d3.scale.linear()
-        .range([0, chartWidth]);
-
-      d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/farmersMarketCompare/Output/top10FMCity.csv", type, function(error, data) {
-          x.domain([0, d3.max(data, function(d) { return d.percapita; })]);
-
-      var chartHeight = barHeight * data.length;
-
-      var y = d3.scale.linear()
-        .range([chartHeight + gapBetweenGroups, 0]);
-
-      var yAxis = d3.svg.axis()
-        .scale(y)
-        .tickFormat('')
-        .tickSize(0)
-        .orient("left");
-// Specify the chart area and dimensions
-      var rank = d3.select(".rank")
-        .attr("width", spaceForLabels + chartWidth)
-        .attr("height", chartHeight);
-// Create bars
-    var bar = rank.selectAll("g")
-        .data(data)
-        .enter().append("g")
-        .attr("transform", function(d, i) {
-        return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.length))) + ")";
-    });
-// Create rectangles of the correct width
-    bar.append("rect")
-      .attr("class", "bar")
-      .attr("width", function(d) { return x(d.percapita); })
-      .attr("height", barHeight - 1);
-// Add text label in bar
-    bar.append("text")
-      .attr("x", function(d) { return x(d.percapita-0.4); })
-      .attr("y", barHeight / 2)
-      .attr("dy", ".35em")
-        .text(function(d) { return (d.percapita); });
-// Draw labels
-    bar.append("text")
-      .attr("class", "label")
-      .attr("x", function(d) {return - 80; })
-      .attr("y", barHeight/2)
-      .attr("dy", ".1em")
-      .text(function(d) { return d.Ccity; });
-
-    rank.append("g")
-      .attr("class", "y axis")
-      .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
-      .call(yAxis);
-    });
-
-    function type(d) {
-      d.percapita = +d.percapita; // coerce to number
-    return d;
-    }
-    </script>
-    </div>
-    <p class='graph-subtitle'> Source: USDA Farmer's Market Directory.</p>
-    <p class='content'>It turns out DC is a farmer’s market paradise...<a class='link' href='./farmers-mkt-per-capita.html'>Read on</a> </p>
-    <br><br>
-    <h2><a href='./10-year-dc-development.html'>DC to Add Over 15 Million Square Feet in the Next 10 Years</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // August 19, 2015</h3>
-    <p class='content'>Cranes and holes the size of city blocks are not uncommon sights in the District. I remember not too long ago waiting in a large downtown parking lot for a Megabus. That's now CityCenter, where a Louis Vuitton just opened. DC has experienced rapid development in recent years, which is only set to continue in the next ten. The Office of Deputy Mayor's Planning and Economic Development (DMPED) executes the Mayor's economic development strategy including real estate development. Over the next ten years through DMPED the city will add over 15 million square feet of real estate to the market. Where is it going?...<a class='link' href='./10-year-dc-development.html'>Read on</a></p>
-
-<div id='stackbar1'>
-    <p class='graph-title'>Square Feet Added through DC City Government, by Year of Completion</p>
-    <svg class="schart"></svg>
-<script>
-(function() {
-var margin = {top: 20, right: 0, bottom: 17, left: 35},
-    width = 620 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2);
-
-var y = d3.scale.linear()
-    .rangeRound([height, 0]);
-
-var color = d3.scale.ordinal()
-    .range(["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69"]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(d3.format(".2s"));
-
-var schart = d3.select(".schart")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtbyWardTime.csv", function(error, data) {
-  if (error) throw error;
-
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "endYr"; }));
-
-  data.forEach(function(d) {
-    var y0 = 0;
-    d.sqft = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
-    d.total = d.sqft[d.sqft.length - 1].y1;
-  });
-
-  x.domain(data.map(function(d) { return d.endYr; }));
-  y.domain([0, d3.max(data, function(d) { return d.total; })]);
-
-  schart.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  schart.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
-
-  var endYr = schart.selectAll(".endYr")
-      .data(data)
-    .enter().append("g")
-      .attr("class", "g")
-      .attr("transform", function(d) { return "translate(" + x(d.endYr) + ",0)"; });
-
-  endYr.selectAll("rect")
-      .data(function(d) { return d.sqft; })
-    .enter().append("rect")
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.y1); })
-      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-      .style("fill", function(d) { return color(d.name); });
-
-  var legend = schart.selectAll(".legend")
-      .data(color.domain().slice().reverse())
-    .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
-
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
-
-});
-})();
-</script>
-
-    <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline Database</a>.</p>
-</div>
-
-
-<div id='smstack1'>
-    <p class='graph-title'>Square Feet Added through DC City Government, by Year of Completion</p>
-    <svg class="smchart"></svg>
-<script>
-(function() {
-var margin = {top: 20, right: 0, bottom: 17, left: 35},
-    width = 370 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2);
-
-var y = d3.scale.linear()
-    .rangeRound([height, 0]);
-
-var color = d3.scale.ordinal()
-    .range(["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69"]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(d3.format(".2s"));
-
-var smchart = d3.select(".smchart")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RE_Dev/master/SqFtbyWardTime.csv", function(error, data) {
-  if (error) throw error;
-
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "endYr"; }));
-
-  data.forEach(function(d) {
-    var y0 = 0;
-    d.sqft = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
-    d.total = d.sqft[d.sqft.length - 1].y1;
-  });
-
-  x.domain(data.map(function(d) { return d.endYr; }));
-  y.domain([0, d3.max(data, function(d) { return d.total; })]);
-
-  smchart.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  smchart.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
-
-  var endYr = smchart.selectAll(".endYr")
-      .data(data)
-    .enter().append("g")
-      .attr("class", "g")
-      .attr("transform", function(d) { return "translate(" + x(d.endYr) + ",0)"; });
-
-  endYr.selectAll("rect")
-      .data(function(d) { return d.sqft; })
-    .enter().append("rect")
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.y1); })
-      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-      .style("fill", function(d) { return color(d.name); });
-
-  var legend = smchart.selectAll(".legend")
-      .data(color.domain().slice().reverse())
-    .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
-
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
-
-});
-})();
-</script>
-
-    <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Property Pipeline Database</a>.</p>
-</div>
-
-  <br><br>
-  <h2><a href='./your-commute-is-getting-worse.html'>The Pain is Real: Your Metro Commute is Getting Worse</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // August 9, 2015</h3>
-    <p class='content'>Last Thursday Metro sent a subtle signal that maybe I should <a class='link' target="_blank" href='http://www.washingtonpost.com/blogs/dr-gridlock/wp/2015/08/06/derailment-of-non-passenger-metro-train-delays-on-blue-orange-and-silver-lines/'>take a day off.</a> Unfortunately my boss felt otherwise. What started as a 'minor' derailment became two days of Metro competing with walking for the slowest way to get anywhere. It was bad and feels like part of a larger decline in Metro service. I was curious if that actually bore out in the data. Not only did it, but the decline is even more dramatic than I would've guessed.</p>
-    <p class='graph-title'>Metro Delays for the First Half of 2013-15</p>
-    <p class='graph-subtitle'> Number of delays reported on Metro for the first half of 2013, 2014 and 2015</p>
-<div id="barchart1">
-<svg class="chart"></svg>
-<script>
-(function() {
-var margin = {top: 20, right: 0, bottom: 30, left: 35},
-    width = 400 - margin.left - margin.right,
-    height =  300- margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2);
-
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .outerTickSize(0)
-    .orient("left");
-
-var chart = d3.select(".chart")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/Wmata-Delay/master/H1-Delays.csv", type, function(error, data) {
-  x.domain(data.map(function(d) { return d.H1; }));
-  y.domain([0, d3.max(data, function(d) { return d.DelayCountH1; })]);
-
-  chart.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  chart.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
-
-  chart.selectAll(".bar")
-    .data(data)
-    .enter()
-    .append("rect")
-      .attr("class", "bar")
-      .attr("x", function(d) { return x(d.H1); })
-      .attr("y", function(d) { return y(d.DelayCountH1); })
-      .attr("height", function(d) { return height - y(d.DelayCountH1); })
-      .attr("width", x.rangeBand());
-         
-});
-function type(d) {
-  d.value = +d.value;
-  return d;
-}
-})();
-</script>
-</div>
-
-<p class='content'> The first half of 2015 had nearly twice as many delays compared to the same period in the past two years...<a class='link' href='./your-commute-is-getting-worse.html'>Read on</a></p>
-
-<br><br>
-    <h2><a href='./migration-comparison.html'>DC: The East Coast's Most Migratory City</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // August 2, 2015 </h3>
-        <p class='content'> When I moved to DC about five years ago, I did so with an onslaught of millennials in search of jobs and housing that was not their parents (along with a few others who may have had loftier aims). People would often ask 'where are you from?' because it was obviously not DC, and 'when did you move here?' because, inevitably, you just did.<br><br>And five years later these questions haven’t actually changed much. Of course, there are a number of people that have lived here for years, but DC is never short of transplants starting anew. The constant influx is one of the things I like about DC; it's a very migratory population. But, really, how migratory?</p>
-        <p class='graph-title'>How Migratory are Major U.S. Cities?</p>
-        <p class='graph-subtitle'> Circle size indicates migration score based on migration rate and migration distance traveled.<br>Click on a circle for more information</p>
-        <div id="map-canvas"></div>
-        <p class='graph-subtitle'> Source: Census American Community Survey (2008-2012 mobility estimates).</p>
-        <p class='content'> In fact, DC is the most migratory city east of the Mississippi and rounds out the top five for most migratory cities...<a class='link' href='./migration-comparison.html'>Read on</a></p>
-
-        <br><br>
-    <h2><a href='./welcome-to-datalensdc.html'>Welcome to DataLensDC!</a></h2>
-		<hr id='top-line'>
-    <h3> Kate Rabinowitz // July 28, 2015 </h3>
-		  <p class='content'> DataLensDC uses open-source data and applications to present readers with insight into the District's character, trends and hacks. There’s an incredible amount of rich data freely available about the District, it’s people and places. DataLensDC distills, visualizes and contextualizes this data to give readers a deeper understanding of the District and navigating life in it. <br><br> Oh, and hi! I’m Kate, lover of all things data and District. I started this website to experiment with different coding languages and share some cool findings along the way. In the months to come you can expect topics ranging from just how local DC food gets, who moves here, segregation and the most house-flipped neighborhoods.<br><br>
-      Have feedback, ideas or a project you’d like to share here? Contact me at <a class='link' href="mailto:datalensdc@gmail.com">datalensdc@gmail.com.</a></p>
   </div>
     
   <div class='col-sm-3 side'>
@@ -859,6 +303,17 @@ function type(d) {
     <br>
         <li>Recent</li>
         <ul><ul class="nav nav-stacked fixed insidebar">
+            <li><a href='./dmvMigration.html'>Prince George’s County a Popular Home for Many Former D.C. Residents</a></li>
+            <li><a href='./healthWealthGap.html'>The Health Wealth Gap in D.C.</a></li>
+            <li><a href='./vizOpenData.html'>Why Visualizing Open Data Isn't Enough</a></li>
+            <li><a href='./bikeinBloom.html'>A Data-Driven Guide to Finding Bike in Bloom</a></li>
+            <li><a href='./decadeChange.html'>A Decade of Demographic Change</a></li>
+            <li><a href='taxiPickups.html'>Mapped: DC Cab Pickups</a></li>
+            <!---<li><a href='meetupSpeakers.html'>Almost No Women Speak at DC Tech and Data Meetups</a></li>
+            <li><a href='DCPL-by-numbers.html'>Today's DC Library: Fewer Books, More Media and Visitors</a></li>
+            <li><a href='fluinDC.html'>When Sick, Where you Live in DC May Matter for Recovery</a></li>
+            <li><a href='./rentReports.html'>Those DC Rent Reports? Take with a Grain of Salt</a></li>
+            <li><a href='./wageRelative.html'>DC's Expensive, but that's not the Whole Story</a></li>
             <li><a href='./dcHomeChars.html'>Charting the Divide in New and Old DC Homes</a></li>
             <li><a href='./nightlife-neighborhoods.html'>The Changing Geography of DC Nightlife</a></li>
             <li><a href='./another-brick.html'>Another Brick in the Ward</a></li>
@@ -869,7 +324,7 @@ function type(d) {
             <li><a href='./uber-surge-time.html'>When Does Uber Surge Near You?</a></li>
             <li><a href='./who-moves-to-DC.html'>Who Moves to DC?</a></li>
             <li><a href='./construction-boom-mapped.html'>Mapped: DC's Construction Boom</a></li>
-            <!---<li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
+            <li><a href='./drizly-neighborhood-favorites.html'>DC's Favorite Booze in the App Economy</a></li>
             <li><a href='./DC-region-breweries.html'>DC Region has 70 Breweries, Second Most on East Coast</a><li>
             <li><a href='./has-wmata-bottomed-out.html'>Has Metro Bottomed Out?</a></li>
             <li><a href='./rise-of-biking.html'>The Rise of Biking in DC, Visualized</a></li>

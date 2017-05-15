@@ -202,7 +202,7 @@ var cex = d3.select(".cex")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", type, function(error, data) {
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", type, function(error, data) {
   data.sort(function(a, b) { return b.EatIn - a.EatIn; });
   x.domain(data.map(function(d) {return d.City; }));
   y.domain([0, d3.max(data, function(d) { return d.EatIn; })]);
@@ -252,7 +252,7 @@ function type(d) {
   return d;
 }
 function EatOutData() {
-     d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+     d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", function(error, data) {
       data.sort(function(a, b) { return b.EatOut - a.EatOut; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.EatOut; })]);
@@ -302,7 +302,7 @@ return d;}
 )};
 
 function AlcData() {
-    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", function(error, data) {
       data.sort(function(a, b) { return b.Alcohol - a.Alcohol; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Alcohol; })]);
@@ -352,7 +352,7 @@ return d;}
 )};
 
 function tobaccoData() {
-    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", function(error, data) {
       data.sort(function(a, b) { return b.Smoke- a.Smoke; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Smoke; })]);
@@ -400,7 +400,7 @@ return d;}
 }
 )};
 function ptranData() {
-    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", function(error, data) {
       data.sort(function(a, b) { return b.PTravel - a.PTravel; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.PTravel; })]);
@@ -450,7 +450,7 @@ return d;}
 )};
 
 function carData() {
-    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", function(error, data) {
       data.sort(function(a, b) { return b.Car - a.Car; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Car; })]);
@@ -500,7 +500,7 @@ return d;}
 }
 )};
 function lookData() {
-    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", function(error, data) {
       data.sort(function(a, b) { return b.Look - a.Look; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Look; })]);
@@ -552,7 +552,7 @@ return d;}
 )};
 
 function dressData() {
-    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", function(error, data) {
       data.sort(function(a, b) { return b.Dress - a.Dress; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Dress; })]);
@@ -602,7 +602,7 @@ return d;}
 )};
 
 function entData() {
-    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", function(error, data) {
       data.sort(function(a, b) { return b.Ent - a.Ent; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Ent; })]);
@@ -653,7 +653,7 @@ return d;}
 )};
 
 function rData() {
-    d3.csv("https://raw.githubusercontent.com/katerabinowitz/CEX-Cities/master/MSA-CEX-prop.csv", function(error, data) {
+    d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/howDCSpends/MSA-CEX-prop.csv", function(error, data) {
       data.sort(function(a, b) { return b.ReadR - a.ReadR; });
       x.domain(data.map(function(d) { console.log(d); return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.ReadR; })]);

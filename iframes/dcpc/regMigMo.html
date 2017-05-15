@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+  <title>DMV Migration</title>
+  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
+
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat|Montserrat:600" rel="stylesheet">
+
+<style>
+body {
+    background-color: transparent;
+    font-family: Montserrat, sans-serif;
+    font-size: 10px;
+    color: #000000;
+}
+
+.group-tick line {
+  stroke: #000;
+}
+
+.ribbons {
+  fill-opacity: 0.67;
+}
+
+.graph-title{
+      font-size: 18px;
+      font-weight: 600;
+      text-align:left;
+      padding-left:20px;
+  }
+
+.graph-subtitle {
+      text-align:left;
+      padding-left:20px;
+      font-family: Montserrat, sans-serif;
+      font-size: 12px;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: left;
+  width: 275px;
+  height: 40px;
+  padding: 85px 0 0 20px;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events:none;
+  font-family: Montserrat, sans-serif;
+  font-size: 10px;
+  color: #000000;
+}
+
+</style>
+</head>
+<body>
+
+<p class="graph-title">On net, more D.C. residents move to Maryland than Virginia</p>
+<p class="graph-subtitle">Migration flows within D.C. metro region (hover for value)</p>
+<br>
+
+<svg width="350" height="350"></svg>
+
+<script>
+
+var names= d3.scaleOrdinal(["Washington, D.C.","Prince George's","Montgomery","Arlington","Fairfax","Alexandria"]);
+
+var matrix = [
+  [0, 10474, 6400, 3555, 2164, 1483], //DC
+  [5983, 0, 6101, 295, 1815, 517], //PG
+  [3613, 7912, 0, 828, 2208, 420], //MO
+  [3339, 508, 1197, 0, 6338, 2556], //ARL
+  [1909, 1756, 1251, 5069, 0, 4770], //FA
+  [1141, 1052, 678, 1588, 4499, 0] //AL
+];
+
+//targets where the flow direction holds true even after accounting for margin of error
+var moe = [5983,3613,1756,1251,517,4499]
+
+var namesMM=[ 
+  {"a":"DC","b":"Prince George's"},
+  {"a":"DC", "b":"Montgomery"},
+  {"a":"DC", "b":"Arlington"},
+  {"a":"DC", "b":"Fairfax"},
+  {"a":"DC", "b":"Alexandria"},
+  {"a":"Prince George's", "b":"Montgomery"},
+  {"a":"Prince George's", "b":"Arlington"},
+  {"a":"Prince George's", "b":"Fairfax"},
+  {"a":"Prince George's", "b":"Alexandria"},
+  {"a":"Montgomery", "b":"Arlington"},
+  {"a":"Montgomery", "b":"Fairfax"},
+  {"a":"Montgomery", "b":"Alexandria"},
+  {"a":"Arlington", "b":"Fairfax"},
+  {"a":"Arlington", "b":"Alexandria"},
+  {"a":"Fairfax", "b":"Alexandria"}
+]
+
+var tooltip = d3.select("body").insert("div",":first-child")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+var svg = d3.select("svg"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height"),
+    outerRadius = Math.min(width, height) * 0.5 - 40,
+    innerRadius = outerRadius - 15;
+
+var formatValue = d3.formatPrefix(",.0", 1e3);
+var formatTT = d3.formatPrefix(".1s", 1e3);
+
+var chord = d3.chord()
+    .padAngle(0.1)
+    .sortSubgroups(d3.descending);
+
+var arc = d3.arc()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius);
+
+var ribbon = d3.ribbon()
+    .radius(innerRadius);
+
+var color = d3.scaleOrdinal()
+    .domain(d3.range(6))
+    .range(["#999999","#9d85db","#98c65c","#d7749a","#95b6aa","#d28a4e"]);
+
+var g = svg.append("g")
+    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+    .datum(chord(matrix));
+
+var group = g.append("g")
+    .attr("class", "groups")
+  .selectAll("g")
+  .data(function(chords) { return chords.groups; })
+  .enter().append("g")
+      .attr("class", "group");
+
+group.append("path")
+    .style("fill", function(d) { return color(d.index); })
+    .style("stroke", function(d) { return d3.rgb(color(d.index)).darker(); })
+    .attr("d", arc)
+    .attr("id",function(d,i){return "group"+i;})
+
+
+var groupTick = group.selectAll(".group-tick")
+  .data(function(d) { return groupTicks(d, 1e3); })
+  .enter().append("g")
+    .attr("class", "group-tick")
+    .attr("transform", function(d) { return "rotate(" + (d.angle * 180 / Math.PI - 90) + ") translate(" + outerRadius + ",0)"; });
+
+groupTick.append("line")
+    .attr("x2", 6);
+
+groupTick
+  .filter(function(d) { return d.value % 5e3 === 0; })
+  .append("text")
+    .attr("x", 8)
+    .attr("dy", ".35em")
+    .attr("transform", function(d) { return d.angle > Math.PI ? "rotate(180) translate(-16)" : null; })
+    .style("text-anchor", function(d) { return d.angle > Math.PI ? "end" : null; })
+    .text(function(d) { return formatValue(d.value); });
+
+
+g.append("g")
+    .attr("class", "ribbons")
+  .selectAll("path")
+  .data(function(chords) { return chords; })
+  .enter().append("path")
+    .attr("d", ribbon)
+//apply beige to ribbons where margin of error means flow can't be determined
+    .style("fill", function(d) { 
+      if (moe.indexOf(d.target.value) == -1) {
+        return "#dfbf9f"} else {
+          return color(d.target.index)}; })
+    .style("stroke", function(d) { 
+      if (moe.indexOf(d.target.value) == -1) {
+        return "#d2a679"} else {
+          return d3.rgb(color(d.target.index)).darker(); }})
+
+    .on("mouseover", function(d,i) {
+       d3.select(this).style("fill", function(d) {
+      if (moe.indexOf(d.target.value) == -1) {
+        return "#d2a679"} else {
+          return d3.rgb(color(d.target.index)).darker(); }})
+       tooltip.transition()
+         .duration(200)
+         .style("opacity", 1);
+       tooltip.html(
+         '<p>' + namesMM[i].a + ' to ' + namesMM[i].b +': ' + formatTT(d.source.value) +
+         '<br>'+ namesMM[i].b + ' to ' + namesMM[i].a +': ' + formatTT(d.target.value));
+       })
+
+    .on("mouseout", function(){d3.select(this).style("fill", function(d) {
+      if (moe.indexOf(d.target.value) == -1) {
+        return "#dfbf9f"} else {
+          return color(d.target.index); }})
+      tooltip.transition()
+        .delay(100)
+        .duration(400)
+        .style("opacity",0);
+  });
+
+group.append("text")
+    .attr("class","title")
+    .attr("x", 15)
+    .attr("dy", 10)
+  .append("textPath")
+    .attr("xlink:href", function(d, i){return "#group" + i;})
+    .text(function(d,i) {return names(i+1);});
+
+group.append("text")
+    .attr("class","title")
+    .attr("x", 60)
+    .attr("dy", -30)
+  .append("textPath")
+    .attr("xlink:href", function(d, i){return "#group" + i;})
+    .text( function(d,i) {if (i==0) {return "Outflow of residents"}});
+
+group.append("text")
+    .attr("class","title")
+    .attr("x", 20)
+    .attr("dy", 25)
+  .append("textPath")
+    .attr("xlink:href", function(d, i){return "#group" + i;})
+    .text(function(d,i) {if (i==0) {return "D.C. to P.G."}});
+
+group.append("text")
+    .attr("class","title")
+    .attr("x", 55)
+    .attr("dy", 25)
+  .append("textPath")
+    .attr("xlink:href", function(d, i){return "#group" + i;})
+    .text(function(d,i) {if (i==1) {return "P.G."}});
+
+group.append("text")
+    .attr("class","title")
+    .attr("x", 55)
+    .attr("dy", 35)
+  .append("textPath")
+    .attr("xlink:href", function(d, i){return "#group" + i;})
+    .text(function(d,i) {if (i==1) {return "D.C."}});
+
+function groupTicks(d, step) {
+  var k = (d.endAngle - d.startAngle) / d.value;
+  return d3.range(0, d.value, step).map(function(value) {
+    return {value: value, angle: value * k + d.startAngle};
+  });
+}
+</script>
+
+<p class="graph-subtitle">Source: American Community Survey (2010-2014)
+<img src="dcpc.png" alt="D.C. Policy Center" width="20%" height="20%">
+</p>
+
+</body>
+</html>
