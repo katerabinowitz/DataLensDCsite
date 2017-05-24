@@ -27,13 +27,13 @@
 
     {% if page.custom_css %}
       {% for stylesheet in page.custom_css %}
-      <link rel="stylesheet" href="/css/{{ stylesheet }}.css" media="screen" type="text/css">
+      <link rel="stylesheet" href="/CSS/{{ stylesheet }}.css" media="screen" type="text/css">
       {% endfor %}
     {% endif %}
 
     {% if page.custom_js %}
       {% for js_file in page.custom_js %}
-      <script src='/javascripts/{{ js_file }}.js' type="text/javascript"></script>
+      <script src='/JS/{{ js_file }}.js' type="text/javascript"></script>
       {% endfor %}
     {% endif %}
 
