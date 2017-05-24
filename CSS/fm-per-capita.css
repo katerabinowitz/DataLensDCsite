@@ -21,10 +21,34 @@
 	color: #505050;
 }
 
- #iw #iw-title {
+#iw #iw-title {
 	text-align: center;
 	font-family: 'Neuton', serif;
 	font-size: 16px;
 	color: #505050;
 	background-color: #48b5e9;
 }
+
+.bar {
+    fill: #53CFCF;
+    }
+ 
+.label{
+    font: 12px sans-serif;
+  }
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+rect.bordered {
+    stroke: #E6E6E6;
+    stroke-width:2px;   
+  }
+
+text{
+    font: 9px sans-serif;
+  }
