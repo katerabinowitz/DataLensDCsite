@@ -2,405 +2,52 @@
 layout: default
 custom_css: 10-year-dc-development
 ---
-    <h2><a href='./10-year-dc-development.html'>DC to Add Over 15 Million Square Feet in the Next 10 Years</a></h2>
+<h2><a href='./10-year-dc-development.html'>DC to Add Over 15 Million Square Feet in the Next 10 Years</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // August 19, 2015</h3>
     <p class='content'>Cranes and holes the size of city blocks are not uncommon sights in the District. I remember not too long ago waiting in a large downtown parking lot for a Megabus. That's now CityCenter, where a Louis Vuitton just opened. DC has experienced rapid development in recent years, which is only set to continue in the next ten. The Office of Deputy Mayor's Planning and Economic Development (DMPED) executes the Mayor's economic development strategy including real estate development. Over the next ten years through DMPED the city will add over 15 million square feet of real estate to the market. Where is it going?</p>
 
 <div id='stackbar1'>
     <p class='graph-title'>Square Feet Added through DC City Government, by Year of Completion</p>
+    <script src="./JS/10YrDev1.js"></script>
     <svg class="schart"></svg>
-<script>
-(function() {
-var margin = {top: 20, right: 0, bottom: 17, left: 35},
-    width = 620 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2);
-
-var y = d3.scale.linear()
-    .rangeRound([height, 0]);
-
-var color = d3.scale.ordinal()
-    .range(["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69"]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(d3.format(".2s"));
-
-var schart = d3.select(".schart")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RealEstate/master/dmpedDevProjects/SqFtbyWardTime.csv", function(error, data) {
-  if (error) throw error;
-
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "endYr"; }));
-
-  data.forEach(function(d) {
-    var y0 = 0;
-    d.sqft = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
-    d.total = d.sqft[d.sqft.length - 1].y1;
-  });
-
-  x.domain(data.map(function(d) { return d.endYr; }));
-  y.domain([0, d3.max(data, function(d) { return d.total; })]);
-
-  schart.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  schart.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
-
-  var endYr = schart.selectAll(".endYr")
-      .data(data)
-    .enter().append("g")
-      .attr("class", "g")
-      .attr("transform", function(d) { return "translate(" + x(d.endYr) + ",0)"; });
-
-  endYr.selectAll("rect")
-      .data(function(d) { return d.sqft; })
-    .enter().append("rect")
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.y1); })
-      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-      .style("fill", function(d) { return color(d.name); });
-
-  var legend = schart.selectAll(".legend")
-      .data(color.domain().slice().reverse())
-    .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
-
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
-
-});
-})();
-</script>
-
     <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline Database</a>.</p>
 </div>
 
 
 <div id='smstack1'>
-    <p class='graph-title'>Square Feet Added through DC City Government, by Year of Completion</p>
-    <svg class="smchart"></svg>
-<script>
-(function() {
-var margin = {top: 20, right: 0, bottom: 17, left: 35},
-    width = 370 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .2);
-
-var y = d3.scale.linear()
-    .rangeRound([height, 0]);
-
-var color = d3.scale.ordinal()
-    .range(["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69"]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(d3.format(".2s"));
-
-var smchart = d3.select(".smchart")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RealEstate/master/dmpedDevProjects/SqFtbyWardTime.csv", function(error, data) {
-  if (error) throw error;
-
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "endYr"; }));
-
-  data.forEach(function(d) {
-    var y0 = 0;
-    d.sqft = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
-    d.total = d.sqft[d.sqft.length - 1].y1;
-  });
-
-  x.domain(data.map(function(d) { return d.endYr; }));
-  y.domain([0, d3.max(data, function(d) { return d.total; })]);
-
-  smchart.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  smchart.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
-
-  var endYr = smchart.selectAll(".endYr")
-      .data(data)
-    .enter().append("g")
-      .attr("class", "g")
-      .attr("transform", function(d) { return "translate(" + x(d.endYr) + ",0)"; });
-
-  endYr.selectAll("rect")
-      .data(function(d) { return d.sqft; })
-    .enter().append("rect")
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.y1); })
-      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-      .style("fill", function(d) { return color(d.name); });
-
-  var legend = smchart.selectAll(".legend")
-      .data(color.domain().slice().reverse())
-    .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
-
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
-
-});
-})();
-</script>
-
-    <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline Database</a>.</p>
+  <p class='graph-title'>Square Feet Added through DC City Government, by Year of Completion</p>
+  <script src="./JS/10YrDev2.js"></script>
+  <svg class="smchart"></svg>
+  <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline Database</a>.</p>
 </div>
 
+  
+  <p class='content graph-title ward-title'>D.C. Ward Map</p>
+    <img id="wardmap" class='content' src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/DC_Ward_Map.png/190px-DC_Ward_Map.png" alt="DC ward map">
 
-<p class='content graph-title ward-title'>D.C. Ward Map</p>
-<img id="wardmap" class='content' src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/DC_Ward_Map.png/190px-DC_Ward_Map.png" alt="DC ward map">
-<p class='content'> Ward 3 is the only one untouched by DMPED's plan, unsurprising as it is the wealthiest ward. Ward 6 stands to gain the most real estate in the next ten years, buoyed by big projects like the <a class="link" href="http://www.hineschool.com/" target="_blank">former Hines School</a>, the <a class="link" href="http://www.swtlqtc.com/p/southwest-waterfront-redevelopment.html" target="_blank">Waterfront</a> and <a class="link" target="_blank" href="http://www.capitolcrossingdc.com/#tutorial" target="_blank"> Capital Crossing </a> over I-395. Limited development east of the Anacostia, the poorest area of the city, occurs in short term. In the 2020's Ward 8 will see a swath of new real estate driven by the renovation of <a class="link" href="http://stelizabethseast.com/" target="_blank">St. Elizabeth's East Campus</a> and <a class="link" href="http://wamu.org/programs/metro_connection/15/04/10/what_does_the_future_hold_for_the_residents_of_barrys_farm" target="_blank">controversial</a> plans at <a class="link" href="http://dcnewcommunities.org/community/barry-farm" target="_blank">Barry's Farm</a>. While much of the 15 million square feet being brought to the market is residential, not all of it is.</p>
+  <p class='content'> Ward 3 is the only one untouched by DMPED's plan, unsurprising as it is the wealthiest ward. Ward 6 stands to gain the most real estate in the next ten years, buoyed by big  projects like the <a class="link" href="http://www.hineschool.com/" target="_blank">former Hines School</a>, the <a class="link" href="http://www.swtlqtc.com/p/southwest-waterfront-redevelopment.html" target="_blank">Waterfront</a> and <a class="link" target="_blank" href="http://www.capitolcrossingdc.com/#tutorial" target="_blank"> Capital Crossing </a> over I-395. Limited development east of the Anacostia, the poorest area of the city, occurs in short term. In the 2020's Ward 8 will see a swath of new real estate driven by the renovation of <a class="link" href="http://stelizabethseast.com/" target="_blank">St. Elizabeth's East Campus</a> and <a class="link" href="http://wamu.org/programs/metro_connection/15/04/10/what_does_the_future_hold_for_the_residents_of_barrys_farm" target="_blank">controversial</a> plans at <a class="link" href="http://dcnewcommunities.org/community/barry-farm" target="_blank">Barry's Farm</a>. While much of the 15 million square feet being brought to the market is residential, not all of it is.</p>
+
 <p class='wiki-subtitle content'>Source: Map_of_Washington,_D.C.'s_1st_ward.svg: Dcmacnut derivative work: MarginalCost (Map_of_Washington,_D.C.'s_1st_ward.svg) [<a href="http://creativecommons.org/licenses/by-sa/3.0" target="_blank">CC BY-SA 3.0</a> or <a href="http://www.gnu.org/copyleft/fdl.html" target="_blank">GFDL</a>, via Wikimedia Commons</p>
 
 <div id='stackedbar2'>
-<p class='graph-title'>Square Feet Added through DC City Government, by Property Type</p>
-<svg class="chart2"></svg>
-<script>
-(function() {
-var margin = {top: 20, right: 0, bottom: 17, left: 35},
-    width = 620 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .3);
-
-var y = d3.scale.linear()
-    .rangeRound([height, 0]);
-
-var color = d3.scale.ordinal()
-    .range(["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69"]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(d3.format(".2s"));
-
-var chart2 = d3.select(".chart2")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RealEstate/master/dmpedDevProjects/SqFtbyWardType.csv", function(error, data) {
-  if (error) throw error;
-
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "Prop"; }));
-
-  data.forEach(function(d) {
-    var y0 = 0;
-    d.sqft = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
-    d.total = d.sqft[d.sqft.length - 1].y1;
-  });
-
-  data.sort(function(a, b) { return b.total - a.total; });
-
-  x.domain(data.map(function(d) { return d.Prop; }));
-  y.domain([0, d3.max(data, function(d) { return d.total; })]);
-
-  chart2.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  chart2.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
-
-  var Prop = chart2.selectAll(".Prop")
-      .data(data)
-    .enter().append("g")
-      .attr("class", "g")
-      .attr("transform", function(d) { return "translate(" + x(d.Prop) + ",0)"; });
-
-  Prop.selectAll("rect")
-      .data(function(d) { return d.sqft; })
-    .enter().append("rect")
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.y1); })
-      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-      .style("fill", function(d) { return color(d.name); });
-
-  var legend = chart2.selectAll(".legend")
-      .data(color.domain().slice().reverse())
-    .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
-
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
-
-});
-})();
-</script>
-    <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline Database</a>.</p>
+  <p class='graph-title'>Square Feet Added through DC City Government, by Property Type</p>
+  <script src="./JS/10YrDev3.js"></script>
+  <svg class="chart2"></svg>
+  <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline Database</a>.</p>
 </div>
 
 <div id='smstack2'>
-<p class='graph-title'>Square Feet Added through DC City Government, by Property Type</p>
-<svg class="smchart2"></svg>
-<script>
-(function() {
-var margin = {top: 20, right: 0, bottom: 17, left: 35},
-    width = 370 - margin.left - margin.right,
-    height = 300 - margin.top - margin.bottom;
-
-var x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .3);
-
-var y = d3.scale.linear()
-    .rangeRound([height, 0]);
-
-var color = d3.scale.ordinal()
-    .range(["#8dd3c7", "#ffffb3", "#bebada", "#fb8072", "#80b1d3", "#fdb462", "#b3de69"]);
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-    .orient("left")
-    .tickFormat(d3.format(".2s"));
-
-var smchart2 = d3.select(".smchart2")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-RealEstate/master/dmpedDevProjects/SqFtbyWardType.csv", function(error, data) {
-  if (error) throw error;
-
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "Prop"; }));
-
-  data.forEach(function(d) {
-    var y0 = 0;
-    d.sqft = color.domain().map(function(name) { return {name: name, y0: y0, y1: y0 += +d[name]}; });
-    d.total = d.sqft[d.sqft.length - 1].y1;
-  });
-
-  data.sort(function(a, b) { return b.total - a.total; });
-
-  x.domain(data.map(function(d) { return d.Prop; }));
-  y.domain([0, d3.max(data, function(d) { return d.total; })]);
-
-  smchart2.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
-
-  smchart2.append("g")
-      .attr("class", "y axis")
-      .call(yAxis);
-
-  var Prop = smchart2.selectAll(".Prop")
-      .data(data)
-    .enter().append("g")
-      .attr("class", "g")
-      .attr("transform", function(d) { return "translate(" + x(d.Prop) + ",0)"; });
-
-  Prop.selectAll("rect")
-      .data(function(d) { return d.sqft; })
-    .enter().append("rect")
-      .attr("width", x.rangeBand())
-      .attr("y", function(d) { return y(d.y1); })
-      .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-      .style("fill", function(d) { return color(d.name); });
-
-  var legend = smchart2.selectAll(".legend")
-      .data(color.domain().slice().reverse())
-    .enter().append("g")
-      .attr("class", "legend")
-      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-
-  legend.append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
-
-  legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function(d) { return d; });
-
-});
-})();
-</script>
-    <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline Database</a>.</p>
+  <p class='graph-title'>Square Feet Added through DC City Government, by Property Type</p>
+  <script src="./JS/10YrDev4.js"></script>
+  <svg class="smchart2"></svg>
+  <p class='graph-subtitle'> Source: Office of the Deputy Mayor's Planning and Economic Development (DMPED) <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline Database</a>.</p>
 </div>
+    
     <p class='content'>Over half of new developments will be residential, many of which will offer much-needed affordable housing units. Developments east of the Anacostia are the most residential-focused, making up over 88% of new development. Ward 2 development is the least focused on new residential space and instead will see big gains in hotels. The greatest addition of office space will take place in Wards 5 and 6. Ward 6 is the only ward to see square footage gains across all categories, speaking to the diversity of the ward which spans Chinatown, Waterfront and Capitol Hill. The diversity of developments happening across the city in the next 10 years will undoubtedly bring change, and with any luck some cheaper rent too.<br><br> Interested in learning more about or tracking progress on these large development projects? Check out the <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline Database</a> where you can find exact locations, management companies and images for each project.</p>
+    
     <hr id='end-line'>
     <p class='content'><b>Technical notes:</b> Graphics are based on the <a class='link' target='_blank' href='https://octo.quickbase.com/db/bgk8b4c4n'>Project Pipeline database </a> administered by OCTO. Only projects with a reported completion data and square footage were included. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
-    <br><br>
+    
+<br><br>
  
