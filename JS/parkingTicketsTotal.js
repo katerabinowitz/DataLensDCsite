@@ -1,44 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-  <title>DC's Worst Parking Offenders</title>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
 
-  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script> 
-
-  <style>
-  body { margin:0; padding:0;}
-
-  .axis path,
-  .axis line {
-        fill: none;
-        stroke: black;
-        shape-rendering: crispEdges;
-      }
-      
-  .axis text,
-  .legend text {
-        font-family: 'Neuton', serif;;
-        font-size: 14px;
-        color: #505050;
-      }
-
-  </style>
-</head>
-
-<body>
-<div id="totalTicket" align="center";>
-<p class='graph-title'>Maryland Drivers Get the Most Parking Tickets in DC</p>
-<p class='graph-subtitle'>Number of DC Parking Tickets by State License Plate</p>
-<script>
 var margin = {top: 10, right: 40, bottom: 30, left: 55},
     width = 400 - margin.left - margin.right,
     height = 300 - margin.top - margin.bottom;
@@ -130,8 +91,3 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Transportation/maste
       .style("text-anchor", "end")
       .text(function(d) { return d; });
 });
-</script>
-<p class='graph-subtitle'>Source: District of Columbia Open Data</p>
-    </div>
-    </body>
-</html>
