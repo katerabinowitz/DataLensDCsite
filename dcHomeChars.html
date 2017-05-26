@@ -1,5 +1,6 @@
 ---
 layout: default
+custom_css: homeChars
 ---
     <h2><a href='./dcHomeChars.html'>Charting the Divide in New and Old DC Homes</a></h2>
     <hr id='top-line'>
@@ -14,7 +15,10 @@ layout: default
     
     <p class="content">The divide becomes more distinct when looking at the data by ward. Below shows the median year a home was built, the median lot size, and the percent of homes that are not row houses. Wards 1, 2 and 6, which make up the inner part of the city, are all grouped together on the left.</p>
 
-    <iframe width="100%" height="500px" src="./iframes/wardHouseScatter.html" frameborder="0"></iframe> 
+    <div id="homeBuildScatter" align="center";></div>
+    <div id="homeSizeScatter" align="center";></div>
+    <div id="rowhomeScatter" align="center";></div>
+    <br><p class="graph-subtitle">Source: DC Open Data</p>
 
     <p class="content" style="padding-top:0px">Ward 2 has, on median, the oldest homes. The true median may even be older than 1900; that year is often used as default for building year when one cannot be determined. Homes in Wards 7 and 8 are the newest. A peculiar vestige of the L'Enfant Plan may slightly downplay lot size within the inner city - <a class="link" target="_blank" href="http://chrs.org/wp-content/uploads/2013/07/06_CHRS_PublicSpace.pdf">homeowners in the old city do not own their front yards</a>, so front yards are not included in lot size. Ward 3 is by far the least residentially dense ward, with a median lot size of 5,100 square feet, three times that of Ward 6. Ward 3 also has the fewest row houses. In the inner wards more than 80% of all homes are row houses.</p> 
     <br>
@@ -22,3 +26,7 @@ layout: default
     <hr id='end-line'>
     <p class='content'><b>Technical notes:</b> Data are available through <a class="link" target="_blank" href="http://opendata.dc.gov/datasets/c5fb3fbe4c694a59a6eef7bf5f8bc49a_25">DC’s open data website</a>. You can find complete code for this<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
     <br><br>
+
+    <script src="homeBuild.js"></script>
+    <script src="homeSize.js"></script>
+    <script src="rowHome.js"></script>
