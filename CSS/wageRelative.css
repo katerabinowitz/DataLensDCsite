@@ -1,0 +1,33 @@
+.tooltip {
+  font: 14px sans-serif;
+  background-color: #fff;
+  padding: 6px;
+}
+
+.text {
+  font-family: Arial, sans-serif;
+}
+
+.axis text, text.label {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.legend text {
+  font: 10px sans-serif;
+}
+.legend path {
+  fill: none;
+  stroke: none;
+  shape-rendering: crispEdges;
+}
+
+#countyMap {
+  text-align:center;
+}

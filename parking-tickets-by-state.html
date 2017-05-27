@@ -1,5 +1,6 @@
 ---
 layout: default
+custom_css: parking
 ---
     <h2><a href='./parking-tickets-by-state.html'>Maryland Drivers Receive the Most Parking Tickets in DC</a></h2>
     <hr id='top-line'>    
@@ -15,9 +16,28 @@ layout: default
 
     <p class='content'>DC parking tickets are doled out to residents of all fifty states, as shown in the map below. Generally, the closer a state is to DC the more tickets per vehicle it has received. States between Iowa and California have the lowest number of DC parking tickets. Despite the distance, West Coast states rack up over 7,000 parking tickets in DC a year. Similarly, Alaska, over 3,000 miles away, is surprisingly not the state with the least number of parking tickets accumulated in the District. That would be Wyoming, one of two states with a population less than DC.</p>
 
-    <iframe width="100%" height="600px" src="./iframes/parkingTicketMap.html" frameborder="0"></iframe>    
+
+    <p class='graph-title'>United States of DC Parking Tickets</p>
+    <p class='graph-subtitle'>Number of DC Parking Tickets by State License Plate</p>
+
+    <div id='legend' style='display:none;'>
+      <strong>Number of DC Parking Tickets</strong>
+    <nav class='legend clearfix'>
+      <span style='background:#f6eff7;'>0 - 500</span>
+      <span style='background:#d0d1e6;'>500-999</span>
+      <span style='background:#a6bddb;'>1K-4.9K</span>
+      <span style='background:#67a9cf;'>5K-9.K</span>
+      <span style='background:#1c9099;'>10K-24.9K</span>
+      <span style='background:#016c59;'>Above 25K</span>
+    </div>
+
+    <div id="map" class="content"></div>
+    <p class='graph-subtitle'>Inspired by <a class="link" target="_blank" href="http://iquantny.tumblr.com/post/117228506219/mapping-the-united-states-of-nyc-parking-tickets">I Quant NY</a><br>Source: District of Columbia Open Data</p>
+<!--     <iframe width="100%" height="600px" src="./iframes/parkingTicketMap.html" frameborder="0"></iframe>   -->  
 
     <br>
   <hr id='end-line'>
   <p class='content'><b>Technical notes:</b> This piece was inspired by <a class="link" target="_blank" href="http://iquantny.tumblr.com/post/117228506219/mapping-the-united-states-of-nyc-parking-tickets">I Quant NY</a>. Data are sourced from <a class="link" target="_blank" href="http://opendata.dc.gov/datasets?q=parking+tickets&sort_by=relevance">District of Columbia Open Data</a>, <a class="link" target="_blank" href="http://68.100.168.134:8080/mpd/listinfractions.jsp">DC Metropolitan Police Department</a>, and <a class="link" target="_blank" href="https://www.census.gov/popest/">Census Population Estimates.</a> You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
   <br><br> 
+
+  <script src="./JS/parkingTicketMap.js"></script>

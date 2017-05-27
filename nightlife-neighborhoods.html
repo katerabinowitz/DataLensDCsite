@@ -1,12 +1,29 @@
 ---
 layout: default
+custom_css: nightlife
 ---
     <h2><a href='./nightlife-neighborhoods.html'>The Changing Geography of DC Nightlife</a></h2>
     <hr id='top-line'>
     <h3> Kate Rabinowitz // July 15, 2016 // originally published by <a class="link" target="_blank" href="https://www.washingtonian.com/2016/07/15/dc-growing-nightlife-map-navy-yard-union-market/">Washingtonian</a></h3>
     <p class="content">In recent years DC has seen a large influx of new restaurants and bars. But these new businesses aren’t necessarily opening in the same neighborhoods as they would have five or ten years ago. And for many, where they go out on Saturday night has been slowly moving east. The map below shows the percent of today's nightlife establishments (bars, nightclubs, and restaurants with liquor licenses) that opened after 2010, for neighborhoods with more than 10 nightlife establishments.</p>
 
-    <iframe width="100%" height="600px" src="./iframes/nightlifeMap.html" frameborder="0"></iframe>  
+    <p class='graph-title'>DC's Newest Nightlife Moving East</p>
+    <p class='graph-subtitle'>Percent of nightlife opened after 2010</p>
+
+    <div id='sidebar'>
+    <p >Nightlife opened<br>after 2010 (%)</p>
+    <span class="legend" style='background:#ffffb2;'>20%</span>
+    <span class="legend" style='background:#fecc5c;'>40%</span>
+    <span class="legend" style='background:#fd8d3c;'>60%</span>
+    <span class="legend" style='background:#f03b20;'>80%</span>
+    <span class="legend" style='background:#bd0026;'>100%</span>
+
+    <div id="tooltip-name"></div>
+    <div id='tooltip'></div>
+    </div>
+
+    <div id="map" class="content"></div>
+    <p class='graph-subtitle'>Only neighborhoods with 10 or more nightlife establishments shown. Data as of December 2015<br>Source: District of Columbia Open Data; Yelp</p>
 
 
     <p class="content">Looking at a more detailed timeline shows striking divides. In neighborhoods with the oldest nightlife, more than 60% opened prior to 2007. Conversely, in the Ivy City/Union Market neighborhood none of today's nightlife was open prior to 2012; in Navy Yard only one-fifth was. All the oldest nightlife neighborhoods, with the exception of Stanton Park, are north of downtown and west of 16th St NW. The newest are more geographically diverse, located in three of the city's four quadrants.</p>
@@ -24,3 +41,5 @@ layout: default
     <hr id='end-line'>
     <p class='content'><b>Technical notes:</b> Data are as of December 2015 and sourced from <a class="link" target="_blank" href="http://abra.dc.gov/page/abc-licensees">ABRA ABC Licensees</a>, <a class="link" target="_blank" href="https://github.com/katerabinowitz/ManyHomesofDCData/tree/master/Certificate%20of%20Occupancy%20Data_Hackathon">Certificate of Occupancy</a>, and <a class="link" target="_blank" href="https://www.yelp.com/dc">Yelp</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
     <br><br>
+
+    <script src="./JS/nightlifeMap.js"></script>
