@@ -40,6 +40,22 @@ section:last-child {
     border-bottom: none;
     margin-bottom: 200px;
 }
+
+.mapboxgl-popup {
+    max-width: 400px;
+    font-size: 11px;
+    font-family:font-family: 'Neuton', serif;
+    color: #505050;
+}
+
+.mapboxgl-popup-content{
+    max-width: 400px;
+    font-size: 11px;
+    font-family:font-family: 'Neuton', serif;
+    color: #505050;
+    padding: 5px 10px 5px;
+}
+
 </style>
 
 <div id='map'></div>
@@ -132,12 +148,12 @@ map.on('load', function() {
       property: 'decade',
       type: 'categorical',
         stops: [
-          ['pre1960', '#F9D423'],
-          ['1960', '#fcc382'],
-          ['1970', '#FB9E35'],
-          ['1980', '#FC833E'],
-          ['1990', '#FD6846'],
-          ['2000-Present', '#FF4E50']
+          ['pre1960', '#f6eff7'],
+          ['1960', '#d0d1e6'],
+          ['1970', '#a6bddb'],
+          ['1980', '#67a9cf'],
+          ['1990', '#1c9099'],
+          ['2000-Present', '#016c59']
           ]
     }
   },
@@ -150,7 +166,7 @@ map.on('load', function() {
         "source": "rainbow",
         "layout": {},
         "paint": {
-            "circle-color": "#6A2C70",
+            "circle-color": "#e6550d",
             'circle-radius': 6
         },
         "filter": ["==", "singleOut", "none"]
@@ -213,7 +229,7 @@ function isClassOnScreen(place) {
     map.on('click', 'Name', function (e) {
         new mapboxgl.Popup()
             .setLngLat(e.features[0].geometry.coordinates)
-            .setHTML(e.features[0].properties.Name+'<br>'+e.features[0].properties.decade)
+            .setHTML('<strong>' + e.features[0].properties.Name +'</strong><br>'+ e.features[0].properties.Notes)
             .addTo(map);
     });
 
