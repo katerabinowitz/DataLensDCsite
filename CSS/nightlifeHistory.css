@@ -43,3 +43,8 @@ label {
 .axis--x path {
   display: none;
 }
+
+.slopeBar text {
+  font-size: 14px;
+  color: #505050;
+}

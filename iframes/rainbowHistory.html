@@ -1,0 +1,275 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.37.0/mapbox-gl.css' rel='stylesheet'/>
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+#map {
+    position: fixed;
+    width: 60%;
+}
+#features {
+    width: 40%;
+    margin-left: 60%;
+}
+
+body, a {
+    font-size: 14px;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #000;
+    background: #fefefe;
+}
+
+h2.header{
+    padding: 10px 10px 0px 10px;
+    margin-bottom: 5px;
+}
+
+p.header{
+    padding: 0px 10px 0px 10px;
+    margin-top: 0px;
+}
+
+section {
+    padding: 25px 10px;
+    line-height: 20px;
+    border-bottom: 1px solid #ddd;
+    opacity: 0.25;
+}
+section.active {
+    opacity: 1;
+}
+
+section:last-child {
+    border-bottom: none;
+    margin-bottom: 50px;
+}
+
+section#pre1960{
+    padding-top: 10px;
+}
+
+.mapboxgl-popup {
+    max-width: 300px;
+}
+
+.mapboxgl-popup-content{
+    font-size: 11px;
+    line-height: 14px;
+    padding: 5px 10px 5px;
+}
+
+button {
+    background-color: Transparent;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+    padding: 0;
+
+    font-size: 14px;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+</style>
+
+<div id='map'></div>
+<div id='features'>
+    <h2 class="header">A Timeline of LGBT Places and Spaces in D.C.</h2>
+    <p class="header">Click locations for more information</p>
+
+    <section id = 'pre1960' class='active'>
+        <h3>Prior to 1960</h3>
+
+        <p>Leading up to 1960 the LGBT community faced a number of discriminatory acts from federal and local government. Congress passed a law outlawing sodomy in D.C. Under the Lavender Scare the federal government fired gay individuals en masse.
+        <br><br>
+        Despite this, there were a number of LGBT spaces across D.C. to provide community and support. <button id='nobHill'><span style="color: #e6550d">Nob Hill</span></button>, one of D.C.'s longest continuously operating gay bars and one of the oldest African-American gay bars in the country, opened in 1957.
+        <br><br>
+        These weren't wholly safe places, however. <button id='mpdRaid'><span style="color: #e6550d">Uptown Restaurant and Gayety Buffet</span></button> were both raided by the Metropolitan Police Department's Vice Squad.</p>
+
+    </section>
+
+    <section id='1960'>
+        <h3>The '60s</h3>
+
+        <p>LGBT activism moved more to the public forefront starting in the 1960s. The Mattachine Society of Washington, which assisted federal employees and residents targeted for their sexuality, was formed. The Washington Blade, America’s oldest LGBT newspaper, began in 1969. More clubs, publications, and services catered directly to the LGBT community.
+        <br><br>
+        Barracks Row became an important part of the LGBT community. <button id='plusOne'><span style="color: #e6550d">Plus One</span></button> was the 'first gay-owned bar to offer same-sex dancing', essentially breaking the owner ban on dancing. <button id='joAnna'><span style="color: #e6550d">Jo-Anna's</span></button> also contributed to 'the initiation of dancing in DC gay bars on a regular basis.' Down the street <button id='guildPress'><span style="color: #e6550d">Guild Press</span></button> published gay travel guides, gay fiction, physique magazines, and local newspaper Gay Forum. The press and publisher would be convicted of obscenity.
+        <br><br>
+        <button id='clinicFirst'><span style="color: #e6550d">The Washington Free Clinic</span></button>, started at Georgetown Lutheran, became the first place to provide STD counseling to gay men. This would lead to the Gay Men's VD Clinic, a precursor to Whitman-Walker clinic.</p>
+    </section>
+
+    <section id='1970'>
+        <h3>The '70s</h3>
+
+        <p>In the 1970s LGBT community created a huge footprint across D.C. The Rainbow History Project records over 150 places opening, nearly five times that which opened in the 1960s. Dupont Circle, Barracks Row and South Capitol Street solidified as LGBT gathering centers.
+        <br><br>
+        Bookstores for the LGBT community sprung up across D.C. in the 1970s. Some, like <button id='villageBooks'><span style="color: #e6550d">Village Books</span></button>, were adult bookstores. Others, like <button id='lambdaBooks'><span style="color: #e6550d">Lambda Rising</span></button> and <button id='lammasBooks'><span style="color: #e6550d">Lammas</span></button>, provided not only gay literature but crucial space for activism and community gatherings.  The owner of Lambda Rising Books, L. Page “Deacon” Maccubbin, organized the first annual pride celebrations in 1975.
+        <br><br>
+        Gay collectives also emerged in the 1970's as an important force in gay activism. <button id='glf'><span style="color: #e6550d">The Gay Liberation Front (GLF)</span></button> formed in 1970 with a group house that provided an early meeting place for activist actions. <button id='furies'><span style="color: #e6550d">The Furies Collective</span></button> had a profound impact on lesbian feminism through their national publication, the Furies, and through pushing the National Organization of Women to recognize lesbians.
+        <br><br>
+        Areas of D.C.'s Southwest and Southeast quadrants, centered around South Capitol Street, became an active nightlife scene for the LGBT community in the 1970's. <button id='pier9'><span style="color: #e6550d">Pier Nine</span></button> was one of the first gay dance clubs around South Capitol Street, a "relatively isolated location, it gave us a sense of security that more in-town locations couldn’t." Many bars and clubs would follow.</p>
+    </section>
+
+    <section id='1980'>
+        <h3>The '80s</h3>
+
+        <p>The 1980s saw a slowdown in LGBT spaces from the previous decade, with just over 80 new sites added to The Rainbow History Project.
+        <br><br>
+        In 1986 <button id='highHeelDrag'><span style="color: #e6550d">J.R.'s Bar & Grill</span></button> hosted the first High Heel Drag Queen Race, a D.C. institution.
+        <br><br>
+        Barracks Row and Pennsylvania Avenue SE remain a vibrant LGBT scene, but faced harassment from Marines at the Barracks. <button id='equus'><span style="color: #e6550d">Equus</span></button>, a gay club that opened in 1980, reported six incidents by Marines including broken windows, shouting slurs, threatening patrons, and assault. Years later in 1997, when Equus became Remington's, Marines threw tear gas into the bar.
+        <br><br>
+        The LGBT community was deeply impacted by the AIDS epidemic, both through sickness and stereotype. MPD was strongly criticized when, during a 1987 raid of gay bar <button id='cheers'><span style="color: #e6550d">Cheers</span></button>, they donned "surgical masks and rubber gloves" for fear of contracting AIDS. LGBT community places provided safe spaces and support. Nob Hill, one of the country's oldest gay bars, hosted the first AIDS forum in the African-American community. Some religious groups, also active in 1970's civil rights and anti-war activism, gave their support. <button id='quaker'><span style="color: #e6550d">The Quaker House</span></button> established the HIV Coffeehouse, one of the first social refuges for those with AIDS. <button id='margaret'><span style="color: #e6550d">St. Margaret’s Episcopal Church</span></button> provided a home for the Gay Men's Counseling Collective, which later combined with the Gay Men's VD Clinic, started at <button id='gtown'><span style="color: #e6550d">Georgetown Lutheran Church</span></button>, to form the Whitman-Walker Clinic, the foremost provider of AIDS services in the region.</p>
+    </section>
+
+    <section id='1990'>
+        <h3>The '90s</h3>
+
+        <p class="dec90">The 1990s continued the slowdown in new LGBT spaces, as recorded in the Rainbow History Project, but also saw the opening of <button id='greenCobalt'><span style="color: #e6550d">Green Lantern and Cobalt</span></button>, clubs that continue to be popular today. Concert venues like the <button id='club930'><span style="color: #e6550d">9:30 club</span></button>, which relocated in 1996 from 930 F St NW to its current location, and <button id='blackCat'><span style="color: #e6550d">The Black Cat</span></button>, hosted events and nights for the LGBT community. Same-sex sexual activity was finally decriminalized in 1993, after a previous vote to do so in 1981 by the City Council was overturned by Congress.</p>
+    </section>
+
+    <section id='2000-Present'>
+        <h3>2000 - Present</h3>
+        <p>From 2000 there has been a large drop off in new LGBT spaces and closures of longtime establishments. Phase 1 and Nob Hill, one of America's oldest lesbian bars and African-American gay bars, respectively, closed. Lammas, a lesbian bookstore and activist gathering place open since the 1970's, shut its doors in 2000. Six years later a number of LGBT establishments around South Capitol Street were closed by the D.C. government to accommodate construction of the Nationals ballpark stadium.
+        <br><br>
+        The decline in places specifically catering to the LGBT community runs parallel to greater acceptance. Same-sex domestic partnerships were recognized by D.C. in 2002, something city government legalized over a decade earlier but Congress failed to approve. Same-sex marriage was legalized in 2009. With greater acceptance came blurrier lines to what constitutes gay bars and spaces. Monthly events like MIXTAPE and Guerilla Queer Bar Parties started up in the 2000s to bring the LGBT community en masse to non-gay bars and clubs. Nowadays bars like <button id='nellie'><span style="color: #e6550d">Nellie's</span></button>, one of the few notable gay bars to open since 2000, are attended by straight people and many bars without the intention of being a gay bar welcome and celebrate their LGBT community.
+        <br><br>
+        Created by Kate Rabinowitz / <a href= "https://www.datalensdc.com/" target="_blank">DataLensDC</a> for <a href="https://www.dcpolicycenter.org/" target="_blank">D.C. Policy Center</a>
+        <br><br>
+        Sources: <a href="http://rainbowhistory.org/?page_id=28" target=_"blank">Rainbow History Project</a>,
+        <a href="http://www.metroweekly.com/2015/06/our-gay-capital/" target="_blank">Metro Weekly</a>, 
+        <a href="http://www.washingtoncitypaper.com/food/blog/20678386/how-do-non-gay-bars-become-gay-destinations" target="_blank">Washington City Paper</a>, 
+        <a href="http://digdc.dclibrary.org/cdm/landingpage/collection/p16808coll24" target="_blank">The Blade</a>
+        </p>
+    </section>
+
+</div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiZGF0YWxlbnNkYyIsImEiOiJjaWVnOGttYnMwMDBqc2htM2ZmcjZ4NmZxIn0.9iGQPNKsl1jtP5KriDm3wQ';
+
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v9',
+    center: [-77.0369,38.9072], 
+    zoom: 11
+});
+
+map.on('load', function() {
+
+  map.addSource("rainbow", {
+        "type": "geojson",
+        "data": "https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/rainbowHistory/dcRainbowHistory.geojson"
+    });
+
+  map.addLayer({
+    id: 'Name',
+    type: 'circle',
+    source: 'rainbow',
+    paint: {
+    'circle-radius': 5,
+    'circle-opacity': 0.8,
+    'circle-color': {
+      property: 'decade',
+      type: 'categorical',
+        stops: [
+          ['pre1960', '#A1EDE5'],
+          ['1960', '#83E1DC'],
+          ['1970', '#66D5D3'],
+          ['1980', '#49C9CA'],
+          ['1990', '#2CBDC1'],
+          ['2000-Present', '#0FB1B8']
+          ]
+    }
+  },
+    filter: ['==', 'decade', 'pre1960'],
+  });
+
+  map.addLayer({
+        "id": "colorChange",
+        "type": "circle",
+        "source": "rainbow",
+        "layout": {},
+        "paint": {
+            "circle-color": "#e6550d",
+            'circle-radius': 5,
+        },
+        "filter": ["==", "singleOut", "none"]
+    });
+
+window.onscroll = function() {
+    var decadeNames = ['pre1960', '1960', '1970', '1980', '1990', '2000-Present'];
+    for (var i = 0; i < decadeNames.length; i++) {
+        var decadeName = decadeNames[i];
+        if (isElementOnScreen(decadeName)) {
+            setActiveDecade(decadeName);
+            break;
+        }
+    }
+};
+
+var activeDecade = 'pre1960';
+function setActiveDecade(decadeName) {
+    if (decadeName === activeDecade) return;
+
+    map.setFilter('Name', ['==', 'decade', decadeName]);
+    map.setFilter("colorChange", ["==", 'singleOut', 'none']);
+
+    document.getElementById(decadeName).setAttribute('class', 'active');
+    document.getElementById(activeDecade).setAttribute('class', '');
+
+    activeDecade = decadeName;
+
+}
+
+var idList = ["nobHill", "mpdRaid", "plusOne", "joAnna", "guildPress", "clinicFirst", "villageBooks", "lambdaBooks","lammasBooks","glf", "furies", "pier9", "highHeelDrag", "equus", "cheers", "margaret", "quaker", "gtown", "greenCobalt", "club930", "blackCat", "nellie"]
+
+for (var i = 0; i < idList.length; i++) {
+    document.getElementById(idList[i]).addEventListener('click', idClick(i))
+};
+
+ function idClick(i) {
+    return function(){
+             map.setFilter("colorChange", ["==", 'singleOut', idList[i]])
+           }};
+
+
+function isElementOnScreen(id) {
+    var element = document.getElementById(id);
+    var bounds = element.getBoundingClientRect();
+    return bounds.bottom > window.innerHeight * .3;
+}
+
+    map.on('click', 'Name', function (e) {
+        new mapboxgl.Popup()
+            .setLngLat(e.features[0].geometry.coordinates)
+            .setHTML('<strong>' + e.features[0].properties.Name +'</strong><br>'+ e.features[0].properties.Notes)
+            .addTo(map);
+    });
+
+    map.on('mouseenter', 'Name', function () {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', 'Name', function () {
+        map.getCanvas().style.cursor = '';
+    });
+});
+
+</script>
+
+</body>
+</html>
