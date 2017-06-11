@@ -1,3 +1,4 @@
+(function() {
 L.mapbox.accessToken = 'pk.eyJ1IjoiZGF0YWxlbnNkYyIsImEiOiJjaWVnOGttYnMwMDBqc2htM2ZmcjZ4NmZxIn0.9iGQPNKsl1jtP5KriDm3wQ';
   var map = L.mapbox.map('map', 'mapbox.light')
     .setView([38, -97], 4);
@@ -75,4 +76,5 @@ function getStyle(feature) {
   function zoomToFeature(e) {
       map.fitBounds(e.target.getBounds());
   }
+})();
   

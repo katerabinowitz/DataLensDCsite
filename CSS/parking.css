@@ -30,3 +30,7 @@
         font-size: 14px;
         color: #505050;
       }
+
+.totalTicket, .TickperCar {
+  text-align: center;
+}
