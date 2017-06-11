@@ -1,11 +1,29 @@
   @media (min-width: 0px) and (max-width: 450px){
-     .singleBig iframe, .multiBig iframe{
+     .singleBig, .multiBig{
           display:none;
       }
     }
 
 @media (min-width: 450px) {
-    .singleSmall iframe, .multiSmall iframe{
+    .singleSmall, .multiSmall{
         display:none;
     }
+  }
+
+.axis path,
+.axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+    }
+      
+.axis, .legendOrdinal text{
+    font-family: 'Neuton', serif;
+    font-size: 16px;
+    color: #505050;
+    font-weight:normal;
+  }
+
+.singleBig, .multiBig, .multiSmall, .singleSmall {
+    text-align:center;
   }

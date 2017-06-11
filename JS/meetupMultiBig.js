@@ -1,47 +1,4 @@
-<!DOCTYPE html>
-
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-  <title>DCTech Meetup Speakers</title>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
-
-  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
-
-<style type="text/css">
-  .axis path,
-  .axis line {
-        fill: none;
-        stroke: black;
-        shape-rendering: crispEdges;
-    }
-      
-  .axis, .legendOrdinal text{
-    font-family: 'Neuton', serif;
-    font-size: 16px;
-    color: #505050;
-    font-weight:normal;
-  }
-
-  .meetup{
-    text-align:center;
-  }
-
-</style>
-
-<body>
-
-  <p class="graph-title" >In 2016, No Women on Stage at Single-Speaker DC Tech Meetups</p>
-  <p class="graph-subtitle">2016 Single-Speaker Events of Major DC Tech Meetups by Gender</p>
-
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.12.0/d3-legend.js"></script>
-<div class="meetup"></div>
-<script>
-
+(function() {
 var margin = {top: 20, right: 20, bottom: 100, left: 40},
     width = 600 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
@@ -65,13 +22,13 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
-var svg = d3.select(".meetup").append("svg")
+var svg = d3.select(".multiBig").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("https://raw.githubusercontent.com/katerabinowitz/meetupSpeakerGender/master/DC/meetupSingleSum.csv", function(error, data) {
+d3.csv("https://raw.githubusercontent.com/katerabinowitz/meetupSpeakerGender/master/DC/meetupSingleMulti.csv", function(error, data) {
   if (error) throw error;
 
   var gGroup = d3.keys(data[0]).filter(function(key) { return key !== "g"; });
@@ -82,7 +39,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/meetupSpeakerGender/mas
 
   x0.domain(data.map(function(d) { return d.g; }));
   x1.domain(gGroup).rangeRoundBands([0, x0.rangeBand()]);
-  y.domain([0, 10]);
+  y.domain([0, d3.max(data, function(d) { return d3.max(d.gender, function(d) { return d.value; }); })]);
 
   svg.append("g")
       .attr("id", "xAxis")
@@ -107,7 +64,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/meetupSpeakerGender/mas
       .style("text-anchor", "end")
       .text("Meetup Speakers");
 
-  var mu = svg.selectAll(".meetup")
+  var mu = svg.selectAll(".multiBig")
       .data(data)
     .enter().append("g")
       .attr("class", "state")
@@ -170,7 +127,4 @@ function wrap(text, width) {
 }
 
 });
-</script>
-<p class="graph-subtitle">Note: Meetup names have been shortened. Exact names are in the <a href="https://github.com/katerabinowitz/meetupSpeakerGender" target="_blank">repository.</a><br>Source: DataLensDC, Meetup</p>
-</body>
-</html>
+})();

@@ -1,0 +1,98 @@
+    .cex{
+      text-align:center;
+    }
+
+    .bar {
+      fill: #53CFCF;
+      }
+
+    .label{
+      font: 12px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    rect.bordered {
+      stroke: #E6E6E6;
+      stroke-width:2px;   
+    }
+
+    text {
+      font: 9px sans-serif;
+    }
+
+    .d3title {
+      font-family: 'Neuton', serif;
+      fill: #505050;
+      font-weight:bold;
+      font-size:20px;
+    }
+
+     .d3subtitle {
+      font-family: 'Neuton', serif;
+      fill: #505050;
+      font-size:16px;
+    }
+
+    .d3-yaxis {
+      font-family: 'Neuton', serif;
+      fill: #505050;
+      font-size:16px;
+    }
+
+  .d3-tip {
+      line-height: 1;
+      font-weight: bold;
+      padding: 5px;
+      background: #fff;
+      color: #505050;
+      border-radius: 2px;
+      font-family: 'Neuton', serif;
+      font-size:14px;
+      font-weight:bold;
+  }
+
+  .d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    font-size: 14px;
+    font-weight:bold;
+    width: 100%;
+    line-height: 1;
+    color: #fff;
+    content: "\25BC";
+    position: absolute;
+    text-align: center;
+  }
+
+  .d3-tip.n:after {
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+  }
+
+  .d3btn {
+    border: 1px solid #44A765;
+    background: #4BBA70;
+    color: #FFF;
+    font-family: 'Neuton', serif;
+    font-weight: normal ;
+    font-size: 16px;
+    padding: 3px;
+    margin: 0 2px 5px 2px;
+  }
+
+  .d3btn:hover {
+    color: #FFF;
+    background: #5CE68A;
+  }
+
+  .btn-content {
+    text-align: center;
+    margin-bottom:10px;
+  }
