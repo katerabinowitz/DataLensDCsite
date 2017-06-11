@@ -1,39 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-  <title>BikeinBloom Map</title>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
-
-  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.0/mapbox-gl.js'></script>
-  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.33.0/mapbox-gl.css' rel='stylesheet'/>
-
-  <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        
-        #map {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
-</head>
-<body>
-
-<div id='map'></div>
-
-<script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGF0YWxlbnNkYyIsImEiOiJjaWVnOGttYnMwMDBqc2htM2ZmcjZ4NmZxIn0.9iGQPNKsl1jtP5KriDm3wQ';
 
         var map = new mapboxgl.Map({
@@ -73,7 +37,3 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiZGF0YWxlbnNkYyIsImEiOiJjaWVnOGttYnMwMDBqc2htM
             }
         });
     });
-</script>
-    
-</body>
-</html>

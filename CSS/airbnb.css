@@ -1,0 +1,26 @@
+.bar {
+        fill: #53CFCF;
+        }
+
+.axis path,
+.axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+      }
+
+rect.bordered {
+        stroke: #E6E6E6;
+        stroke-width:2px;   
+      }
+
+text{
+    font-family: 'Neuton', serif;
+    font-size: 12px;
+    color: #505050;
+    font-weight:normal;
+  }
+
+.schart, .rank {
+  text-align: center;
+}

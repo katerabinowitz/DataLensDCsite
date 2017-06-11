@@ -1,70 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-  <title>AirBnB in DC</title>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
-
-  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="https://d3js.org/d3.v3.min.js"></script> 
-  <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-65753381-1', 'auto');
-  ga('send', 'pageview');
-  </script>
-  
-   <style>
-    #bnbrankbar{
-      text-align:center;
-    }
-
-    .bbmaps {
-      text-align:center;
-    }
-    .stackchart {
-      text-align:center;
-    }
-    .bar {
-        fill: #53CFCF;
-        }
-      .label{
-        font: 12px sans-serif;
-      }
-
-    .axis path,
-    .axis line {
-        fill: none;
-        stroke: #000;
-        shape-rendering: crispEdges;
-      }
-
-    rect.bordered {
-        stroke: #E6E6E6;
-        stroke-width:2px;   
-      }
-
-    text{
-        font: 11px sans-serif;
-      }
-  </style>
-</head>
-<body>
-
-<div class='stackchart'>
-    <p class='graph-title'>A Third of Active Airbnb Listings Are More than Just Vacation Rentals</p>
-    <p class='graph-subtitle'>Number of Airbnb listings</p>
-        <svg class="schart"></svg>
-<script>
 (function() {
 var margin = {top: 20, right: 0, bottom: 35, left: 35},
     width = 420 - margin.left - margin.right,
@@ -88,7 +21,7 @@ var yAxis = d3.svg.axis()
     .orient("left")
     .tickFormat(d3.format(".2s"));
 
-var schart = d3.select(".schart")
+var svg = d3.select(".schart").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -108,16 +41,16 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/Air-BnB/master/DCbnbOut
   x.domain(data.map(function(d) { return d.Type; }));
   y.domain([0, d3.max(data, function(d) { return d.total; })]);
 
-  schart.append("g")
+  svg.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + height + ")")
       .call(xAxis);
 
-  schart.append("g")
+  svg.append("g")
       .attr("class", "y axis")
       .call(yAxis);
 
-  var type = schart.selectAll(".Type")
+  var type = svg.selectAll(".schart")
       .data(data)
     .enter().append("g")
       .attr("class", "g")
@@ -131,7 +64,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/Air-BnB/master/DCbnbOut
       .attr("height", function(d) { return y(d.y0) - y(d.y1); })
       .style("fill", function(d) { return color(d.name); });
 
-  var legend = schart.selectAll(".legend")
+  var legend = svg.selectAll(".legend")
       .data(color.domain().slice().reverse())
     .enter().append("g")
       .attr("class", "legend")
@@ -152,7 +85,3 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/Air-BnB/master/DCbnbOut
 
 });
 })();
-</script>
-</div>
-<p class='graph-subtitle'>Source: InsideAirbnb</p>
-</body>

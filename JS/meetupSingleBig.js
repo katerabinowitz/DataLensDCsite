@@ -1,49 +1,6 @@
-<!DOCTYPE html>
-
-<html lang="en">
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-  <title>DCTech Meetup Speakers</title>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Neuton:400,700' rel='stylesheet' type='text/css'>
-
-  <link href='../CSS/main.css' rel='stylesheet' type='text/css'>
-
-<style type="text/css">
-  .axis path,
-  .axis line {
-        fill: none;
-        stroke: black;
-        shape-rendering: crispEdges;
-    }
-      
-  .axis, .legendOrdinal text{
-    font-family: 'Neuton', serif;
-    font-size: 16px;
-    color: #505050;
-    font-weight:normal;
-  }
-
-  .meetup{
-    text-align:center;
-  }
-
-</style>
-
-<body>
-
-  <p class="graph-title" >In 2016, No Women on Stage at<br>Single-Speaker DC Tech Meetups</p>
-  <p class="graph-subtitle">2016 Single-Speaker Events of<br>Major DC Tech Meetups by Gender</p>
-
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.12.0/d3-legend.js"></script>
-<div class="meetup"></div>
-<script>
-
-var margin = {top: 20, right: 20, bottom: 150, left: 40},
-    width = 340 - margin.left - margin.right,
+(function() {
+var margin = {top: 20, right: 20, bottom: 100, left: 40},
+    width = 600 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
 var x0 = d3.scale.ordinal()
@@ -65,7 +22,7 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
-var svg = d3.select(".meetup").append("svg")
+var svg = d3.select(".singleBig").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -78,7 +35,6 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/meetupSpeakerGender/mas
 
   data.forEach(function(d) {
     d.gender = gGroup.map(function(name) { return {name: name, value: +d[name]}; });
-    name = gGroup.map(function(name) {if (name=="Statistical Programming") {return d.name=="Stat Programming"}})
   });
 
   x0.domain(data.map(function(d) { return d.g; }));
@@ -94,9 +50,9 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/meetupSpeakerGender/mas
         .attr("y", 0)
         .attr("x", 10)
         .attr("dy", ".35em")
-        .attr("transform", "rotate(90)")
+        .attr("transform", "rotate(45)")
         .style("text-anchor", "start")
-        // .call(wrap, x1.rangeBand());
+        .call(wrap, x1.rangeBand());
 
   svg.append("g")
       .attr("class", "y axis")
@@ -108,7 +64,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/meetupSpeakerGender/mas
       .style("text-anchor", "end")
       .text("Meetup Speakers");
 
-  var mu = svg.selectAll(".meetup")
+  var mu = svg.selectAll(".singleBig")
       .data(data)
     .enter().append("g")
       .attr("class", "state")
@@ -139,14 +95,36 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/meetupSpeakerGender/mas
   var legendOrdinal = d3.legend.color()
       .shape('circle').shapeRadius(6)
       .orient("horizontal")
-      .shapePadding(50)
+      .shapePadding(30)
       .labelOffset(5)
       .scale(color)
 
   svg.select(".legendOrdinal")
     .call(legendOrdinal)
+
+function wrap(text, width) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = .7, 
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+      }
+    }
+  });
+}
+
 });
-</script>
-<p class="graph-subtitle">Note: Meetup names have been shortened.<br>Exact names are in the <a href="https://github.com/katerabinowitz/meetupSpeakerGender" target="_blank">repository.</a><br>Source: DataLensDC, Meetup</p>
-</body>
-</html>
+})();
