@@ -39,7 +39,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/
         .attr("y2", function(d) { return y(d.yr16); })
         .attr("x1", margin.left)
         .attr("x2", width)
-        .style("stroke-width", 1)
+        .style("stroke-width", 2)
         .style("stroke", function (d) {if (d.shortList == 1) {return '#6639A6'} else {return '#cccccc'} })
         .attr("class", function (d, i) { return 'loLine line select-' + i; })
         .on('mouseover', function (d, i) {
@@ -121,7 +121,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/
                     .style('text-anchor','end')
                     .style('fill', '#6639A6')
                     .style('opacity', 0)
-                    .attr("class", function (d, i) { return 'loLabel label select-' + i; })
+                    .attr("class", function (d, i) { return 'loLabel showLabel select-' + i; })
                     .on('mouseover', function (d, i) {
                         d3.selectAll('.loLabel').style('opacity', 0);
                         d3.selectAll('.someLabels').style('opacity', 0.2);
