@@ -146,6 +146,7 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-FoodandDrink/master/
                     })
                     .style('text-anchor','middle')
                     .style('opacity', 0)
+                    .style('fill', '#6639A6')
                     .attr("class", function (d, i) { return 'loLabel showLabel select-' + i; })
 
   var leftTitle = g.append('text')
