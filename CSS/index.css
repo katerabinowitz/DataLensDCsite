@@ -9,3 +9,45 @@
         display:none;
       }
     }
+
+      #map {
+  width: 100%;
+  height:600px;
+  margin:auto;
+  position: relative;
+}
+
+#console {
+  top: 400px;
+  width: 200px;
+  margin: 10px;
+  padding: 0 0 10px 20px;
+  z-index:10;
+  background-color: white;
+  position: absolute;
+  background: rgba(240, 240, 240, 0.9);
+  overflow: auto;
+}
+
+.row {
+  height: 12px;
+  width: 100%;
+}
+
+.colors {
+  background: linear-gradient(to right, #2dc4b2, #34bbba, #3bb3c3, #669ec4, #8b88b6, #a2719b, #A6678A, #AA5E79, #BF4674);
+}
+
+.yrScale {
+  display: inline-block;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+label {
+  margin: 10px 0 0 0;
+}
+
+.session p {
+  margin: 0 0 0 -15px;
+}
