@@ -11,9 +11,6 @@ var map = new mapboxgl.Map({
     zoom: 11
 });
 
-
-map.addControl(new mapboxgl.Navigation());
-
 map.on('load', function () {
             map.addSource('restOpenHoodGeo', {
                 type: 'geojson',
