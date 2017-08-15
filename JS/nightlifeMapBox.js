@@ -1,7 +1,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiZGF0YWxlbnNkYyIsImEiOiJjaWVnOGttYnMwMDBqc2htM2ZmcjZ4NmZxIn0.9iGQPNKsl1jtP5KriDm3wQ';
   
  var COLORS =  ['#f0f0f0','#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'],
-    BREAKS = [NaN, 0.2, 0.4, 0.6, 0.8, 1.0],
+    BREAKS = [0.0001, 0.2, 0.4, 0.6, 0.8, 1.0],
     FILTERUSE;
 
 var map = new mapboxgl.Map({
@@ -22,6 +22,7 @@ map.on('load', function () {
                 "type": "fill",
                 "source": "restOpenHoodGeo",
                 "paint": {
+                    "fill-color": "#f0f0f0",
                     "fill-color": {
                         property: 'post10',
                         stops: [
@@ -34,9 +35,10 @@ map.on('load', function () {
                     },
                     "fill-opacity": 0.7,
                     "fill-outline-color": "#f0f0f0"
-                }
-            });
-             })
+                },
+            filter: ['>', 'post10', 0.001]
+             });
+        });
 map.on("mousemove", function (e) {
             var features = map.queryRenderedFeatures(e.point, {
                 layers: ["hoods"]
