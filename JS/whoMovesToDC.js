@@ -18,20 +18,12 @@ var yAxis = d3.svg.axis()
     .outerTickSize(0)
     .orient("left");
 
-var tip = d3.tip()
-  .attr('class', 'd3-tip')
-  .offset([-10, 0])
-  .html(function(d) {
-    return d.Age20s + "%";
-  })
-
 var cex = d3.select(".cex").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-cex.call(tip);
 
 d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", type, function(error, data) {
   data.sort(function(a, b) { return b.Age20s - a.Age20s; });
@@ -83,8 +75,6 @@ d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/
       .attr("y", function(d) { return y(d.Age20s); })
       .attr("height", function(d) { return height - y(d.Age20s); })
       .attr("width", x.rangeBand())
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
          
 });
 function type(d) {
@@ -94,17 +84,9 @@ function type(d) {
 function MarryData() {
      d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", function(error, data) {
       data.sort(function(a, b) { return b.married - a.married; });
-      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      x.domain(data.map(function(d) {return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.married; })]);
 
-      var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return d.married + "%";
-        })
-
-    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
@@ -119,8 +101,6 @@ function MarryData() {
       sel.attr("y", function(d) { return y(d.married); })
       sel.attr("height", function(d) { return height - y(d.married); })
       .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -163,17 +143,9 @@ return d;}
 function genderData() {
     d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", function(error, data) {
       data.sort(function(a, b) { return b.female - a.female; });
-      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      x.domain(data.map(function(d) {return d.City; }));
       y.domain([30, d3.max(data, function(d) { return d.female; })]);
 
-      var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return d.female + "%";
-        })
-
-    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
@@ -188,8 +160,6 @@ function genderData() {
       sel.attr("y", function(d) { return y(d.female); })
       sel.attr("height", function(d) { return height - y(d.female); })
       .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -232,17 +202,8 @@ return d;}
 function above75Data() {
     d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", function(error, data) {
       data.sort(function(a, b) { return b.above75K - a.above75K; });
-      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      x.domain(data.map(function(d) {return d.City; }));
       y.domain([0, 25]);
-
-    var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return d.above75K + "%";
-        })
-
-    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
@@ -257,8 +218,6 @@ function above75Data() {
       sel.attr("y", function(d) { return y(d.above75K); })
       sel.attr("height", function(d) { return height - y(d.above75K); })
       .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -301,17 +260,8 @@ return d;}
 function eduData() {
     d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", function(error, data) {
       data.sort(function(a, b) { return b.BAplus - a.BAplus; });
-      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      x.domain(data.map(function(d) {return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.BAplus; })]);
-
-    var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return d.BAplus + "%";
-        })
-
-    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
@@ -326,8 +276,6 @@ function eduData() {
       sel.attr("y", function(d) { return y(d.BAplus); })
       sel.attr("height", function(d) { return height - y(d.BAplus); })
       .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
@@ -370,17 +318,8 @@ return d;}
 function ageData() {
     d3.csv("https://raw.githubusercontent.com/katerabinowitz/DC-Demographics/master/cityMobilityStats.csv", function(error, data) {
       data.sort(function(a, b) { return b.Age20s - a.Age20s; });
-      x.domain(data.map(function(d) { console.log(d); return d.City; }));
+      x.domain(data.map(function(d) {return d.City; }));
       y.domain([0, d3.max(data, function(d) { return d.Age20s; })]);
-
-    var tip = d3.tip()
-        .attr('class', 'd3-tip')
-        .offset([-10, 0])
-        .html(function(d) {
-        return d.Age20s + "%";
-        })
-
-    cex.call(tip);
       
     var sel = cex.selectAll("rect")
          .data(data);
@@ -395,8 +334,6 @@ function ageData() {
       sel.attr("y", function(d) { return y(d.Age20s); })
       sel.attr("height", function(d) { return height - y(d.Age20s); })
       .style("fill", function(d, i){return d.City=="Washington"?"orange":"#53CFCF";})
-      .on('mouseover', tip.show)
-      .on('mouseout', tip.hide)
 
     cex.append("g")
       .attr("class", "y axis")
