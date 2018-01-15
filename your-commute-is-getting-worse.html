@@ -2,11 +2,12 @@
 layout: default
 custom_css: wmata-delay
 ---
+
 <script src="https://d3js.org/d3.v3.min.js"></script>
 
-    <h2><a href='./your-commute-is-getting-worse.html'>The Pain is Real: Your Metro Commute is Getting Worse</a></h2>
-    <hr id='top-line'>
-    <h3> Kate Rabinowitz // August 9, 2015</h3>
+<div class='content'>
+  <h2 id="title"><a href='./your-commute-is-getting-worse.html'>The Pain is Real: Your Metro Commute is Getting Worse</a></h2>
+    <p id="datePlace">August 9, 2015</p>
     <p class='content'>Last Thursday Metro sent a subtle signal that maybe I should <a class='link' target="_blank" href='http://www.washingtonpost.com/blogs/dr-gridlock/wp/2015/08/06/derailment-of-non-passenger-metro-train-delays-on-blue-orange-and-silver-lines/'>take a day off.</a> Unfortunately my boss felt otherwise. What started as a 'minor' derailment became two days of Metro competing with walking for the slowest way to get anywhere. It was bad and feels like part of a larger decline in Metro service. I was curious if that actually bore out in the data. Not only did it, but the decline is even more dramatic than I would've guessed.</p>
     <p class='graph-title'>Metro Delays for the First Half of 2013-15</p>
     <p class='graph-subtitle'> Number of delays reported on Metro for the first half of 2013, 2014 and 2015</p>
@@ -329,5 +330,6 @@ function type(d) {
     <p class='content'> I'm not sure how Metro will improve with all the <a class='link' target="_blank" href="http://www.washingtonpost.com/local/trafficandcommuting/metros-financial-woes-could-mean-trouble-for-the-agency-in-june/2015/05/08/d9483288-f59c-11e4-b2f3-af5479e6bbdd_story.html">money it doesn't have</a>, but on the upside there are only more delays, not longer delays. And on an (un)related note DC keeps <a class='link'href="http://greatergreaterwashington.org/post/25828/dc-streets-will-get-seven-new-miles-of-bikeways-in-2015/">expanding bike lanes...</a></p>
     <hr id='end-line'>
     <p class='content'><b>Technical notes:</b> Graphics are based on WMATA Disruption reports. <a class='link' target="_blank" href="http://codefordc.org/">Code for DC</a> has wonderfully scraped these reports in easy-to-analyze CSV files at <a class="link"  target="_blank"href="http://www.opendatadc.org/">opendatadc.org</a>. You can find complete code for this post<a class='link' target="_blank" href="https://github.com/katerabinowitz"> on my github page.</a></p>
-    <p class='content'><sup>*</sup>Data for July 2015 only goes to July 24th. So the numbers are likely even worse!
+    <p class='content'><sup>*</sup>Data for July 2015 only goes to July 24th. So the numbers are likely even worse!</p>
     <br><br>
+</div>
