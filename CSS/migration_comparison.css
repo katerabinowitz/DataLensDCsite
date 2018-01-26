@@ -1,0 +1,41 @@
+#map-canvas{
+	display:block;
+	margin:auto;
+	width:90%;
+	height:380px;
+}
+
+#infowindow {
+	width:200px;
+	text-align: left;
+	font-family: 'Neuton', serif;
+	font-size: 14px;
+	color: #505050;
+}
+
+.ranking {   
+    -moz-column-width: 15em; /* Firefox */
+    -webkit-column-width: 15em; /* webkit, Safari, Chrome */
+    column-width: 15em;
+}
+
+.ranking ul li{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.ranking ul li:first-child {
+    margin-top:0px;
+}
+
+.content ul li:first-child {
+    padding-top:0px;
+}
+
+IMG.scatter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    max-height:auto; }
